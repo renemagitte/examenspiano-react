@@ -99,16 +99,14 @@ class App extends Component {
     return (
 
       <React.Fragment>
-
     
         <NoteCanvas />
 
-
-      <div id="piano">
-        <div className="keys">
-          { this.buildKeyboard() }
-        </div> 
-      </div>
+        <div id="piano">
+          <div className="keys">
+            { this.buildKeyboard() }
+          </div> 
+        </div>
 
       </React.Fragment>
     );
