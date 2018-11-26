@@ -3,6 +3,7 @@ import './App.css';
 import './index.css';
 import './sass/main.sass';
 import Key from './components/Key.js';
+import NoteCanvas from './components/NoteCanvas.js';
 
 class App extends Component {
 
@@ -24,7 +25,7 @@ class App extends Component {
     76: false,  // 14, 78, L, d (2)
     80: false,  // 15, 80, P, d# (2)
     186: false, // 16, 186, Ö, e (2)
-    222: false, // 17, 186, Ö, f (2)
+    222: false, // 17, 222, Ä, f (2)
     221: false, // 18, 221, ^, f# (2)
     13: false,  // 19, 13, enter, g (2)
     188: false, // 20, 188, ,, g# (2)
@@ -68,7 +69,7 @@ class App extends Component {
         // var keyClass = this.keyClass(i);
         var keyClass = this.keyClass(keyCodes[i]);
         if(this.state[keyCodes[i]]) keyClass += ' pressed';
-        key = <Key className={keyClass} data-key={keyCodes[i]} />;
+        key = <Key className={keyClass} key={keyCodes[i]} />;
         keys.push(key);
     }
     return keys;
@@ -96,11 +97,20 @@ class App extends Component {
   render() {
 
     return (
+
+      <React.Fragment>
+
+      <div className="noteCanvas-container" id="container">
+        <NoteCanvas />
+       </div>
+
       <div id="piano">
         <div className="keys">
           { this.buildKeyboard() }
         </div> 
       </div>
+
+      </React.Fragment>
     );
   }
 }
