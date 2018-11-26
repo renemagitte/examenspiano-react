@@ -1,5 +1,6 @@
 import React from 'react';
 import './../App.css';
+import '../sass/piano.sass';
 
 function Key(props) { 
 

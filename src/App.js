@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import './index.css';
+import './sass/main.sass';
 import Key from './components/Key.js';
 
 class App extends Component {
@@ -28,7 +29,7 @@ class App extends Component {
     13: false,  // 19, 13, enter, g (2)
     188: false, // 20, 188, ,, g# (2)
     93: false,  // 21, 93, cmd right, a (2)
-    190: false, // 22, 190, ., b (2)
+    190: false, // 22, 190, ., b / a# (2)
     18: false,  // 23,18, alt right :--( , h (2)
     189: false, // 24, 189, -, c (3)
     16: false,  // 25, 16, shift right, c# (3)
@@ -36,16 +37,18 @@ class App extends Component {
 
   componentDidMount() {
     this.keydownEventlistener();
+    this.keyupEventlistener();
   }
 
   keydownEventlistener = () => {
     window.addEventListener('keydown', this.pressKey);
+  }
+  keyupEventlistener = () => {
     window.addEventListener('keyup', this.unpressKey);
   }
 
   pressKey = (e) => {
     e.preventDefault();
-    console.log(e.keyCode);
     this.setState({ [e.keyCode]: true })
   }
 
@@ -57,11 +60,13 @@ class App extends Component {
   buildKeyboard = () => {
     var keys = [];
     var numberOfKeys = 26;
+    /* Keycodes in order of appearance in piano. Starting with note C = letter A/keycode 65.  */
     var keyCodes = [ 65, 87, 83, 69, 68, 70, 84, 71, 89, 72, 85, 74, 75, 79, 76, 80, 186, 222, 221, 13, 188, 93, 190, 18, 189, 16 ]
 
     for(var i = 0; i < numberOfKeys; i++){
         var key;
-        var keyClass = this.keyClass(i);
+        // var keyClass = this.keyClass(i);
+        var keyClass = this.keyClass(keyCodes[i]);
         if(this.state[keyCodes[i]]) keyClass += ' pressed';
         key = <Key className={keyClass} data-key={keyCodes[i]} />;
         keys.push(key);
@@ -71,20 +76,20 @@ class App extends Component {
 
   keyClass = (index) =>{
     switch (index) {
-        case 1:
-        case 3:
-        case 6:
-        case 8:
-        case 10:
-        case 13:
-        case 15:
-        case 18:
-        case 20:
-        case 22:
-        case 25:
-            return 'key black';
-        default: 
-            return 'key';
+      case 87:
+      case 69:
+      case 84:
+      case 89:
+      case 85:
+      case 79:
+      case 80:
+      case 221:
+      case 188:
+      case 190:
+      case 16:
+          return 'key black';
+      default: 
+          return 'key';
     }
   }
 
