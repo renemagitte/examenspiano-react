@@ -42,9 +42,11 @@ class NoteCanvas extends React.Component {
 
   stop = () => {
     clearInterval(this.myVar);
-    this.setState({ playing: !this.state.playing, playheadAt: 0 });
+    this.setState({ playing: !this.state.playing, playheadAt: 0 }, () => {
+      this.updateCanvas(this.state.playheadAt);
+    });
     
-    this.updateCanvas(this.state.playheadAt);
+    
   }
 
   updatePlayhead = () => {
@@ -58,7 +60,7 @@ class NoteCanvas extends React.Component {
   }
 
   componentDidMount(){
-    this.updatePlayhead();
+    this.updatePlayhead(this.state.playheadAt);
   }
 
 
