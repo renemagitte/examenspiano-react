@@ -26,22 +26,15 @@ class NoteCanvas extends React.Component {
 
   setPlayPause = () => {
     this.setState({ playing: !this.state.playing });
-
-
-    // this.play();
-
     var myVar;
 
     if(!this.state.playing){
-      myVar = setInterval(this.play, 100);
+      this.myVar = setInterval(this.play, 100);
     }
-    // else{
-    //   clearInterval(myVar);
-    // }
+
 
     if(this.state.playing){
-      console.log("hej");
-      clearInterval(myVar);
+      clearInterval(this.myVar);
       this.setState({ playheadAt: this.state.playheadAt + 1 });
     }
 
