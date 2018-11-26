@@ -10,9 +10,16 @@ class NoteCanvas extends React.Component {
     this.updateCanvas();
   }
   updateCanvas(x) {
-    const ctx = this.refs.canvas.getContext('2d');
-    ctx.fillRect(x, 0, 1, 400);
+    const c = this.refs.canvas.getContext('2d');
+
+    c.clearRect((x -1), 0, 1, 400);
+
+
+    c.fillRect(x, 0, 1, 400);
+    
   }
+
+
 
   play = () => {
     console.log("hej")
