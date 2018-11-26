@@ -35,17 +35,30 @@ class NoteCanvas extends React.Component {
 
     if(this.state.playing){
       clearInterval(this.myVar);
-      this.setState({ playheadAt: this.state.playheadAt + 1 });
     }
 
 
   }
 
+  stop = () => {
+    clearInterval(this.myVar);
+    this.setState({ playing: !this.state.playing, playheadAt: 0 });
+    
+    this.updateCanvas(this.state.playheadAt);
+  }
+
+  updatePlayhead = () => {
+    this.updateCanvas(this.state.playheadAt);
+  }
  
 
   play = () => {
     this.setState({ playheadAt: this.state.playheadAt + 1 });
     this.updateCanvas(this.state.playheadAt)
+  }
+
+  componentDidMount(){
+    this.updatePlayhead();
   }
 
 
@@ -58,6 +71,7 @@ class NoteCanvas extends React.Component {
         <div className="noteCanvas-container" id="container">
           {/* <button onClick={this.play}>Play / Pause</button> */}
           <button onClick={this.setPlayPause}>{buttonText}</button>
+          <button onClick={this.stop}>Stop</button>
           <canvas width="860" height="375" id="noteCanvas" ref="canvas"></canvas> 
         </div>
       );
