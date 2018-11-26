@@ -8,20 +8,14 @@ class NoteCanvas extends React.Component {
     playing: false,
     playheadAt: 0
   }
-  // componentDidMount() {
-  //   this.updateCanvas();
-  // }
+
   updateCanvas(x) {
     const c = this.refs.canvas.getContext('2d');
 
-    // Rect playhead
-    // c.clearRect((x - 1), 0, 1, 400);
-    // c.fillRect(x, 0, 1, 400);
-
-    // Line playhead
-
+    /* Clear canvas */
     c.clearRect(0, 0, 860, 375);
 
+    /* Clear canvas */
     c.beginPath();
     c.moveTo(x, 0);
     c.lineTo(x, 375);
@@ -39,10 +33,18 @@ class NoteCanvas extends React.Component {
     var myVar;
 
     if(!this.state.playing){
-      myVar = setInterval(this.play, 300);
-    }else{
-      clearInterval(myVar);
+      myVar = setInterval(this.play, 100);
     }
+    // else{
+    //   clearInterval(myVar);
+    // }
+
+    if(this.state.playing){
+      console.log("hej");
+      clearInterval(myVar);
+      this.setState({ playheadAt: this.state.playheadAt + 1 });
+    }
+
 
   }
 
@@ -57,10 +59,12 @@ class NoteCanvas extends React.Component {
 
   render() {
 
+    let buttonText = this.state.playing ? 'Pause' : 'Play';
+
       return (
         <div className="noteCanvas-container" id="container">
           {/* <button onClick={this.play}>Play / Pause</button> */}
-          <button onClick={this.setPlayPause}>Play / Pause</button>
+          <button onClick={this.setPlayPause}>{buttonText}</button>
           <canvas width="860" height="375" id="noteCanvas" ref="canvas"></canvas> 
         </div>
       );
