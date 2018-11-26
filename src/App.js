@@ -100,9 +100,9 @@ class App extends Component {
 
       <React.Fragment>
 
-      <div className="noteCanvas-container" id="container">
+    
         <NoteCanvas />
-       </div>
+
 
       <div id="piano">
         <div className="keys">
