@@ -4,7 +4,7 @@ class NoteCanvas extends React.Component {
 
   state = {
     play: false,
-    timestamp: 0
+    playheadAt: 0
   }
   componentDidMount() {
     this.updateCanvas();
@@ -18,9 +18,8 @@ class NoteCanvas extends React.Component {
     console.log("hej")
 
     setInterval(
-      () => this.setState({ timestamp: this.state.timestamp + 1 },
-        this.updateCanvas(this.state.timestamp)
-        
+      () => this.setState({ playheadAt: this.state.playheadAt + 1 },
+        this.updateCanvas(this.state.playheadAt)
     ),300
     );
   }
