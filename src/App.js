@@ -4,7 +4,7 @@ import './index.css';
 import './sass/main.sass';
 import Key from './components/Key.js';
 // import NoteCanvas from './components/NoteCanvas.js';
-import Playhead from './components/Playhead.js';
+// import Playhead from './components/Playhead.js';
 
 class App extends Component {
 
@@ -140,10 +140,12 @@ class App extends Component {
   pressKey = (e) => {
     e.preventDefault();
 
-    this.drawNote(e.keyCode);
-
     this.currentlyPlaying.push(e.keyCode);
     // console.log(this.currentlyPlaying);
+
+    this.drawNote(e.keyCode);
+
+
 
 
     // console.log(e.keyCode);
@@ -167,13 +169,28 @@ class App extends Component {
   unpressKey = (e) => {
     e.preventDefault();
 
+    console.log(this.currentlyPlaying);
+
     // remove from currenlty playing!
+    // this.currentlyPlaying = this.removeFromCurrentlyPlaying(e.keyCode);
 
-    this.removeFromCurrentlyPlaying(e.keyCode);
+    // this.currentlyPlaying = this.currentlyPlaying.filter(this.filterCodes(e.keyCode));
+    // console.log(this.removeFromCurrentlyPlayin);
 
+    this.currentlyPlaying = this.currentlyPlaying.filter(function(item) {
+      return item != e.keyCode;
+    });
 
     this.setState({ [e.keyCode]: false });
   }
+
+  // filterCodes = (hej, code) => {
+  //   console.log(code);
+  //   return hej != code;
+  
+  // }
+
+
 
   buildKeyboard = () => {
     var keys = [];
@@ -309,13 +326,14 @@ class App extends Component {
   removeFromCurrentlyPlaying = (code) => {
 
     var arr = [];
-    for( var i = 0; i < this.currentlyPlaying.length-1; i++){ 
+    for( var i = 0; i <= this.currentlyPlaying.length; i++){ 
       if ( this.currentlyPlaying[i] === code) {
         // this.arr = this.currentlyPlaying.splice(i, 1); 
         // console.log(this.arr);
+        return this.currentlyPlaying.splice(i, 1); 
 
-        this.currentlyPlaying = this.currentlyPlaying.splice(i, 1);
-        console.log(this.currentlyPlaying);
+        // this.currentlyPlaying = this.currentlyPlaying.splice(i, 1);
+        // console.log(this.currentlyPlaying);
       }
     }
 
