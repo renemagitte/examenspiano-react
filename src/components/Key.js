@@ -11,4 +11,20 @@ function Key(props) {
   
 }
 
+
+// class Key extends React.Component {
+
+//   render() {
+//     let keyClass = this.props.keyClass;
+//     if(this.props.playing){
+//       keyClass += ' pressed';
+//     }
+
+//     return (
+//       <div className={keyClass}>
+//       </div> 
+//     );
+//   }
+// }
+
 export default Key;
