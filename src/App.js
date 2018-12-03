@@ -429,12 +429,37 @@ class App extends Component {
       <React.Fragment>
 
 
-        <audio ref="elemC1" src={sound} ></audio>
-        <audio ref="elemCiss1" src={sound} ></audio>
+        {/* <audio ref="elemC1" src={sound} ></audio>
+        <audio ref="elemCiss1" src={sound} ></audio> */}
 
+        <NoteSound note={this.state.c1} />
+        <NoteSound note={this.state.ciss1} />
         <NoteSound note={this.state.d1} />
+        <NoteSound note={this.state.diss1} />
+        <NoteSound note={this.state.e1} />
+        <NoteSound note={this.state.f1} />
+        <NoteSound note={this.state.fiss1} />
+        <NoteSound note={this.state.g1} />
+        <NoteSound note={this.state.giss1} />
+        <NoteSound note={this.state.a1} />
+        <NoteSound note={this.state.b1} />
+        <NoteSound note={this.state.h1} />
+        <NoteSound note={this.state.c2} />
+        <NoteSound note={this.state.ciss2} />
+        <NoteSound note={this.state.d2} />
+        <NoteSound note={this.state.diss2} />
+        <NoteSound note={this.state.e2} />
+        <NoteSound note={this.state.f2} />
+        <NoteSound note={this.state.fiss2} />
+        <NoteSound note={this.state.g2} />
+        <NoteSound note={this.state.giss2} />
+        <NoteSound note={this.state.a2} />
+        <NoteSound note={this.state.b2} />
+        <NoteSound note={this.state.h2} />
+        <NoteSound note={this.state.c3} />
+        <NoteSound note={this.state.ciss3} />
 
-        
+
 
         <button onClick={this.setPlayPause}>{buttonText}</button>
         <button onClick={this.stop}>Stop</button>
