@@ -7,6 +7,7 @@ import Key from './components/Key.js';
 // import Playhead from './components/Playhead.js';
 
 import sound from './wav.wav';
+import NoteSound from './components/NoteSound.js';
 
 class App extends Component {
 
@@ -430,6 +431,10 @@ class App extends Component {
 
         <audio ref="elemC1" src={sound} ></audio>
         <audio ref="elemCiss1" src={sound} ></audio>
+
+        <NoteSound note={this.state.d1} />
+
+        
 
         <button onClick={this.setPlayPause}>{buttonText}</button>
         <button onClick={this.stop}>Stop</button>
