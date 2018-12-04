@@ -36,6 +36,8 @@ class App extends Component {
     a2: false,
     b2: false,
     h2: false,
+    c3: false,
+    ciss3: false,
     // c1_playing: false,
     // c1_keycode: 65,
     // ciss1_playing: false,
@@ -169,81 +171,44 @@ class App extends Component {
     e.preventDefault();
 
     this.currentlyPlaying.push(e.keyCode);
-    // console.log(this.currentlyPlaying);
 
     this.drawNote(e.keyCode);
 
-
-
-
-    // console.log(e.keyCode);
+    /* key styling is still connected to old states with keycodes: */
     this.setState({ [e.keyCode]: true });
 
-
+    /* for sound: */
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
-
-    console.log(this.noteState);
-
-
-    // this.setState({ c1: true });
-
     this.setState({ [this.noteState]: true });
 
-    // this.setState({ [e.keyCode]: true }, () => {
-    //   this.playNote(e.keyCode);
-    // });
 
-    // this.setState({ [e.keyCode]: true });
-    // switch (e.keyCode) {
-    //   case 65:
-    //     this.setState({ c1_playing: true });
-    //     break;
-    //   default: 
-    //       return '';
-    // }
   }
 
 
   getStateNameFromKeyCode = (code) => {
-    // switch (keycode) {
-    //   case 65:
-    //     return 'c1';
-    //   case 65:
-    //     return 'c1';
-    //     break;
-    //   default: 
-    //       return '';
-    // }
-
-
     var obj = this.findObjectByKey(this.keyY, 'code', code);
-
-    
-
     /* If the key is not used null is returned the app breaks, so only return if not null */
     if(obj != null){
       return(obj.stateName);
     }
-
   }
 
 
   unpressKey = (e) => {
     e.preventDefault();
 
-    console.log(this.currentlyPlaying);
-
-    // remove from currenlty playing!
-    // this.currentlyPlaying = this.removeFromCurrentlyPlaying(e.keyCode);
-
-    // this.currentlyPlaying = this.currentlyPlaying.filter(this.filterCodes(e.keyCode));
-    // console.log(this.removeFromCurrentlyPlayin);
-
+    /* removing the unpressed key from array of notes that are currently playing */
     this.currentlyPlaying = this.currentlyPlaying.filter(function(item) {
       return item != e.keyCode;
     });
 
+    /* key styling is still connected to old states with keycodes: */
     this.setState({ [e.keyCode]: false });
+
+    /* for sound: */
+    this.noteState = this.getStateNameFromKeyCode(e.keyCode);
+    this.setState({ [this.noteState]: false });
+
   }
 
 
@@ -330,47 +295,21 @@ class App extends Component {
       var newNote;
       var newNote2Y = this.getY(this.currentlyPlaying[i]);
       newNote = this.refs.notesCanvas.getContext('2d');
-      // console.log(newNote);
-      // console.log(newNote2Y);
-      // console.log(this.state.playheadAt);
       newNote.fillStyle = "black";
       newNote.fillRect(this.state.playheadAt, newNote2Y, 5, 10);
 
     }
-
-
-    // if(this.state.c1_playing == true){
-    //   var c1;
-    //   var c1Y = 250;
-    //   c1 = this.refs.c1Canvas.getContext('2d');
-    //   c1.fillStyle = "black";
-    //   c1.fillRect(this.state.playheadAt, 250, 5, 10);
-    // }
-
-
-    // // Works one note:
-    // var newNote;
-    // var newNote2Y = this.getY(code);
-    // newNote = this.refs.notesCanvas.getContext('2d');
-    // // console.log(newNote);
-    // // console.log(newNote2Y);
-    // // console.log(this.state.playheadAt);
-    // newNote.fillStyle = "black";
-    // newNote.fillRect(this.state.playheadAt, newNote2Y, 5, 10);
-
   }
 
   getY = (code)  => {
-
     var obj = this.findObjectByKey(this.keyY, 'code', code);
-
     /* If the key is not used null is returned the app breaks, so only return if not null */
     if(obj != null){
       return(obj.y);
     }
-
   }
 
+  /* takes an array of obejcts and a value, and returns the object where the key is the same as the value that's sent in */
   findObjectByKey = (array, key, value) => {
     for (var i = 0; i < array.length; i++) {
         if (array[i][key] === value) {
@@ -380,33 +319,17 @@ class App extends Component {
     return null;
   }
 
-  removeFromCurrentlyPlaying = (code) => {
+  // playC1 = () => {
+  //   // var audio = document.getElementById("audio");
+  //   var audio = this.refs.elemC1;
+  //   audio.play();
+  // }
 
-    var arr = [];
-    for( var i = 0; i <= this.currentlyPlaying.length; i++){ 
-      if ( this.currentlyPlaying[i] === code) {
-        // this.arr = this.currentlyPlaying.splice(i, 1); 
-        // console.log(this.arr);
-        return this.currentlyPlaying.splice(i, 1); 
-
-        // this.currentlyPlaying = this.currentlyPlaying.splice(i, 1);
-        // console.log(this.currentlyPlaying);
-      }
-    }
-
-  }
-
-  playC1 = () => {
-    // var audio = document.getElementById("audio");
-    var audio = this.refs.elemC1;
-    audio.play();
-  }
-
-  playCiss1 = () => {
-    // var audio = document.getElementById("audio");
-    var audio = this.refs.elemCiss1;
-    audio.play();
-  }
+  // playCiss1 = () => {
+  //   // var audio = document.getElementById("audio");
+  //   var audio = this.refs.elemCiss1;
+  //   audio.play();
+  // }
 
   render() {
 
@@ -414,13 +337,13 @@ class App extends Component {
 
   
 
-    if(this.state.c1){
-      this.playC1();
-    }
+    // if(this.state.c1){
+    //   this.playC1();
+    // }
 
-    if(this.state.ciss1){
-      this.playCiss1();
-    }
+    // if(this.state.ciss1){
+    //   this.playCiss1();
+    // }
 
 
 
@@ -432,32 +355,32 @@ class App extends Component {
         {/* <audio ref="elemC1" src={sound} ></audio>
         <audio ref="elemCiss1" src={sound} ></audio> */}
 
-        <NoteSound note={this.state.c1} />
-        <NoteSound note={this.state.ciss1} />
-        <NoteSound note={this.state.d1} />
-        <NoteSound note={this.state.diss1} />
-        <NoteSound note={this.state.e1} />
-        <NoteSound note={this.state.f1} />
-        <NoteSound note={this.state.fiss1} />
-        <NoteSound note={this.state.g1} />
-        <NoteSound note={this.state.giss1} />
-        <NoteSound note={this.state.a1} />
-        <NoteSound note={this.state.b1} />
-        <NoteSound note={this.state.h1} />
-        <NoteSound note={this.state.c2} />
-        <NoteSound note={this.state.ciss2} />
-        <NoteSound note={this.state.d2} />
-        <NoteSound note={this.state.diss2} />
-        <NoteSound note={this.state.e2} />
-        <NoteSound note={this.state.f2} />
-        <NoteSound note={this.state.fiss2} />
-        <NoteSound note={this.state.g2} />
-        <NoteSound note={this.state.giss2} />
-        <NoteSound note={this.state.a2} />
-        <NoteSound note={this.state.b2} />
-        <NoteSound note={this.state.h2} />
-        <NoteSound note={this.state.c3} />
-        <NoteSound note={this.state.ciss3} />
+        <NoteSound note={this.state.c1} refElem='c1' />
+        <NoteSound note={this.state.ciss1} refElem='ciss1' />
+        <NoteSound note={this.state.d1} refElem='d1' />
+        <NoteSound note={this.state.diss1} refElem='diss1' />
+        <NoteSound note={this.state.e1} refElem='e1' />
+        <NoteSound note={this.state.f1} refElem='f1' />
+        <NoteSound note={this.state.fiss1} refElem='fiss1' />
+        <NoteSound note={this.state.g1} refElem='g1' />
+        <NoteSound note={this.state.giss1} refElem='giss1' />
+        <NoteSound note={this.state.a1} refElem='a1' />
+        <NoteSound note={this.state.b1} refElem='b1' />
+        <NoteSound note={this.state.h1} refElem='h1' />
+        <NoteSound note={this.state.c2} refElem='c2' />
+        <NoteSound note={this.state.ciss2} refElem='ciss2' />
+        <NoteSound note={this.state.d2} refElem='d2' />
+        <NoteSound note={this.state.diss2} refElem='diss2' />
+        <NoteSound note={this.state.e2} refElem='e2' />
+        <NoteSound note={this.state.f2} refElem='f2' />
+        <NoteSound note={this.state.fiss2} refElem='fiss2' />
+        <NoteSound note={this.state.g2} refElem='g2' />
+        <NoteSound note={this.state.giss2} refElem='giss2' />
+        <NoteSound note={this.state.a2} refElem='a2' />
+        <NoteSound note={this.state.b2} refElem='b2'/>
+        <NoteSound note={this.state.h2} refElem='h2'/>
+        <NoteSound note={this.state.c3} refElem='c3'/>
+        <NoteSound note={this.state.ciss3} refElem='ciss3'/>
 
 
 
@@ -469,7 +392,7 @@ class App extends Component {
 
           <canvas width="860" height="260" style={{zIndex: 10}} class="canvas" id="playheadCanvas" ref="playheadCanvas"></canvas>
           <canvas width="860" height="260" style={{zIndex: 11}} class="canvas" id="notesCanvas" ref="notesCanvas"></canvas> 
-          <canvas width="860" height="260" style={{zIndex: 12}} class="canvas" id="notesCanvas" ref="c1Canvas"></canvas> 
+          {/* <canvas width="860" height="260" style={{zIndex: 12}} class="canvas" id="notesCanvas" ref="c1Canvas"></canvas>  */}
 
           {/* <audio><source src={sound} type="audio/mpeg" /></audio>   */}
 
