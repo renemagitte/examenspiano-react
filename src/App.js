@@ -6,10 +6,39 @@ import Key from './components/Key.js';
 // import NoteCanvas from './components/NoteCanvas.js';
 // import Playhead from './components/Playhead.js';
 
+import sound from './wav.wav';
+import NoteSound from './components/NoteSound.js';
+
 class App extends Component {
 
   state = {
-    c1_playing: true,
+    c1: false,
+    ciss1: false,
+    d1: false,
+    diss1: false,
+    e1: false,
+    f1: false,
+    fiss1: false,
+    g1: false,
+    giss1: false,
+    a1: false,
+    b1: false,
+    h1: false,
+    c2: false,
+    ciss2: false,
+    d2: false,
+    diss2: false,
+    e2: false,
+    f2: false,
+    fiss2: false,
+    g2: false,
+    giss2: false,
+    a2: false,
+    b2: false,
+    h2: false,
+    c3: false,
+    ciss3: false,
+    // c1_playing: false,
     // c1_keycode: 65,
     // ciss1_playing: false,
     // ciss1_keycode: 87,
@@ -95,34 +124,35 @@ class App extends Component {
   }
 
   keyY = [
-    { code: 65, y: 250},  // 0, 65, A, c
-    { code: 87, y: 240},  // 1, 87, W, c#
-    {code: 83, y: 230},  // 2, 83, S, d
-    {code: 69, y: 220},  // 3, 69, S, d#
-    {code: 68, y: 210},  // 4, 68, D, e
-    {code: 70, y: 200},  // 5, 70, F, f
-    {code: 84, y: 190},  // 6, 84, T, f#
-    {code: 71, y: 180},  // 7, 71, T, g
-    {code: 89, y: 170},  // 8, 89, Y, g#
-    {code: 72, y: 160},  // 9, 72, H, a
-    {code: 85, y: 150},  // 10, 85, U, b / a#
-    {code: 74, y: 140},  // 11, 74, J, h
-    {code: 75, y: 130},  // 12, 75, K, c (2)
-    {code: 79, y: 120},  // 13, 79, O, c# (2)
-    {code: 76, y: 110},  // 14, 78, L, d (2)
-    {code: 80, y: 100},  // 15, 80, P, d# (2)
-    {code: 186, y: 90}, // 16, 186, Ö, e (2)
-    {code: 222, y: 80}, // 17, 222, Ä, f (2)
-    {code: 221, y: 70}, // 18, 221, ^, f# (2)
-    {code: 13, y: 60},  // 19, 13, enter, g (2)
-    {code: 188, y: 50}, // 20, 188, ,, g# (2)
-    {code: 93, y: 40},  // 21, 93, cmd right, a (2)
-    {code: 190, y: 30}, // 22, 190, ., b / a# (2)
-    {code: 18, y: 20},  // 23,18, alt right :--( , h (2)
-    {code: 189, y: 10}, // 24, 189, -, c (3)
-    {code: 16, y: 0}  // 25, 16, shift right, c# (3)
+    {code: 65, y: 250, stateName: 'c1'},  // 0, 65, A, c
+    {code: 87, y: 240, stateName: 'ciss1'},  // 1, 87, W, c#
+    {code: 83, y: 230, stateName: 'd1'},  // 2, 83, S, d
+    {code: 69, y: 220, stateName: 'diss1'},  // 3, 69, S, d#
+    {code: 68, y: 210, stateName: 'e1'},  // 4, 68, D, e
+    {code: 70, y: 200, stateName: 'f1'},  // 5, 70, F, f
+    {code: 84, y: 190, stateName: 'fiss1'},  // 6, 84, T, f#
+    {code: 71, y: 180, stateName: 'g1'},  // 7, 71, T, g
+    {code: 89, y: 170, stateName: 'giss1'},  // 8, 89, Y, g#
+    {code: 72, y: 160, stateName: 'a1'},  // 9, 72, H, a
+    {code: 85, y: 150, stateName: 'b1'},  // 10, 85, U, b / a#
+    {code: 74, y: 140, stateName: 'h1'},  // 11, 74, J, h
+    {code: 75, y: 130, stateName: 'c2'},  // 12, 75, K, c (2)
+    {code: 79, y: 120, stateName: 'ciss2'},  // 13, 79, O, c# (2)
+    {code: 76, y: 110, stateName: 'd2'},  // 14, 78, L, d (2)
+    {code: 80, y: 100, stateName: 'diss2'},  // 15, 80, P, d# (2)
+    {code: 186, y: 90, stateName: 'e2'}, // 16, 186, Ö, e (2)
+    {code: 222, y: 80, stateName: 'f2'}, // 17, 222, Ä, f (2)
+    {code: 221, y: 70, stateName: 'fiss2'}, // 18, 221, ^, f# (2)
+    {code: 13, y: 60, stateName: 'g2'},  // 19, 13, enter, g (2)
+    {code: 188, y: 50, stateName: 'giss2'}, // 20, 188, ,, g# (2)
+    {code: 93, y: 40, stateName: 'a2'},  // 21, 93, cmd right, a (2)
+    {code: 190, y: 30, stateName: 'b2'}, // 22, 190, ., b / a# (2)
+    {code: 18, y: 20, stateName: 'h2'},  // 23,18, alt right :--( , h (2)
+    {code: 189, y: 10, stateName: 'c3'}, // 24, 189, -, c (3)
+    {code: 16, y: 0, stateName: 'ciss3'}  // 25, 16, shift right, c# (3)
   ]
 
+  /* This array holds the notes that are currently pressed down. drawNote-function uses this to know what notes to draw */
   currentlyPlaying = [];
 
   componentDidMount() {
@@ -141,54 +171,46 @@ class App extends Component {
     e.preventDefault();
 
     this.currentlyPlaying.push(e.keyCode);
-    // console.log(this.currentlyPlaying);
 
     this.drawNote(e.keyCode);
 
-
-
-
-    // console.log(e.keyCode);
+    /* key styling is still connected to old states with keycodes: */
     this.setState({ [e.keyCode]: true });
 
-    // this.setState({ [e.keyCode]: true }, () => {
-    //   this.playNote(e.keyCode);
-    // });
+    /* for sound: */
+    this.noteState = this.getStateNameFromKeyCode(e.keyCode);
+    this.setState({ [this.noteState]: true });
 
-    // this.setState({ [e.keyCode]: true });
-    // switch (e.keyCode) {
-    //   case 65:
-    //     this.setState({ c1_playing: true });
-    //     break;
-    //   default: 
-    //       return '';
-    // }
+
+  }
+
+
+  getStateNameFromKeyCode = (code) => {
+    var obj = this.findObjectByKey(this.keyY, 'code', code);
+    /* If the key is not used null is returned the app breaks, so only return if not null */
+    if(obj != null){
+      return(obj.stateName);
+    }
   }
 
 
   unpressKey = (e) => {
     e.preventDefault();
 
-    console.log(this.currentlyPlaying);
-
-    // remove from currenlty playing!
-    // this.currentlyPlaying = this.removeFromCurrentlyPlaying(e.keyCode);
-
-    // this.currentlyPlaying = this.currentlyPlaying.filter(this.filterCodes(e.keyCode));
-    // console.log(this.removeFromCurrentlyPlayin);
-
+    /* removing the unpressed key from array of notes that are currently playing */
     this.currentlyPlaying = this.currentlyPlaying.filter(function(item) {
       return item != e.keyCode;
     });
 
+    /* key styling is still connected to old states with keycodes: */
     this.setState({ [e.keyCode]: false });
+
+    /* for sound: */
+    this.noteState = this.getStateNameFromKeyCode(e.keyCode);
+    this.setState({ [this.noteState]: false });
+
   }
 
-  // filterCodes = (hej, code) => {
-  //   console.log(code);
-  //   return hej != code;
-  
-  // }
 
 
 
@@ -273,47 +295,21 @@ class App extends Component {
       var newNote;
       var newNote2Y = this.getY(this.currentlyPlaying[i]);
       newNote = this.refs.notesCanvas.getContext('2d');
-      // console.log(newNote);
-      // console.log(newNote2Y);
-      // console.log(this.state.playheadAt);
       newNote.fillStyle = "black";
       newNote.fillRect(this.state.playheadAt, newNote2Y, 5, 10);
 
     }
-
-
-    // if(this.state.c1_playing == true){
-    //   var c1;
-    //   var c1Y = 250;
-    //   c1 = this.refs.c1Canvas.getContext('2d');
-    //   c1.fillStyle = "black";
-    //   c1.fillRect(this.state.playheadAt, 250, 5, 10);
-    // }
-
-
-    // // Works one note:
-    // var newNote;
-    // var newNote2Y = this.getY(code);
-    // newNote = this.refs.notesCanvas.getContext('2d');
-    // // console.log(newNote);
-    // // console.log(newNote2Y);
-    // // console.log(this.state.playheadAt);
-    // newNote.fillStyle = "black";
-    // newNote.fillRect(this.state.playheadAt, newNote2Y, 5, 10);
-
   }
 
   getY = (code)  => {
-
     var obj = this.findObjectByKey(this.keyY, 'code', code);
-
     /* If the key is not used null is returned the app breaks, so only return if not null */
     if(obj != null){
       return(obj.y);
     }
-
   }
 
+  /* takes an array of obejcts and a value, and returns the object where the key is the same as the value that's sent in */
   findObjectByKey = (array, key, value) => {
     for (var i = 0; i < array.length; i++) {
         if (array[i][key] === value) {
@@ -323,33 +319,70 @@ class App extends Component {
     return null;
   }
 
-  removeFromCurrentlyPlaying = (code) => {
+  // playC1 = () => {
+  //   // var audio = document.getElementById("audio");
+  //   var audio = this.refs.elemC1;
+  //   audio.play();
+  // }
 
-    var arr = [];
-    for( var i = 0; i <= this.currentlyPlaying.length; i++){ 
-      if ( this.currentlyPlaying[i] === code) {
-        // this.arr = this.currentlyPlaying.splice(i, 1); 
-        // console.log(this.arr);
-        return this.currentlyPlaying.splice(i, 1); 
-
-        // this.currentlyPlaying = this.currentlyPlaying.splice(i, 1);
-        // console.log(this.currentlyPlaying);
-      }
-    }
-
-    
-
-  }
+  // playCiss1 = () => {
+  //   // var audio = document.getElementById("audio");
+  //   var audio = this.refs.elemCiss1;
+  //   audio.play();
+  // }
 
   render() {
 
     let buttonText = this.state.playing ? 'Pause' : 'Play';
+
+  
+
+    // if(this.state.c1){
+    //   this.playC1();
+    // }
+
+    // if(this.state.ciss1){
+    //   this.playCiss1();
+    // }
 
 
 
     return (
 
       <React.Fragment>
+
+
+        {/* <audio ref="elemC1" src={sound} ></audio>
+        <audio ref="elemCiss1" src={sound} ></audio> */}
+
+        <NoteSound note={this.state.c1} refElem='c1' />
+        <NoteSound note={this.state.ciss1} refElem='ciss1' />
+        <NoteSound note={this.state.d1} refElem='d1' />
+        <NoteSound note={this.state.diss1} refElem='diss1' />
+        <NoteSound note={this.state.e1} refElem='e1' />
+        <NoteSound note={this.state.f1} refElem='f1' />
+        <NoteSound note={this.state.fiss1} refElem='fiss1' />
+        <NoteSound note={this.state.g1} refElem='g1' />
+        <NoteSound note={this.state.giss1} refElem='giss1' />
+        <NoteSound note={this.state.a1} refElem='a1' />
+        <NoteSound note={this.state.b1} refElem='b1' />
+        <NoteSound note={this.state.h1} refElem='h1' />
+        <NoteSound note={this.state.c2} refElem='c2' />
+        <NoteSound note={this.state.ciss2} refElem='ciss2' />
+        <NoteSound note={this.state.d2} refElem='d2' />
+        <NoteSound note={this.state.diss2} refElem='diss2' />
+        <NoteSound note={this.state.e2} refElem='e2' />
+        <NoteSound note={this.state.f2} refElem='f2' />
+        <NoteSound note={this.state.fiss2} refElem='fiss2' />
+        <NoteSound note={this.state.g2} refElem='g2' />
+        <NoteSound note={this.state.giss2} refElem='giss2' />
+        <NoteSound note={this.state.a2} refElem='a2' />
+        <NoteSound note={this.state.b2} refElem='b2'/>
+        <NoteSound note={this.state.h2} refElem='h2'/>
+        <NoteSound note={this.state.c3} refElem='c3'/>
+        <NoteSound note={this.state.ciss3} refElem='ciss3'/>
+
+
 
         <button onClick={this.setPlayPause}>{buttonText}</button>
         <button onClick={this.stop}>Stop</button>
@@ -359,7 +392,11 @@ class App extends Component {
 
           <canvas width="860" height="260" style={{zIndex: 10}} class="canvas" id="playheadCanvas" ref="playheadCanvas"></canvas>
           <canvas width="860" height="260" style={{zIndex: 11}} class="canvas" id="notesCanvas" ref="notesCanvas"></canvas> 
-          <canvas width="860" height="260" style={{zIndex: 12}} class="canvas" id="notesCanvas" ref="c1Canvas"></canvas>   
+          {/* <canvas width="860" height="260" style={{zIndex: 12}} class="canvas" id="notesCanvas" ref="c1Canvas"></canvas>  */}
+
+          {/* <audio><source src={sound} type="audio/mpeg" /></audio>   */}
+
+        
     
           {/* <NoteCanvas pressedKeys={this.state} /> */}
 
