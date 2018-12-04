@@ -12,20 +12,20 @@ class NoteSound extends React.Component {
     playing: false
   }
 
-
-
   play = () => {
     let audio = this.refs.audio;
-    // var audio = this.refs.this.state.ref
-    // console.log(audio);
     audio.play();
 
-    // this.setState({ playing: true })
+  }
 
-    // var refElem2 = this.state.refElem;
-    // console.log(refElem2);
+  stopPlaying = () => {
+    console.log("stop!!!");
 
-
+    if(this.state.playing){
+      let audio = this.refs.audio;
+      audio.pause();
+      audio.currentTime = 0;
+    }
 
   }
 
@@ -46,9 +46,10 @@ class NoteSound extends React.Component {
   //   console.log('stop it!!');
   // }
 
-  // componentDidMount(){
-  //   this.setState({ refElem: this.props.refElem })
-  // }
+
+  componentWillReceiveProps(){
+    this.setState({ playing: this.props.note });
+  }
 
   render() {
 
@@ -59,12 +60,19 @@ class NoteSound extends React.Component {
       this.play();
     }
 
-    // if(!this.props.note){
-    //   this.stop();
-    //   console.log("stopp!!!")
+    if(!this.props.note){
+      this.stopPlaying();
+    }
+
+    // if(this.props.playing){
+    //   this.play();
     // }
 
-    let refElem = this.props.refElem;
+    // if(!this.props.playing){
+    //   this.stop();
+    // }
+
+
 
     return (
       <audio ref="audio" src={sound} ></audio>

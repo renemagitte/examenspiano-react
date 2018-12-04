@@ -356,7 +356,7 @@ class App extends Component {
         <audio ref="elemCiss1" src={sound} ></audio> */}
 
         <NoteSound note={this.state.c1} refElem='c1' />
-        <NoteSound note={this.state.ciss1} refElem='ciss1' />
+        {/* <NoteSound note={this.state.ciss1} refElem='ciss1' />
         <NoteSound note={this.state.d1} refElem='d1' />
         <NoteSound note={this.state.diss1} refElem='diss1' />
         <NoteSound note={this.state.e1} refElem='e1' />
@@ -380,7 +380,7 @@ class App extends Component {
         <NoteSound note={this.state.b2} refElem='b2'/>
         <NoteSound note={this.state.h2} refElem='h2'/>
         <NoteSound note={this.state.c3} refElem='c3'/>
-        <NoteSound note={this.state.ciss3} refElem='ciss3'/>
+        <NoteSound note={this.state.ciss3} refElem='ciss3'/> */}
 
 
 
