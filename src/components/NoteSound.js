@@ -37,13 +37,13 @@ class NoteSound extends React.Component {
         // Initial volume of 1
         // Make sure it's a multiple of 0.05
         var vol = 1;
-        var interval = 100; // 200ms interval
+        var interval = 100; // 100ms interval
 
         var fadeout = setInterval(
           function() {
             // Reduce volume by 0.05 as long as it is above 0
             // This works as long as you start with a multiple of 0.05!
-            // if (vol > 0) {
+            // if (vol > 0) { /* didn't work with 0 here, tried 0.05: */
             if (vol > 0.05) {
               vol -= 0.05;
               // audio.setVolume(vol);
@@ -105,18 +105,14 @@ class NoteSound extends React.Component {
       this.stopPlaying();
     }
 
-    // if(this.props.playing){
-    //   this.play();
-    // }
 
-    // if(!this.props.playing){
-    //   this.stop();
-    // }
+
 
 
 
     return (
-      <audio ref="audio" src={sound} ></audio>
+      // <audio ref="audio" src={sound} ></audio>
+      <audio ref="audio" src={this.props.sound} ></audio>
       // <audio ref={refElem} src={sound} ></audio>
     );
   }

@@ -7,6 +7,7 @@ import Key from './components/Key.js';
 // import Playhead from './components/Playhead.js';
 
 import sound from './wav.wav';
+import sound2 from './wav2.wav';
 import NoteSound from './components/NoteSound.js';
 
 class App extends Component {
@@ -355,32 +356,34 @@ class App extends Component {
         {/* <audio ref="elemC1" src={sound} ></audio>
         <audio ref="elemCiss1" src={sound} ></audio> */}
 
-        <NoteSound note={this.state.c1} refElem='c1' />
-        {/* <NoteSound note={this.state.ciss1} refElem='ciss1' />
-        <NoteSound note={this.state.d1} refElem='d1' />
-        <NoteSound note={this.state.diss1} refElem='diss1' />
-        <NoteSound note={this.state.e1} refElem='e1' />
-        <NoteSound note={this.state.f1} refElem='f1' />
-        <NoteSound note={this.state.fiss1} refElem='fiss1' />
-        <NoteSound note={this.state.g1} refElem='g1' />
-        <NoteSound note={this.state.giss1} refElem='giss1' />
-        <NoteSound note={this.state.a1} refElem='a1' />
-        <NoteSound note={this.state.b1} refElem='b1' />
-        <NoteSound note={this.state.h1} refElem='h1' />
-        <NoteSound note={this.state.c2} refElem='c2' />
-        <NoteSound note={this.state.ciss2} refElem='ciss2' />
-        <NoteSound note={this.state.d2} refElem='d2' />
-        <NoteSound note={this.state.diss2} refElem='diss2' />
-        <NoteSound note={this.state.e2} refElem='e2' />
-        <NoteSound note={this.state.f2} refElem='f2' />
-        <NoteSound note={this.state.fiss2} refElem='fiss2' />
-        <NoteSound note={this.state.g2} refElem='g2' />
-        <NoteSound note={this.state.giss2} refElem='giss2' />
-        <NoteSound note={this.state.a2} refElem='a2' />
-        <NoteSound note={this.state.b2} refElem='b2'/>
-        <NoteSound note={this.state.h2} refElem='h2'/>
-        <NoteSound note={this.state.c3} refElem='c3'/>
-        <NoteSound note={this.state.ciss3} refElem='ciss3'/> */}
+        {/* refElem-props is not used below, so remove? */}
+
+        <NoteSound note={this.state.c1} refElem='c1' sound={sound} />
+        <NoteSound note={this.state.ciss1} refElem='ciss1' sound={sound2} />
+        <NoteSound note={this.state.d1} refElem='d1' sound={sound} />
+        <NoteSound note={this.state.diss1} refElem='diss1' sound={sound} />
+        <NoteSound note={this.state.e1} refElem='e1' sound={sound} />
+        <NoteSound note={this.state.f1} refElem='f1' sound={sound} />
+        <NoteSound note={this.state.fiss1} refElem='fiss1' sound={sound} />
+        <NoteSound note={this.state.g1} refElem='g1' sound={sound} />
+        <NoteSound note={this.state.giss1} refElem='giss1' sound={sound} />
+        <NoteSound note={this.state.a1} refElem='a1' sound={sound} />
+        <NoteSound note={this.state.b1} refElem='b1' sound={sound} />
+        <NoteSound note={this.state.h1} refElem='h1' sound={sound} />
+        <NoteSound note={this.state.c2} refElem='c2' sound={sound} />
+        <NoteSound note={this.state.ciss2} refElem='ciss2' sound={sound} />
+        <NoteSound note={this.state.d2} refElem='d2' sound={sound} />
+        <NoteSound note={this.state.diss2} refElem='diss2' sound={sound} />
+        <NoteSound note={this.state.e2} refElem='e2' sound={sound} />
+        <NoteSound note={this.state.f2} refElem='f2' sound={sound} />
+        <NoteSound note={this.state.fiss2} refElem='fiss2' sound={sound} />
+        <NoteSound note={this.state.g2} refElem='g2' sound={sound} />
+        <NoteSound note={this.state.giss2} refElem='giss2' sound={sound} />
+        <NoteSound note={this.state.a2} refElem='a2' sound={sound} />
+        <NoteSound note={this.state.b2} refElem='b2'sound={sound} />
+        <NoteSound note={this.state.h2} refElem='h2'sound={sound} />
+        <NoteSound note={this.state.c3} refElem='c3'sound={sound} />
+        <NoteSound note={this.state.ciss3} refElem='ciss3'sound={sound} />
 
 
 
