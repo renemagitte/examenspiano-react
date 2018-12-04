@@ -21,13 +21,54 @@ class NoteSound extends React.Component {
   stopPlaying = () => {
     console.log("stop!!!");
 
+    // works but cuts abruply:
+    // if(this.state.playing){
+    //   let audio = this.refs.audio;
+    //   audio.pause();
+    //   audio.currentTime = 0;
+    // }
+
+
     if(this.state.playing){
+
+
       let audio = this.refs.audio;
-      audio.pause();
-      audio.currentTime = 0;
+
+        // Initial volume of 1
+        // Make sure it's a multiple of 0.05
+        var vol = 1;
+        var interval = 100; // 200ms interval
+
+        var fadeout = setInterval(
+          function() {
+            // Reduce volume by 0.05 as long as it is above 0
+            // This works as long as you start with a multiple of 0.05!
+            // if (vol > 0) {
+            if (vol > 0.05) {
+              vol -= 0.05;
+              // audio.setVolume(vol);
+              audio.volume = vol;
+            }
+            else {
+              // Stop the setInterval when 0 is reached
+              clearInterval(fadeout);
+
+              audio.pause();
+              audio.currentTime = 0;
+
+            }
+          }, interval);
+
+
+      // audio.pause();
+      // audio.currentTime = 0;
+
+      // audio.volume = 0.10;
     }
 
   }
+
+
 
 
   // stop = () => {
