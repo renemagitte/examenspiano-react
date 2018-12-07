@@ -129,6 +129,7 @@ class App extends Component {
 
     playing: false,
     playheadAt: 0,
+    listenToRecorded: false,
   }
 
   /* remove y from this array, not neccessary anymore */
@@ -175,6 +176,21 @@ class App extends Component {
   keyupEventlistener = () => {
     window.addEventListener('keyup', this.unpressKey);
   }
+
+  listenToRecorded = () => {
+    this.setState({ listenToRecorded: !this.state.listenToRecorded });
+
+    // this.setState({ playing: !this.state.playing });
+
+    if(!this.state.listenToRecorded){
+      this.playheadInterval2 = setInterval(this.play, 100);
+    }
+    if(this.state.listenToRecorded){
+      clearInterval(this.playheadInterval2);
+    }
+  }
+
+
 
   pressKey = (e) => {
     e.preventDefault();
@@ -343,13 +359,13 @@ class App extends Component {
         <audio ref="elemCiss1" src={sound} ></audio> */}
 
         <button onClick={this.setPlayPause}>Rec</button>
-        <button onClick={this.setPlayPause}>{buttonText}</button>
+        <button onClick={this.listenToRecorded}>{buttonText}</button>
         <button onClick={this.stop}>Stop</button>
 
         <div className="noteCanvas-container" id="container">
       
 
-        <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} playheadAt={this.state.playheadAt} />
+        <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
         <NoteSound note={this.state.ciss1} noteName='ciss1' sound={sound2} playheadAt={this.state.playheadAt} />
         <NoteSound note={this.state.d1} noteName='d1' sound={dWav} playheadAt={this.state.playheadAt} />
         <NoteSound note={this.state.diss1} noteName='diss1' sound={sound} playheadAt={this.state.playheadAt} />

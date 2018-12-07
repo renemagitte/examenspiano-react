@@ -51,6 +51,10 @@ class NoteSound extends React.Component {
 
   }
 
+  listenToRecorded = () => {
+
+  }
+
   // stopSound = () => {
   //   let audio = this.refs.audio;
   //   audio.pause();
@@ -135,13 +139,16 @@ class NoteSound extends React.Component {
 
   componentWillReceiveProps(){
     this.setState({ playing: this.props.note });
+    // this.setState({ listenToRecorded: this.props.listenToRecorded });
   }
 
   render() {
 
     // console.log(this.props.playheadAt);
 
-    if(this.props.note){
+    if(!this.props.listenToRecorded && this.props.note){
+
+      // if(this.props.playing && this.props.note){
 
       this.record();
 
@@ -152,6 +159,10 @@ class NoteSound extends React.Component {
       this.drawNote();
 
       
+    }
+
+    if(this.props.listenToRecorded){
+      this.listenToRecorded();
     }
 
     // if(!this.props.note){
