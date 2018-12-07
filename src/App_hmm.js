@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
 import './index.css';
 import './sass/main.sass';
@@ -15,7 +16,33 @@ import fWav from './sound/f.wav';
 import gWav from './sound/g.wav';
 import NoteSound from './components/NoteSound.js';
 
-import VocalsTakeAChance from './sound/takeachancevocals.mp3';
+
+import c1File from './sound/c.wav';
+import ciss1File from './sound/c.wav';
+import d1File from './sound/d.wav';
+import diss1File from './sound/c.wav';
+import e1File from './sound/e.wav';
+import f1File from './sound/f.wav';
+import fiss1File from './sound/c.wav';
+import g1File from './sound/g.wav';
+import giss1File from './sound/c.wav';
+import a1File from './sound/c.wav';
+import b1File from './sound/c.wav';
+import h1File from './sound/c.wav';
+import c2File from './sound/c.wav';
+import ciss2File from './sound/c.wav';
+import d2File from './sound/d.wav';
+import diss2File from './sound/c.wav';
+import e2File from './sound/e.wav';
+import f2File from './sound/f.wav';
+import fiss2File from './sound/c.wav';
+import g2File from './sound/g.wav';
+import giss2File from './sound/c.wav';
+import a2File from './sound/c.wav';
+import b2File from './sound/c.wav';
+import h2File from './sound/c.wav';
+import c3File from './sound/c.wav';
+import ciss3File from './sound/c.wav';
 
 class App extends Component {
 
@@ -46,58 +73,6 @@ class App extends Component {
     h2: false,
     c3: false,
     ciss3: false,
-    // c1_playing: false,
-    // c1_keycode: 65,
-    // ciss1_playing: false,
-    // ciss1_keycode: 87,
-    // d1_playing: false,
-    // d1_keycode: 83,
-    // diss1_playing: false,
-    // diss1_keycode: 69,
-    // e1_playing: false,
-    // e1_keycode: 68,
-    // f1_playing: false,
-    // f1_keycode: 70,
-    // fiss1_playing: false,
-    // fiss1_keycode: 84,
-    // g1_playing: false,
-    // g1_keycode: 71,
-    // giss1_playing: false,
-    // giss1_keykode: 89,
-    // a1_playing: false,
-    // a1_keycode: 72,
-    // b1_playing: false,
-    // b1_keycode: 85,
-    // h1_playing: false,
-    // h1_keycode: 74,
-    // c2_playing: false,
-    // c2_keycode: 75,
-    // ciss2_playing: false,
-    // ciss2_keycode: 79,
-    // d2_playing: false,
-    // d2_keycode: 76,
-    // diss2_playing: false,
-    // diss2_keycode: 80,
-    // e2_playing: false,
-    // e2_keycode: 186,
-    // f2_playing: false,
-    // f2_keycode: 222,
-    // fiss2_playing: false,
-    // fiss2_keycode: 221,
-    // g2_playing: false,
-    // g2_keycode: 13,
-    // giss2_playing: false,
-    // giss2_keycode: 188,
-    // a2_playing: false,
-    // a2_keycode: 93,
-    // b2_playing: false,
-    // b2_keycode: 190,
-    // h2_playing: false,
-    // h2_keycode: 18,
-    // c3_playing: false,
-    // c3_keycode: 189,
-    // ciss3_playing: false,
-    // ciss3_keycode: 16,
 
 
     65: false,  // 0, 65, A, c
@@ -178,7 +153,7 @@ class App extends Component {
   pressKey = (e) => {
     e.preventDefault();
 
-    this.currentlyPlaying.push(e.keyCode);
+    // this.currentlyPlaying.push(e.keyCode);
 
     // utkokmmenterad pga test
     // this.drawNote(e.keyCode);
@@ -187,9 +162,11 @@ class App extends Component {
     this.setState({ [e.keyCode]: true });
 
     /* for sound: */
-    this.noteState = this.getStateNameFromKeyCode(e.keyCode);
-    this.setState({ [this.noteState]: true });
+    this.noteStateName = this.getStateNameFromKeyCode(e.keyCode);
+    this.setState({ [this.noteStateName]: true });
+console.log(this.noteStateName);
 
+    this.drawOneNote(this.noteStateName);
 
   }
 
@@ -200,6 +177,16 @@ class App extends Component {
     if(obj != null){
       return(obj.stateName);
     }
+  }
+
+
+  drawOneNote = (noteName) => {
+
+    var newNote;
+    newNote = ReactDOM.findDOMNode(this.refs[noteName]).getContext('2d');
+    console.log(newNote);
+    newNote.fillStyle = "black";
+    newNote.fillRect(this.state.playheadAt, 0, 5, 10);
   }
 
 
@@ -218,8 +205,16 @@ class App extends Component {
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
     this.setState({ [this.noteState]: false });
 
+
+    // this.stopAudio(this.noteState);
+
   }
 
+  stopAudio = (note) => {
+
+    console.log(note);
+
+  }
 
 
 
@@ -258,6 +253,22 @@ class App extends Component {
     }
   }
 
+  // buildNoteCanvas = () => {
+  //   var canvases = [];
+  //   var numberOfCanvases = 26;
+  //   // /* Keycodes in order of appearance in piano. Starting with note C = letter A/keycode 65.  */
+  //   var noteNames = [ 'c1', 'ciss1', 'd1', 'diss1', 'e1', 'f1', 'fiss1', 'g1', 'giss1', 'a1', 'b1', 'h1', 'c2', 'ciss2', 'd2', 'diss2', 'e2', 'f2', 'fiss2', 'g2', 'giss2', 'a2', 'b2', 'h2', 'c3', 'ciss3' ]
+
+  //   for(var i = 0; i < numberOfCanvases; i++){
+  //       var canvas;
+  //       var canvasClass = 'canvas ' + noteNames[i];
+  //       canvas = <canvas width="860" height="10" style={{zIndex: 10}} className={canvasClass} id="notesCanvas" ref={noteNames[i]}></canvas>;
+  //       // canvas = <Key className={canvasClass} ref={noteNames[i]} />;
+  //       canvases.push(canvas);
+  //   }
+  //   return canvases;
+  // }
+
   setPlayPause = () => {
     this.setState({ playing: !this.state.playing });
 
@@ -272,7 +283,6 @@ class App extends Component {
   play = () => {
     this.setState({ playheadAt: this.state.playheadAt + 1 });
     this.drawPlayhead(this.state.playheadAt);
-
   }
 
   drawPlayhead(x) {
@@ -297,26 +307,26 @@ class App extends Component {
     });
   }
 
-  drawNote = (code) => {
+  // drawNote = (code) => {
 
-    for(var i = 0; i < this.currentlyPlaying.length; i++){
+  //   for(var i = 0; i < this.currentlyPlaying.length; i++){
 
-      var newNote;
-      var newNote2Y = this.getY(this.currentlyPlaying[i]);
-      newNote = this.refs.notesCanvas.getContext('2d');
-      newNote.fillStyle = "black";
-      newNote.fillRect(this.state.playheadAt, newNote2Y, 5, 10);
+  //     var newNote;
+  //     var newNote2Y = this.getY(this.currentlyPlaying[i]);
+  //     newNote = this.refs.notesCanvas.getContext('2d');
+  //     newNote.fillStyle = "black";
+  //     newNote.fillRect(this.state.playheadAt, newNote2Y, 5, 10);
 
-    }
-  }
+  //   }
+  // }
 
-  getY = (code)  => {
-    var obj = this.findObjectByKey(this.keyY, 'code', code);
-    /* If the key is not used null is returned the app breaks, so only return if not null */
-    if(obj != null){
-      return(obj.y);
-    }
-  }
+  // getY = (code)  => {
+  //   var obj = this.findObjectByKey(this.keyY, 'code', code);
+  //   /* If the key is not used null is returned the app breaks, so only return if not null */
+  //   if(obj != null){
+  //     return(obj.y);
+  //   }
+  // }
 
   /* takes an array of obejcts and a value, and returns the object where the key is the same as the value that's sent in */
   findObjectByKey = (array, key, value) => {
@@ -341,13 +351,8 @@ class App extends Component {
         {/* <audio ref="elemC1" src={sound} ></audio>
         <audio ref="elemCiss1" src={sound} ></audio> */}
 
-        <button onClick={this.setPlayPause}>{buttonText}</button>
-        <button onClick={this.stop}>Stop</button>
 
-        <div className="noteCanvas-container" id="container">
-      
-
-        <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} playheadAt={this.state.playheadAt} />
+        {/* <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} playheadAt={this.state.playheadAt} />
         <NoteSound note={this.state.ciss1} noteName='ciss1' sound={sound2} playheadAt={this.state.playheadAt} />
         <NoteSound note={this.state.d1} noteName='d1' sound={dWav} playheadAt={this.state.playheadAt} />
         <NoteSound note={this.state.diss1} noteName='diss1' sound={sound} playheadAt={this.state.playheadAt} />
@@ -372,7 +377,7 @@ class App extends Component {
         <NoteSound note={this.state.b2} noteName='b2'sound={sound} playheadAt={this.state.playheadAt} />
         <NoteSound note={this.state.h2} noteName='h2'sound={sound} playheadAt={this.state.playheadAt} />
         <NoteSound note={this.state.c3} noteName='c3'sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.ciss3} noteName='ciss3'sound={sound} playheadAt={this.state.playheadAt} />
+        <NoteSound note={this.state.ciss3} noteName='ciss3'sound={sound} playheadAt={this.state.playheadAt} /> */}
 
 
         {/* <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} />
@@ -405,21 +410,43 @@ class App extends Component {
 
 
 
-        {/* <button onClick={this.setPlayPause}>{buttonText}</button>
+        <button onClick={this.setPlayPause}>{buttonText}</button>
         <button onClick={this.stop}>Stop</button>
 
-        <div className="noteCanvas-container" id="container"> */}
+        <div className="noteCanvas-container" id="container">
 
 
           <canvas width="860" height="260" style={{zIndex: 11}} className="playheadCanvas" id="playheadCanvas" ref="playheadCanvas"></canvas>
-          {/* <canvas width="860" height="260" style={{zIndex: 11}} class="canvas" id="notesCanvas" ref="notesCanvas"></canvas>  */}
 
 
-          {/* <audio><source src={sound} type="audio/mpeg" /></audio>   */}
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas c1" id="notesCanvas" ref="c1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas ciss1" id="notesCanvas" ref="ciss1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas d1" id="notesCanvas" ref="d1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas diss1" id="notesCanvas" ref="diss1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas e1" id="notesCanvas" ref="e1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas f1" id="notesCanvas" ref="f1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas fiss1" id="notesCanvas" ref="fiss1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas g1" id="notesCanvas" ref="g1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas giss1" id="notesCanvas" ref="giss1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas a1" id="notesCanvas" ref="a1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas b1" id="notesCanvas" ref="b1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas h1" id="notesCanvas" ref="h1"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas c2" id="notesCanvas" ref="c2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas ciss2" id="notesCanvas" ref="ciss2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas d2" id="notesCanvas" ref="d2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas diss2" id="notesCanvas" ref="diss2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas e2" id="notesCanvas" ref="e2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas f2" id="notesCanvas" ref="f2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas fiss2" id="notesCanvas" ref="fiss2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas g2" id="notesCanvas" ref="g2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas giss2" id="notesCanvas" ref="giss2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas a2" id="notesCanvas" ref="a2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas b2" id="notesCanvas" ref="b2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas h2" id="notesCanvas" ref="h2"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas c3" id="notesCanvas" ref="c3"></canvas>
+          <canvas width="860" height="10" style={{zIndex: 10}} className="canvas ciss3" id="notesCanvas" ref="ciss3"></canvas>
 
-        
-    
-          {/* <NoteCanvas pressedKeys={this.state} /> */}
+          {/* { this.buildNoteCanvas() } */}
 
         </div>
 
@@ -456,15 +483,11 @@ class App extends Component {
           </div> 
         </div>  */}
 
-        
-
         <div id="piano">
           <div className="keys">
             { this.buildKeyboard() }
           </div> 
         </div>
-
-        <audio controls ref="elemCiss1" src={VocalsTakeAChance} loop="true"></audio>
 
       </React.Fragment>
 

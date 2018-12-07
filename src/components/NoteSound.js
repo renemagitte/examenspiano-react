@@ -1,20 +1,41 @@
 import React from 'react';
 import './../App.css';
 
-
-
-
 class NoteSound extends React.Component {
 
   state = {
     playing: false,
   }
 
-  play = () => {
-    let audio = this.refs.audio;
-    audio.vol = 1;
-    audio.play();
 
+  play = () => {
+    // let audio = this.refs.audio;
+    // audio.vol = 1;
+    // audio.play();
+
+    this.audio = this.refs.audio;
+    this.audio.vol = 1;
+    this.audio.play();
+
+    this.changeInterval = setInterval(this.listenForStateChange, 200);
+    
+
+  }
+
+  listenForStateChange = () => {
+      
+        if(!this.state.playing){
+          this.audio.pause();
+          this.audio.currentTime = 0;
+          clearInterval(this.changeInterval);
+        }
+
+  }
+
+  stopSound = () => {
+    let audio = this.refs.audio;
+    audio.pause();
+    audio.currentTime = 0;
   }
 
   stopPlaying = () => {
@@ -86,7 +107,8 @@ class NoteSound extends React.Component {
       var newNote;
       newNote = this.refs.notesCanvas.getContext('2d');
       newNote.fillStyle = "black";
-      newNote.fillRect(this.props.playheadAt, 0, 5, 10);
+      // newNote.fillRect(this.props.playheadAt, 0, 5, 10);
+      newNote.fillRect(this.props.playheadAt, 0, 2, 10);
 
 
   }
@@ -101,7 +123,8 @@ class NoteSound extends React.Component {
     // console.log(this.props.playheadAt);
 
     if(this.props.note){
-      console.log("play!!")
+
+      // console.log(this.state.playing);
       this.play();
 
       // test
@@ -109,8 +132,11 @@ class NoteSound extends React.Component {
     }
 
     // if(!this.props.note){
-    //   this.stopPlaying();
+    //   console.log("no play")
     // }
+
+
+
 
 
 
@@ -127,7 +153,7 @@ class NoteSound extends React.Component {
 
 
       {/* test */}
-      <canvas width="860" height="10" style={{zIndex: 10}} class={canvasClass} id="notesCanvas" ref="notesCanvas"></canvas> 
+      <canvas width="860" height="10" style={{zIndex: 10}} className={canvasClass} id="notesCanvas" ref="notesCanvas"></canvas> 
 
       </React.Fragment>
     );
