@@ -130,6 +130,7 @@ class App extends Component {
     playing: false,
     playheadAt: 0,
     listenToRecorded: false,
+    recordedNotes: [],
   }
 
   /* remove y from this array, not neccessary anymore */
@@ -162,8 +163,13 @@ class App extends Component {
     {code: 16, y: 0, stateName: 'ciss3'}  // 25, 16, shift right, c# (3)
   ]
 
+  recordedNotes = [ { start: 3, note: 'd1' }, { start: 10, note: 'ciss1' }, { start: 12, note: 'c2' } ];
+  // amountOfRecordedNotes = 0;
+
   /* This array holds the notes that are currently pressed down. drawNote-function uses this to know what notes to draw */
-  currentlyPlaying = [];
+  // currentlyPlaying = [];
+
+
 
   componentDidMount() {
     this.keydownEventlistener();
@@ -177,18 +183,18 @@ class App extends Component {
     window.addEventListener('keyup', this.unpressKey);
   }
 
-  listenToRecorded = () => {
-    this.setState({ listenToRecorded: !this.state.listenToRecorded });
+  // listenToRecorded = () => {
+  //   this.setState({ listenToRecorded: !this.state.listenToRecorded });
 
-    // this.setState({ playing: !this.state.playing });
+  //   // this.setState({ playing: !this.state.playing });
 
-    if(!this.state.listenToRecorded){
-      this.playheadInterval2 = setInterval(this.play, 100);
-    }
-    if(this.state.listenToRecorded){
-      clearInterval(this.playheadInterval2);
-    }
-  }
+  //   if(!this.state.listenToRecorded){
+  //     this.playheadInterval2 = setInterval(this.play, 100);
+  //   }
+  //   if(this.state.listenToRecorded){
+  //     clearInterval(this.playheadInterval2);
+  //   }
+  // }
 
 
 
@@ -207,7 +213,32 @@ class App extends Component {
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
     this.setState({ [this.noteState]: true });
 
+    /* TEST: for recording */
+    let noteToRecord = { start: this.state.playheadAt, note: this.noteState };
+    // this.recordedNotes.push(noteToRecord);
 
+    this.setState({ recordedNotes: [...this.state.recordedNotes, noteToRecord] })
+
+
+  }
+
+  /* TEST: for listening to recorded */
+  // listen = () => {
+  //   for(let i = 0; i < this.recordedNotes.length; i++){
+
+  //     if(this.recordedNotes[i].start === this.state.playheadAt){
+  //       this.setState({ [this.recordedNotes[i].note]: true });
+  //     }
+  //   }
+  // }
+
+  listen = () => {
+    for(let i = 0; i < this.state.recordedNotes.length; i++){
+
+      if(this.state.recordedNotes[i].start === this.state.playheadAt){
+        this.setState({ [this.state.recordedNotes[i].note]: true });
+      }
+    }
   }
 
 
@@ -224,9 +255,9 @@ class App extends Component {
     e.preventDefault();
 
     /* removing the unpressed key from array of notes that are currently playing */
-    this.currentlyPlaying = this.currentlyPlaying.filter(function(item) {
-      return item !== e.keyCode;
-    });
+    // this.currentlyPlaying = this.currentlyPlaying.filter(function(item) {
+    //   return item !== e.keyCode;
+    // });
 
     /* key styling is still connected to old states with keycodes: */
     this.setState({ [e.keyCode]: false });
@@ -275,7 +306,8 @@ class App extends Component {
     }
   }
 
-  setPlayPause = () => {
+  startRecording = () => {
+
     this.setState({ playing: !this.state.playing });
 
     if(!this.state.playing){
@@ -284,6 +316,51 @@ class App extends Component {
     if(this.state.playing){
       clearInterval(this.playheadInterval);
     }
+
+  }
+
+  startListening = () => {
+
+    // console.log(this.state.listenToRecorded);
+
+    this.setState({ listenToRecorded: !this.state.listenToRecorded }, () => {
+      if(this.state.listenToRecorded){
+        this.playheadInterval2 = setInterval(this.movePlayhead, 100);
+      }
+      if(!this.state.listenToRecorded){
+        clearInterval(this.playheadInterval2);
+      }
+
+    });
+
+
+
+
+
+  }
+
+
+  // setPlayPause = () => {
+  //   this.setState({ playing: !this.state.playing });
+
+
+  //   /* record-test */
+  //   this.setState({ listenToRecorded: !this.state.listenToRecorded });
+
+
+
+  //   if(!this.state.playing){
+  //     this.playheadInterval = setInterval(this.play, 100);
+  //   }
+  //   if(this.state.playing){
+  //     clearInterval(this.playheadInterval);
+  //   }
+  // }
+
+  movePlayhead = () => {
+    this.setState({ playheadAt: this.state.playheadAt + 1 });
+    this.drawPlayhead(this.state.playheadAt);
+    this.listen();
   }
 
   play = () => {
@@ -347,7 +424,8 @@ class App extends Component {
 
   render() {
 
-    let buttonText = this.state.playing ? 'Pause' : 'Play';
+    let buttonText = this.state.listenToRecorded ? 'Pause' : 'Play';
+
 
 
     return (
@@ -358,39 +436,41 @@ class App extends Component {
         {/* <audio ref="elemC1" src={sound} ></audio>
         <audio ref="elemCiss1" src={sound} ></audio> */}
 
-        <button onClick={this.setPlayPause}>Rec</button>
-        <button onClick={this.listenToRecorded}>{buttonText}</button>
+        
+        <button onClick={this.startRecording}>Rec</button>
+        {/* <button onClick={this.setPlayPause}>Rec</button> */}
+        <button onClick={this.startListening}>{buttonText}</button>
         <button onClick={this.stop}>Stop</button>
 
         <div className="noteCanvas-container" id="container">
       
 
         <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.ciss1} noteName='ciss1' sound={sound2} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.d1} noteName='d1' sound={dWav} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.diss1} noteName='diss1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.e1} noteName='e1' sound={eWav} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.f1} noteName='f1' sound={fWav} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.fiss1} noteName='fiss1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.g1} noteName='g1' sound={gWav} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.giss1} noteName='giss1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.a1} noteName='a1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.b1} noteName='b1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.h1} noteName='h1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.c2} noteName='c2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.ciss2} noteName='ciss2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.d2} noteName='d2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.diss2} noteName='diss2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.e2} noteName='e2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.f2} noteName='f2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.fiss2} noteName='fiss2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.g2} noteName='g2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.giss2} noteName='giss2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.a2} noteName='a2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.b2} noteName='b2'sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.h2} noteName='h2'sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.c3} noteName='c3'sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.ciss3} noteName='ciss3'sound={sound} playheadAt={this.state.playheadAt} />
+        <NoteSound note={this.state.ciss1} noteName='ciss1' sound={sound2} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.d1} noteName='d1' sound={dWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.diss1} noteName='diss1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.e1} noteName='e1' sound={eWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.f1} noteName='f1' sound={fWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.fiss1} noteName='fiss1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.g1} noteName='g1' sound={gWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.giss1} noteName='giss1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.a1} noteName='a1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.b1} noteName='b1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.h1} noteName='h1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.c2} noteName='c2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.ciss2} noteName='ciss2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.d2} noteName='d2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.diss2} noteName='diss2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.e2} noteName='e2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.f2} noteName='f2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.fiss2} noteName='fiss2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.g2} noteName='g2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.giss2} noteName='giss2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.a2} noteName='a2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.b2} noteName='b2'sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.h2} noteName='h2'sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.c3} noteName='c3'sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.ciss3} noteName='ciss3'sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
 
 
         {/* <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} />

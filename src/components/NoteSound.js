@@ -7,10 +7,12 @@ class NoteSound extends React.Component {
     playing: false,
     counter: 0,
     recordingAllowed: true,
+    listenToRecorded: false,
   }
 
 
   recorded = [];
+  counter = 0;
 
   play = () => {
     // let audio = this.refs.audio;
@@ -40,18 +42,29 @@ class NoteSound extends React.Component {
   }
 
   record = () => {
+    /* Only allow to record a note when it's first pressed (= state not yet set to playing), and not constatly while pressed */
     if(!this.state.playing){
-      // setState({ counter: counter + 1});
-      // this.setState({ recordingAllowed: false });
+      this.counter = this.counter + 1;
       let noteObj = this.props.playheadAt;
       this.recorded.push(noteObj);
     }
 
     console.log(this.recorded);
+    console.log(this.counter);
 
   }
 
   listenToRecorded = () => {
+
+    console.log(this.recorded[1]);
+    console.log(this.props.playheadAt);
+    // if(this.recorded.length > 0){
+    //   let currentNote = this.recorded[this.counter];
+    //   if(currentNote === this.props.playheadAt){
+    //     this.setState({ playing: true })
+    //   }
+    // }
+    
 
   }
 
@@ -139,34 +152,37 @@ class NoteSound extends React.Component {
 
   componentWillReceiveProps(){
     this.setState({ playing: this.props.note });
-    // this.setState({ listenToRecorded: this.props.listenToRecorded });
+    this.setState({ listenToRecorded: this.props.listenToRecorded });
   }
 
   render() {
 
     // console.log(this.props.playheadAt);
 
-    if(!this.props.listenToRecorded && this.props.note){
+    // if(!this.props.listenToRecorded && this.props.note){
 
-      // if(this.props.playing && this.props.note){
+      if(this.props.note){
 
-      this.record();
+      // this.record();
 
       // console.log(this.state.playing);
       this.play();
 
       // test
-      this.drawNote();
+      if(!this.props.listenToRecorded){
+        this.drawNote();
+      }
+
+      // this.drawNote();
 
       
     }
 
-    if(this.props.listenToRecorded){
-      this.listenToRecorded();
-    }
 
-    // if(!this.props.note){
-    //   console.log("no play")
+    // if(this.state.listenToRecorded){
+
+    //   this.listenToRecorded();
+
     // }
 
 
