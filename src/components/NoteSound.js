@@ -5,8 +5,12 @@ class NoteSound extends React.Component {
 
   state = {
     playing: false,
+    counter: 0,
+    recordingAllowed: true,
   }
 
+
+  recorded = [];
 
   play = () => {
     // let audio = this.refs.audio;
@@ -17,36 +21,51 @@ class NoteSound extends React.Component {
     this.audio.vol = 1;
     this.audio.play();
 
+
+    /* Start listening for a change of playing-state, so sound can stop if state changes to false */
     this.changeInterval = setInterval(this.listenForStateChange, 200);
     
 
   }
 
-  listenForStateChange = () => {
-      
-        if(!this.state.playing){
-          this.audio.pause();
-          this.audio.currentTime = 0;
-          clearInterval(this.changeInterval);
-        }
+  listenForStateChange = () => {  
+    if(!this.state.playing){
+      this.audio.pause();
+      this.audio.currentTime = 0;
+      clearInterval(this.changeInterval);
 
-  }
-
-  stopSound = () => {
-    let audio = this.refs.audio;
-    audio.pause();
-    audio.currentTime = 0;
-  }
-
-  stopPlaying = () => {
-    console.log("stop!!!");
-
-    // works but cuts abruply:
-    if(this.state.playing){
-      let audio = this.refs.audio;
-      audio.pause();
-      audio.currentTime = 0;
+      /* recordtest */
+      // this.setState({ recordingAllowed: true });
     }
+  }
+
+  record = () => {
+    if(!this.state.playing){
+      // setState({ counter: counter + 1});
+      // this.setState({ recordingAllowed: false });
+      let noteObj = this.props.playheadAt;
+      this.recorded.push(noteObj);
+    }
+
+    console.log(this.recorded);
+
+  }
+
+  // stopSound = () => {
+  //   let audio = this.refs.audio;
+  //   audio.pause();
+  //   audio.currentTime = 0;
+  // }
+
+  // stopPlaying = () => {
+  //   console.log("stop!!!");
+
+  //   // works but cuts abruply:
+  //   if(this.state.playing){
+  //     let audio = this.refs.audio;
+  //     audio.pause();
+  //     audio.currentTime = 0;
+  //   }
 
 
     // if(this.state.playing){
@@ -79,7 +98,7 @@ class NoteSound extends React.Component {
     //       }, interval);
     // }
 
-  }
+  // }
 
 
 
@@ -109,9 +128,9 @@ class NoteSound extends React.Component {
       newNote.fillStyle = "black";
       // newNote.fillRect(this.props.playheadAt, 0, 5, 10);
       newNote.fillRect(this.props.playheadAt, 0, 2, 10);
-
-
   }
+
+
 
 
   componentWillReceiveProps(){
@@ -124,11 +143,15 @@ class NoteSound extends React.Component {
 
     if(this.props.note){
 
+      this.record();
+
       // console.log(this.state.playing);
       this.play();
 
       // test
       this.drawNote();
+
+      
     }
 
     // if(!this.props.note){

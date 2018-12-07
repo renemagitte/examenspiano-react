@@ -131,6 +131,7 @@ class App extends Component {
     playheadAt: 0,
   }
 
+  /* remove y from this array, not neccessary anymore */
   keyY = [
     {code: 65, y: 250, stateName: 'c1'},  // 0, 65, A, c
     {code: 87, y: 240, stateName: 'ciss1'},  // 1, 87, W, c#
@@ -178,7 +179,7 @@ class App extends Component {
   pressKey = (e) => {
     e.preventDefault();
 
-    this.currentlyPlaying.push(e.keyCode);
+    // this.currentlyPlaying.push(e.keyCode);
 
     // utkokmmenterad pga test
     // this.drawNote(e.keyCode);
@@ -297,18 +298,18 @@ class App extends Component {
     });
   }
 
-  drawNote = (code) => {
+  // drawNote = (code) => {
 
-    for(var i = 0; i < this.currentlyPlaying.length; i++){
+  //   for(var i = 0; i < this.currentlyPlaying.length; i++){
 
-      var newNote;
-      var newNote2Y = this.getY(this.currentlyPlaying[i]);
-      newNote = this.refs.notesCanvas.getContext('2d');
-      newNote.fillStyle = "black";
-      newNote.fillRect(this.state.playheadAt, newNote2Y, 5, 10);
+  //     var newNote;
+  //     var newNote2Y = this.getY(this.currentlyPlaying[i]);
+  //     newNote = this.refs.notesCanvas.getContext('2d');
+  //     newNote.fillStyle = "black";
+  //     newNote.fillRect(this.state.playheadAt, newNote2Y, 5, 10);
 
-    }
-  }
+  //   }
+  // }
 
   getY = (code)  => {
     var obj = this.findObjectByKey(this.keyY, 'code', code);
@@ -341,6 +342,7 @@ class App extends Component {
         {/* <audio ref="elemC1" src={sound} ></audio>
         <audio ref="elemCiss1" src={sound} ></audio> */}
 
+        <button onClick={this.setPlayPause}>Rec</button>
         <button onClick={this.setPlayPause}>{buttonText}</button>
         <button onClick={this.stop}>Stop</button>
 
