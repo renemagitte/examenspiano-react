@@ -41,32 +41,32 @@ class NoteSound extends React.Component {
     }
   }
 
-  record = () => {
-    /* Only allow to record a note when it's first pressed (= state not yet set to playing), and not constatly while pressed */
-    if(!this.state.playing){
-      this.counter = this.counter + 1;
-      let noteObj = this.props.playheadAt;
-      this.recorded.push(noteObj);
-    }
+  // record = () => {
+  //   /* Only allow to record a note when it's first pressed (= state not yet set to playing), and not constatly while pressed */
+  //   if(!this.state.playing){
+  //     this.counter = this.counter + 1;
+  //     let noteObj = this.props.playheadAt;
+  //     this.recorded.push(noteObj);
+  //   }
 
-    console.log(this.recorded);
-    console.log(this.counter);
+  //   console.log(this.recorded);
+  //   console.log(this.counter);
 
-  }
+  // }
 
-  listenToRecorded = () => {
+  // listenToRecorded = () => {
 
-    console.log(this.recorded[1]);
-    console.log(this.props.playheadAt);
-    // if(this.recorded.length > 0){
-    //   let currentNote = this.recorded[this.counter];
-    //   if(currentNote === this.props.playheadAt){
-    //     this.setState({ playing: true })
-    //   }
-    // }
+  //   console.log(this.recorded[1]);
+  //   console.log(this.props.playheadAt);
+  //   // if(this.recorded.length > 0){
+  //   //   let currentNote = this.recorded[this.counter];
+  //   //   if(currentNote === this.props.playheadAt){
+  //   //     this.setState({ playing: true })
+  //   //   }
+  //   // }
     
 
-  }
+  // }
 
   // stopSound = () => {
   //   let audio = this.refs.audio;

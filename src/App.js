@@ -16,11 +16,13 @@ import gWav from './sound/g.wav';
 import NoteSound from './components/NoteSound.js';
 
 import VocalsTakeAChance from './sound/takeachancevocals.mp3';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 class App extends Component {
 
   state = {
     c1: false,
+    c1Duration: 0,
     ciss1: false,
     d1: false,
     diss1: false,
@@ -131,6 +133,7 @@ class App extends Component {
     playheadAt: 0,
     listenToRecorded: false,
     recordedNotes: [],
+    recIndex: 0,
   }
 
   /* remove y from this array, not neccessary anymore */
@@ -213,9 +216,18 @@ class App extends Component {
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
     this.setState({ [this.noteState]: true });
 
+    /* TEST: to get note to play out for as long as it should: */
+    this.noteDuration = this.noteState + 'Duration';
+    this.setState({ [this.noteDuration]: this.state[this.noteDuration] +1 });
+
     /* TEST: for recording */
-    let noteToRecord = { start: this.state.playheadAt, note: this.noteState };
-    // this.recordedNotes.push(noteToRecord);
+    // let noteToRecord = { start: this.state.playheadAt, note: this.noteState };
+    let noteToRecord = { start: this.state.playheadAt, duration: this.state[this.noteDuration], note: this.noteState };
+
+
+    console.log(noteToRecord);
+
+    // console.log(this.state.c1Duration)
 
     this.setState({ recordedNotes: [...this.state.recordedNotes, noteToRecord] })
 
@@ -237,9 +249,32 @@ class App extends Component {
 
       if(this.state.recordedNotes[i].start === this.state.playheadAt){
         this.setState({ [this.state.recordedNotes[i].note]: true });
+
+        // let recordTimeout = 'timeout' + i;
+        // currentNote = this.state.recordedNotes[i].note;
+
+        // recordTimeout = setTimeout(function(){ 
+        //   console.log(this.currentNote);
+        //   // this.setState({ [this.state.recordedNotes[i].note]: false });
+        //  }, 500);
+
+        //  this.recordTimeout = setTimeout(this.setFalse.bind(this.state.recordedNotes[i].note), 100);
+
+
+
       }
+
+
+
     }
   }
+
+  setFalse = (note) => {
+    this.setState({ [note]: false })
+  }
+
+
+
 
 
   getStateNameFromKeyCode = (code) => {
@@ -265,6 +300,26 @@ class App extends Component {
     /* for sound: */
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
     this.setState({ [this.noteState]: false });
+
+
+    /* TEST: to get note to play out for as long as it should: */
+    this.noteDuration = this.noteState + 'Duration';
+
+    this.setState({ [this.noteDuration]: 0 });
+
+
+
+
+  
+    /* TEST: for recording */
+    // let noteToRecord = { stop: this.state.playheadAt };
+
+    // let hej = this.state.recordedNotes;
+
+    // console.log(hej);
+
+    // this.setState({ recordedNotes[this.recIndex]: [...this.state.recordedNotes, noteToRecord] })
+
 
   }
 
