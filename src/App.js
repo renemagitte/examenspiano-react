@@ -17,12 +17,13 @@ import NoteSound from './components/NoteSound.js';
 
 import VocalsTakeAChance from './sound/takeachancevocals.mp3';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { isTag } from 'postcss-selector-parser';
 
 class App extends Component {
 
   state = {
     c1: false,
-    c1Duration: 0,
+    c1Duration: [],
     ciss1: false,
     d1: false,
     diss1: false,
@@ -214,22 +215,27 @@ class App extends Component {
 
     /* for sound: */
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
-    this.setState({ [this.noteState]: true });
+    
 
     /* TEST: to get note to play out for as long as it should: */
     this.noteDuration = this.noteState + 'Duration';
-    this.setState({ [this.noteDuration]: this.state[this.noteDuration] +1 });
+    // this.setState({ [this.noteDuration]: this.state[this.noteDuration] +1 });
 
     /* TEST: for recording */
-    // let noteToRecord = { start: this.state.playheadAt, note: this.noteState };
-    let noteToRecord = { start: this.state.playheadAt, duration: this.state[this.noteDuration], note: this.noteState };
+    if(!this.state[this.noteState]){
+      this.setState({ [this.noteDuration]: this.state.playheadAt });
 
 
-    console.log(noteToRecord);
+      /* saving start point, a.k.a. where playhead is right now */
+      // this.noteToRecord = { start: this.state.playheadAt, note: this.noteState };
+      // this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] })
+    }
+    // let noteToRecord = { note: this.noteState, start: this.state.playheadAt, duration: this.state[this.noteDuration],  };
 
-    // console.log(this.state.c1Duration)
 
-    this.setState({ recordedNotes: [...this.state.recordedNotes, noteToRecord] })
+    this.setState({ [this.noteState]: true });
+
+    // this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] })
 
 
   }
@@ -245,33 +251,51 @@ class App extends Component {
   // }
 
   listen = () => {
+    this.counter = 0;
+
     for(let i = 0; i < this.state.recordedNotes.length; i++){
+      // this.counter++
+      // console.log(this.state.recordedNotes[i].duration);
 
-      if(this.state.recordedNotes[i].start === this.state.playheadAt){
-        this.setState({ [this.state.recordedNotes[i].note]: true });
+      // if(this.state.recordedNotes[i].start === this.state.playheadAt){
+      //   this.setState({ [this.state.recordedNotes[i].note]: true });
+      // }
 
-        // let recordTimeout = 'timeout' + i;
-        // currentNote = this.state.recordedNotes[i].note;
-
-        // recordTimeout = setTimeout(function(){ 
-        //   console.log(this.currentNote);
-        //   // this.setState({ [this.state.recordedNotes[i].note]: false });
-        //  }, 500);
-
-        //  this.recordTimeout = setTimeout(this.setFalse.bind(this.state.recordedNotes[i].note), 100);
-
-
-
+      if(this.state.recordedNotes[i][1] === this.state.playheadAt){
+        this.setState({ [this.state.recordedNotes[i][0]]: true });
       }
+
+      if(this.state.recordedNotes[i][2] === this.state.playheadAt){
+        this.setState({ [this.state.recordedNotes[i][0]]: false });
+      }
+
+      // if(this.state.recordedNotes[i].start < this.state.playheadAt){
+      //   this.setState({ [this.state.recordedNotes[i].note]: false });
+      // }
+
+      // if(this.state.recordedNotes[i].duration === this.state.playheadAt){
+      //   this.setState({ [this.state.recordedNotes[i].note]: false });
+      // }
+
+      console.log(this.recordedNotes);
+
+
+
+
+
+      // if(counter > this.state.recordedNotes[i].duration){
+      //   this.setState({ [this.state.recordedNotes[i].note]: false });
+      // }
 
 
 
     }
   }
 
-  setFalse = (note) => {
-    this.setState({ [note]: false })
-  }
+  // setFalse = (note) => {
+  //   console.log(note)
+  //   // this.setState({ [note]: false })
+  // }
 
 
 
@@ -305,7 +329,28 @@ class App extends Component {
     /* TEST: to get note to play out for as long as it should: */
     this.noteDuration = this.noteState + 'Duration';
 
-    this.setState({ [this.noteDuration]: 0 });
+    
+    // this.setState({ [this.noteDuration]: 0 });
+
+    this.noteToRecord = [this.noteState, this.state[this.noteDuration], this.state.playheadAt]
+
+    console.log(this.noteToRecord);
+    
+
+    // this.setState({ [this.noteDuration]: this.noteToRecord })
+
+    this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] })
+
+    // this.setState({ [this.noteDuration]: [...this.state[this.noteDuration], this.state.playheadAt] })
+
+    console.log( this.state.recordedNotes);
+
+
+    // var obj = this.findObjectByKeyBackwards(this.state.recordedNotes, 'note', this.noteState);
+    // if(this.obj != null){
+    //   console.log(this.obj);
+    // }
+    
 
 
 
@@ -470,6 +515,15 @@ class App extends Component {
   /* takes an array of obejcts and a value, and returns the object where the key is the same as the value that's sent in */
   findObjectByKey = (array, key, value) => {
     for (var i = 0; i < array.length; i++) {
+        if (array[i][key] === value) {
+            return array[i];
+        }
+    }
+    return null;
+  }
+
+  findObjectByKeyBackwards = (array, key, value) => {
+    for (var i = array.length; i > 0; i--) {
         if (array[i][key] === value) {
             return array[i];
         }
