@@ -16,39 +16,64 @@ import gWav from './sound/g.wav';
 import NoteSound from './components/NoteSound.js';
 
 import VocalsTakeAChance from './sound/takeachancevocals.mp3';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { isTag } from 'postcss-selector-parser';
+// import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+// import { isTag } from 'postcss-selector-parser';
 
 class App extends Component {
 
   state = {
     c1: false,
-    c1Duration: [],
+    c1Data: [],
     ciss1: false,
+    ciss1Data: [],
     d1: false,
+    d1Data: [],
     diss1: false,
+    diss1Data: [],
     e1: false,
+    e1Data: [],
     f1: false,
+    f1Data: [],
     fiss1: false,
+    fiss1Data: [],
     g1: false,
+    g1Data: [],
     giss1: false,
+    giss1Data: [],
     a1: false,
+    a1Data: [],
     b1: false,
+    b1Data: [],
     h1: false,
+    h1Data: [],
     c2: false,
+    c2Data: [],
     ciss2: false,
+    ciss2Data: [],
     d2: false,
+    d2Data: [],
     diss2: false,
+    diss2Data: [],
     e2: false,
+    e2Data: [],
     f2: false,
+    f2Data: [],
     fiss2: false,
+    fiss2Data: [],
     g2: false,
+    g2Data: [],
     giss2: false,
+    giss2Data: [],
     a2: false,
+    a2Data: [],
     b2: false,
+    b2Data: [],
     h2: false,
+    h2Data: [],
     c3: false,
+    c3Data: [],
     ciss3: false,
+    ciss3Data: [],
     // c1_playing: false,
     // c1_keycode: 65,
     // ciss1_playing: false,
@@ -218,19 +243,19 @@ class App extends Component {
     
 
     /* TEST: to get note to play out for as long as it should: */
-    this.noteDuration = this.noteState + 'Duration';
-    // this.setState({ [this.noteDuration]: this.state[this.noteDuration] +1 });
+    this.noteData = this.noteState + 'Data';
+    // this.setState({ [this.noteData]: this.state[this.noteData] +1 });
 
     /* TEST: for recording */
     if(!this.state[this.noteState]){
-      this.setState({ [this.noteDuration]: this.state.playheadAt });
+      this.setState({ [this.noteData]: this.state.playheadAt });
 
 
       /* saving start point, a.k.a. where playhead is right now */
       // this.noteToRecord = { start: this.state.playheadAt, note: this.noteState };
       // this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] })
     }
-    // let noteToRecord = { note: this.noteState, start: this.state.playheadAt, duration: this.state[this.noteDuration],  };
+    // let noteToRecord = { note: this.noteState, start: this.state.playheadAt, Data: this.state[this.noteData],  };
 
 
     this.setState({ [this.noteState]: true });
@@ -255,11 +280,17 @@ class App extends Component {
 
     for(let i = 0; i < this.state.recordedNotes.length; i++){
       // this.counter++
-      // console.log(this.state.recordedNotes[i].duration);
+      // console.log(this.state.recordedNotes[i].Data);
 
       // if(this.state.recordedNotes[i].start === this.state.playheadAt){
       //   this.setState({ [this.state.recordedNotes[i].note]: true });
       // }
+
+      /**
+       * recordedNotes[i][0] = notename
+       * recordedNotes[i][1] = note should start playing when playhead is at...
+       * recordedNotes[i][2] = note should stop playing when playhead is at...
+       */
 
       if(this.state.recordedNotes[i][1] === this.state.playheadAt){
         this.setState({ [this.state.recordedNotes[i][0]]: true });
@@ -273,7 +304,7 @@ class App extends Component {
       //   this.setState({ [this.state.recordedNotes[i].note]: false });
       // }
 
-      // if(this.state.recordedNotes[i].duration === this.state.playheadAt){
+      // if(this.state.recordedNotes[i].Data === this.state.playheadAt){
       //   this.setState({ [this.state.recordedNotes[i].note]: false });
       // }
 
@@ -283,7 +314,7 @@ class App extends Component {
 
 
 
-      // if(counter > this.state.recordedNotes[i].duration){
+      // if(counter > this.state.recordedNotes[i].Data){
       //   this.setState({ [this.state.recordedNotes[i].note]: false });
       // }
 
@@ -327,21 +358,21 @@ class App extends Component {
 
 
     /* TEST: to get note to play out for as long as it should: */
-    this.noteDuration = this.noteState + 'Duration';
+    this.noteData = this.noteState + 'Data';
 
     
-    // this.setState({ [this.noteDuration]: 0 });
+    // this.setState({ [this.noteData]: 0 });
 
-    this.noteToRecord = [this.noteState, this.state[this.noteDuration], this.state.playheadAt]
+    this.noteToRecord = [this.noteState, this.state[this.noteData], this.state.playheadAt]
 
     console.log(this.noteToRecord);
     
 
-    // this.setState({ [this.noteDuration]: this.noteToRecord })
+    // this.setState({ [this.noteData]: this.noteToRecord })
 
     this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] })
 
-    // this.setState({ [this.noteDuration]: [...this.state[this.noteDuration], this.state.playheadAt] })
+    // this.setState({ [this.noteData]: [...this.state[this.noteData], this.state.playheadAt] })
 
     console.log( this.state.recordedNotes);
 
