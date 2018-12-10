@@ -15,6 +15,33 @@ import fWav from './sound/f.wav';
 import gWav from './sound/g.wav';
 import NoteSound from './components/NoteSound.js';
 
+import c1Audio from './sound/c1.mp3';
+import ciss1Audio from './sound/ciss1.mp3';
+import d1Audio from './sound/d1.mp3';
+import diss1Audio from './sound/diss1.mp3';
+import e1Audio from './sound/e1.mp3';
+import f1Audio from './sound/f1.mp3';
+import fiss1Audio from './sound/fiss1.mp3';
+import g1Audio from './sound/g1.mp3';
+import giss1Audio from './sound/giss1.mp3';
+import a1Audio from './sound/a1.mp3';
+import b1Audio from './sound/b1.mp3';
+import h1Audio from './sound/h1.mp3';
+import c2Audio from './sound/c2.mp3';
+import ciss2Audio from './sound/ciss2.mp3';
+import d2Audio from './sound/d2.mp3';
+import diss2Audio from './sound/diss2.mp3';
+import e2Audio from './sound/e2.mp3';
+import f2Audio from './sound/f2.mp3';
+import fiss2Audio from './sound/fiss2.mp3';
+import g2Audio from './sound/g2.mp3';
+import giss2Audio from './sound/giss2.mp3';
+import a2Audio from './sound/a2.mp3';
+import b2Audio from './sound/b2.mp3';
+import h2Audio from './sound/h2.mp3';
+import c3Audio from './sound/c3.mp3';
+import ciss3Audio from './sound/ciss3.mp3';
+
 import VocalsTakeAChance from './sound/takeachancevocals.mp3';
 // import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 // import { isTag } from 'postcss-selector-parser';
@@ -74,58 +101,7 @@ class App extends Component {
     c3Data: [],
     ciss3: false,
     ciss3Data: [],
-    // c1_playing: false,
-    // c1_keycode: 65,
-    // ciss1_playing: false,
-    // ciss1_keycode: 87,
-    // d1_playing: false,
-    // d1_keycode: 83,
-    // diss1_playing: false,
-    // diss1_keycode: 69,
-    // e1_playing: false,
-    // e1_keycode: 68,
-    // f1_playing: false,
-    // f1_keycode: 70,
-    // fiss1_playing: false,
-    // fiss1_keycode: 84,
-    // g1_playing: false,
-    // g1_keycode: 71,
-    // giss1_playing: false,
-    // giss1_keykode: 89,
-    // a1_playing: false,
-    // a1_keycode: 72,
-    // b1_playing: false,
-    // b1_keycode: 85,
-    // h1_playing: false,
-    // h1_keycode: 74,
-    // c2_playing: false,
-    // c2_keycode: 75,
-    // ciss2_playing: false,
-    // ciss2_keycode: 79,
-    // d2_playing: false,
-    // d2_keycode: 76,
-    // diss2_playing: false,
-    // diss2_keycode: 80,
-    // e2_playing: false,
-    // e2_keycode: 186,
-    // f2_playing: false,
-    // f2_keycode: 222,
-    // fiss2_playing: false,
-    // fiss2_keycode: 221,
-    // g2_playing: false,
-    // g2_keycode: 13,
-    // giss2_playing: false,
-    // giss2_keycode: 188,
-    // a2_playing: false,
-    // a2_keycode: 93,
-    // b2_playing: false,
-    // b2_keycode: 190,
-    // h2_playing: false,
-    // h2_keycode: 18,
-    // c3_playing: false,
-    // c3_keycode: 189,
-    // ciss3_playing: false,
-    // ciss3_keycode: 16,
+
 
 
     65: false,  // 0, 65, A, c
@@ -585,32 +561,32 @@ class App extends Component {
         <div className="noteCanvas-container" id="container">
       
 
-        <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.ciss1} noteName='ciss1' sound={sound2} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.d1} noteName='d1' sound={dWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.diss1} noteName='diss1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.e1} noteName='e1' sound={eWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.f1} noteName='f1' sound={fWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.fiss1} noteName='fiss1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.g1} noteName='g1' sound={gWav} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.giss1} noteName='giss1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.a1} noteName='a1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.b1} noteName='b1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.h1} noteName='h1' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.c2} noteName='c2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.ciss2} noteName='ciss2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.d2} noteName='d2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.diss2} noteName='diss2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.e2} noteName='e2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.f2} noteName='f2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.fiss2} noteName='fiss2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.g2} noteName='g2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.giss2} noteName='giss2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.a2} noteName='a2' sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.b2} noteName='b2'sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.h2} noteName='h2'sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.c3} noteName='c3'sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-        <NoteSound note={this.state.ciss3} noteName='ciss3'sound={sound} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.c1} noteName='c1' code='65'sound={c1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.ciss1} noteName='ciss1' sound={ciss1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.d1} noteName='d1' sound={d1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.diss1} noteName='diss1' sound={diss1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.e1} noteName='e1' sound={e1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.f1} noteName='f1' sound={f1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.fiss1} noteName='fiss1' sound={fiss1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.g1} noteName='g1' sound={g1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.giss1} noteName='giss1' sound={giss1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.a1} noteName='a1' sound={a1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.b1} noteName='b1' sound={b1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.h1} noteName='h1' sound={h1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.c2} noteName='c2' sound={c2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.ciss2} noteName='ciss2' sound={ciss2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.d2} noteName='d2' sound={d2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.diss2} noteName='diss2' sound={diss2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.e2} noteName='e2' sound={e2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.f2} noteName='f2' sound={f2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.fiss2} noteName='fiss2' sound={fiss2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.g2} noteName='g2' sound={g2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.giss2} noteName='giss2' sound={giss2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.a2} noteName='a2' sound={a2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.b2} noteName='b2'sound={b2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.h2} noteName='h2'sound={h2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.c3} noteName='c3'sound={c3Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+        <NoteSound note={this.state.ciss3} noteName='ciss3'sound={ciss3Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
 
 
         {/* <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} />
