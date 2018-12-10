@@ -47,6 +47,10 @@ class App extends Component {
     listenToRecorded: false,
     recordedNotes: [],
 
+    /* test */
+    recBlock1: [],
+    recBlock2: [],
+
     c1: false,
     c1Data: [],
     ciss1: false,
@@ -209,14 +213,36 @@ class App extends Component {
      * this.state.recordedNotes[i][2] = note should stop playing when playhead is at...
      */
 
-    for(let i = 0; i < this.state.recordedNotes.length; i++){
+    // for(let i = 0; i < this.state.recordedNotes.length; i++){
 
-      if(this.state.recordedNotes[i][1] === this.state.playheadAt){
-        this.setState({ [this.state.recordedNotes[i][0]]: true });
+    //   if(this.state.recordedNotes[i][1] === this.state.playheadAt){
+    //     this.setState({ [this.state.recordedNotes[i][0]]: true });
+    //   }
+
+    //   if(this.state.recordedNotes[i][2] === this.state.playheadAt){
+    //     this.setState({ [this.state.recordedNotes[i][0]]: false });
+    //   }
+
+    // }
+
+    /* test with recording blocks */
+    if(this.state.playheadAt < 100){
+      for(let i = 0; i < this.state.recBlock1.length; i++){
+        if(this.state.recBlock1[i][1] === this.state.playheadAt){
+          this.setState({ [this.state.recBlock1[i][0]]: true });
+        }
+        if(this.state.recBlock1[i][2] === this.state.playheadAt){
+          this.setState({ [this.state.recBlock1[i][0]]: false });
+        }
       }
-
-      if(this.state.recordedNotes[i][2] === this.state.playheadAt){
-        this.setState({ [this.state.recordedNotes[i][0]]: false });
+    }else if(this.state.playheadAt < 200){
+      for(let i = 0; i < this.state.recBlock2.length; i++){
+        if(this.state.recBlock2[i][1] === this.state.playheadAt){
+          this.setState({ [this.state.recBlock1[i][0]]: true });
+        }
+        if(this.state.recBlock2[i][2] === this.state.playheadAt){
+          this.setState({ [this.state.recBlock2[i][0]]: false });
+        }
       }
 
     }
@@ -259,10 +285,17 @@ class App extends Component {
     this.noteToRecord = [this.noteState, this.state[this.noteData], this.state.playheadAt]
 
     /* Adding the noteData-array to array in recordedNotes-state */
-    this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] })
+    // this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] });
+
+    /* test with recording blocks */
+    if(this.state.playheadAt < 100){
+      this.setState({ recBlock1: [...this.state.recBlock1, this.noteToRecord] });
+    }else if(this.state.playheadAt < 200){
+      this.setState({ recBlock2: [...this.state.recBlock2, this.noteToRecord] });
+    }
 
 
-    console.log( this.state.recordedNotes);
+    // console.log( this.state.recordedNotes);
 
   }
 
@@ -345,6 +378,9 @@ class App extends Component {
   }
 
   drawPlayhead(x) {
+
+    console.log(this.state.playheadAt);
+
     const c = this.refs.playheadCanvas.getContext('2d');
 
     /* Clear canvas */
