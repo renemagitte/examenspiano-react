@@ -6,13 +6,7 @@ import Key from './components/Key.js';
 // import NoteCanvas from './components/NoteCanvas.js';
 // import Playhead from './components/Playhead.js';
 
-import sound from './wav.wav';
-import sound2 from './wav2.wav';
-import cWav from './sound/c.wav';
-import dWav from './sound/d.wav';
-import eWav from './sound/e.wav';
-import fWav from './sound/f.wav';
-import gWav from './sound/g.wav';
+
 import NoteSound from './components/NoteSound.js';
 
 import c1Audio from './sound/c1.mp3';
@@ -43,12 +37,17 @@ import c3Audio from './sound/c3.mp3';
 import ciss3Audio from './sound/ciss3.mp3';
 
 import VocalsTakeAChance from './sound/takeachancevocals.mp3';
-// import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-// import { isTag } from 'postcss-selector-parser';
+
 
 class App extends Component {
 
   state = {
+    playing: false, //change name to recording - less confusing
+    playheadAt: 0,
+    listenToRecorded: false,
+    recordedNotes: [],
+    // recIndex: 0,
+
     c1: false,
     c1Data: [],
     ciss1: false,
@@ -103,7 +102,7 @@ class App extends Component {
     ciss3Data: [],
 
 
-
+    /* These are connected to key styling only, not sound. Make styling depending on state above too, instead */
     65: false,  // 0, 65, A, c
     87: false,  // 1, 87, W, c#
     83: false,  // 2, 83, S, d
@@ -131,49 +130,38 @@ class App extends Component {
     189: false, // 24, 189, -, c (3)
     16: false,  // 25, 16, shift right, c# (3)
 
-    playing: false,
-    playheadAt: 0,
-    listenToRecorded: false,
-    recordedNotes: [],
-    recIndex: 0,
+
   }
 
-  /* remove y from this array, not neccessary anymore */
+  /* This name  (keyY) is not accurate anymore. Change name! */
   keyY = [
-    {code: 65, y: 250, stateName: 'c1'},  // 0, 65, A, c
-    {code: 87, y: 240, stateName: 'ciss1'},  // 1, 87, W, c#
-    {code: 83, y: 230, stateName: 'd1'},  // 2, 83, S, d
-    {code: 69, y: 220, stateName: 'diss1'},  // 3, 69, S, d#
-    {code: 68, y: 210, stateName: 'e1'},  // 4, 68, D, e
-    {code: 70, y: 200, stateName: 'f1'},  // 5, 70, F, f
-    {code: 84, y: 190, stateName: 'fiss1'},  // 6, 84, T, f#
-    {code: 71, y: 180, stateName: 'g1'},  // 7, 71, T, g
-    {code: 89, y: 170, stateName: 'giss1'},  // 8, 89, Y, g#
-    {code: 72, y: 160, stateName: 'a1'},  // 9, 72, H, a
-    {code: 85, y: 150, stateName: 'b1'},  // 10, 85, U, b / a#
-    {code: 74, y: 140, stateName: 'h1'},  // 11, 74, J, h
-    {code: 75, y: 130, stateName: 'c2'},  // 12, 75, K, c (2)
-    {code: 79, y: 120, stateName: 'ciss2'},  // 13, 79, O, c# (2)
-    {code: 76, y: 110, stateName: 'd2'},  // 14, 78, L, d (2)
-    {code: 80, y: 100, stateName: 'diss2'},  // 15, 80, P, d# (2)
-    {code: 186, y: 90, stateName: 'e2'}, // 16, 186, Ö, e (2)
-    {code: 222, y: 80, stateName: 'f2'}, // 17, 222, Ä, f (2)
-    {code: 221, y: 70, stateName: 'fiss2'}, // 18, 221, ^, f# (2)
-    {code: 13, y: 60, stateName: 'g2'},  // 19, 13, enter, g (2)
-    {code: 188, y: 50, stateName: 'giss2'}, // 20, 188, ,, g# (2)
-    {code: 93, y: 40, stateName: 'a2'},  // 21, 93, cmd right, a (2)
-    {code: 190, y: 30, stateName: 'b2'}, // 22, 190, ., b / a# (2)
-    {code: 18, y: 20, stateName: 'h2'},  // 23,18, alt right :--( , h (2)
-    {code: 189, y: 10, stateName: 'c3'}, // 24, 189, -, c (3)
-    {code: 16, y: 0, stateName: 'ciss3'}  // 25, 16, shift right, c# (3)
+    {code: 65, stateName: 'c1'},  // 0, 65, A, c
+    {code: 87, stateName: 'ciss1'},  // 1, 87, W, c#
+    {code: 83, stateName: 'd1'},  // 2, 83, S, d
+    {code: 69, stateName: 'diss1'},  // 3, 69, S, d#
+    {code: 68, stateName: 'e1'},  // 4, 68, D, e
+    {code: 70, stateName: 'f1'},  // 5, 70, F, f
+    {code: 84, stateName: 'fiss1'},  // 6, 84, T, f#
+    {code: 71, stateName: 'g1'},  // 7, 71, T, g
+    {code: 89, stateName: 'giss1'},  // 8, 89, Y, g#
+    {code: 72, stateName: 'a1'},  // 9, 72, H, a
+    {code: 85, stateName: 'b1'},  // 10, 85, U, b / a#
+    {code: 74, stateName: 'h1'},  // 11, 74, J, h
+    {code: 75, stateName: 'c2'},  // 12, 75, K, c (2)
+    {code: 79, stateName: 'ciss2'},  // 13, 79, O, c# (2)
+    {code: 76, stateName: 'd2'},  // 14, 78, L, d (2)
+    {code: 80, stateName: 'diss2'},  // 15, 80, P, d# (2)
+    {code: 186, stateName: 'e2'}, // 16, 186, Ö, e (2)
+    {code: 222, stateName: 'f2'}, // 17, 222, Ä, f (2)
+    {code: 221, stateName: 'fiss2'}, // 18, 221, ^, f# (2)
+    {code: 13, stateName: 'g2'},  // 19, 13, enter, g (2)
+    {code: 188, stateName: 'giss2'}, // 20, 188, ,, g# (2)
+    {code: 93, stateName: 'a2'},  // 21, 93, cmd right, a (2)
+    {code: 190, stateName: 'b2'}, // 22, 190, ., b / a# (2)
+    {code: 18, stateName: 'h2'},  // 23,18, alt right :--( , h (2)
+    {code: 189, stateName: 'c3'}, // 24, 189, -, c (3)
+    {code: 16, stateName: 'ciss3'}  // 25, 16, shift right, c# (3)
   ]
-
-  recordedNotes = [ { start: 3, note: 'd1' }, { start: 10, note: 'ciss1' }, { start: 12, note: 'c2' } ];
-  // amountOfRecordedNotes = 0;
-
-  /* This array holds the notes that are currently pressed down. drawNote-function uses this to know what notes to draw */
-  // currentlyPlaying = [];
-
 
 
   componentDidMount() {
@@ -188,56 +176,28 @@ class App extends Component {
     window.addEventListener('keyup', this.unpressKey);
   }
 
-  // listenToRecorded = () => {
-  //   this.setState({ listenToRecorded: !this.state.listenToRecorded });
-
-  //   // this.setState({ playing: !this.state.playing });
-
-  //   if(!this.state.listenToRecorded){
-  //     this.playheadInterval2 = setInterval(this.play, 100);
-  //   }
-  //   if(this.state.listenToRecorded){
-  //     clearInterval(this.playheadInterval2);
-  //   }
-  // }
 
 
 
   pressKey = (e) => {
     e.preventDefault();
 
-    // this.currentlyPlaying.push(e.keyCode);
-
-    // utkokmmenterad pga test
-    // this.drawNote(e.keyCode);
-
-    /* key styling is still connected to old states with keycodes: */
+    /* key styling is still connected to old states with keycodes: (to be changed) */
     this.setState({ [e.keyCode]: true });
 
-    /* for sound: */
+    /* "Translate" from keyCode to name of note (noteState) */
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
-    
 
-    /* TEST: to get note to play out for as long as it should: */
+    /* Generate data state where length of pressed down note is stored */
     this.noteData = this.noteState + 'Data';
-    // this.setState({ [this.noteData]: this.state[this.noteData] +1 });
 
-    /* TEST: for recording */
+    /* If the noteState is not true (yet!) save starting point for note (a.k.a. where playhead is at the moment ) */
     if(!this.state[this.noteState]){
       this.setState({ [this.noteData]: this.state.playheadAt });
-
-
-      /* saving start point, a.k.a. where playhead is right now */
-      // this.noteToRecord = { start: this.state.playheadAt, note: this.noteState };
-      // this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] })
     }
-    // let noteToRecord = { note: this.noteState, start: this.state.playheadAt, Data: this.state[this.noteData],  };
 
-
+    /* Set noteState to true - it is playing */
     this.setState({ [this.noteState]: true });
-
-    // this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] })
-
 
   }
 
@@ -284,7 +244,7 @@ class App extends Component {
       //   this.setState({ [this.state.recordedNotes[i].note]: false });
       // }
 
-      console.log(this.recordedNotes);
+      // console.log(this.recordedNotes);
 
 
 
@@ -353,24 +313,6 @@ class App extends Component {
     console.log( this.state.recordedNotes);
 
 
-    // var obj = this.findObjectByKeyBackwards(this.state.recordedNotes, 'note', this.noteState);
-    // if(this.obj != null){
-    //   console.log(this.obj);
-    // }
-    
-
-
-
-
-  
-    /* TEST: for recording */
-    // let noteToRecord = { stop: this.state.playheadAt };
-
-    // let hej = this.state.recordedNotes;
-
-    // console.log(hej);
-
-    // this.setState({ recordedNotes[this.recIndex]: [...this.state.recordedNotes, noteToRecord] })
 
 
   }
