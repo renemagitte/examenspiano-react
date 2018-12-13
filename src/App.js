@@ -480,8 +480,8 @@ class App extends Component {
 
 
 
-          <canvas width="860" height="260" style={{zIndex: 11}} className="playheadCanvas" id="playheadCanvas" ref="playheadCanvas"></canvas>
-
+          {/* <canvas width="860" height="260" style={{zIndex: 11}} className="playheadCanvas" id="playheadCanvas" ref="playheadCanvas"></canvas> */}
+          <canvas width="860" height="132" style={{zIndex: 11}} className="playheadCanvas" id="playheadCanvas" ref="playheadCanvas"></canvas>
 
         </div>
 
