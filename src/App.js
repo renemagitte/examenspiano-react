@@ -404,9 +404,14 @@ class App extends Component {
 
   stop = () => {
     clearInterval(this.playheadInterval);
-    this.setState({ playing: !this.state.playing, playheadAt: 0 }, () => {
+    clearInterval(this.playheadInterval2);
+
+    // this.setState({ playing: !this.state.playing, playheadAt: 0 }, () => {
+    this.setState({ playing: false, listenToRecorded: false, playheadAt: 0 }, () => {
       this.drawPlayhead(this.state.playheadAt);
     });
+
+
   }
 
 
@@ -488,7 +493,7 @@ class App extends Component {
           <button className="button" onClick={this.startRecording}>●	REC</button>
           <button className="button" onClick={this.startListening}>{buttonText}</button>
           <button className="button" onClick={this.stop}>■ Stop</button>
-          
+
           <div className="keys">
             { this.buildKeyboard() }
           </div> 
