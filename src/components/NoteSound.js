@@ -67,7 +67,8 @@ class NoteSound extends React.Component {
         <audio ref="audio" src={this.props.sound} ></audio>
 
         {/* Note's canvas element */}
-        <canvas width="860" height="10" style={{zIndex: 10}} className={canvasClass} id="notesCanvas" ref="notesCanvas"></canvas> 
+        {/* <canvas width="780" height="10" style={{zIndex: 10}} className={canvasClass} id="notesCanvas" ref="notesCanvas"></canvas> */}
+        <canvas width="780" height="5" style={{zIndex: 10}} className={canvasClass} id="notesCanvas" ref="notesCanvas"></canvas>  
 
       </React.Fragment>
     );

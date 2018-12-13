@@ -36,7 +36,8 @@ import h2Audio from './sound/h2.mp3';
 import c3Audio from './sound/c3.mp3';
 import ciss3Audio from './sound/ciss3.mp3';
 
-import VocalsTakeAChance from './sound/takeachancevocals.mp3';
+// import VocalsTakeAChance from './sound/takeachancevocals.mp3';
+import beat from './sound/testbeat.mp3';
 
 
 class App extends Component {
@@ -50,6 +51,7 @@ class App extends Component {
     /* test */
     recBlock1: [],
     recBlock2: [],
+    recBlock3: [],
 
     c1: false,
     c1Data: [],
@@ -214,18 +216,15 @@ class App extends Component {
      */
 
     // for(let i = 0; i < this.state.recordedNotes.length; i++){
-
     //   if(this.state.recordedNotes[i][1] === this.state.playheadAt){
     //     this.setState({ [this.state.recordedNotes[i][0]]: true });
     //   }
-
     //   if(this.state.recordedNotes[i][2] === this.state.playheadAt){
     //     this.setState({ [this.state.recordedNotes[i][0]]: false });
     //   }
-
     // }
 
-    /* test with recording blocks */
+    /* test with recording blocks to avoid looping over too many note objects when listening to recoded */
     if(this.state.playheadAt < 100){
       for(let i = 0; i < this.state.recBlock1.length; i++){
         if(this.state.recBlock1[i][1] === this.state.playheadAt){
@@ -238,13 +237,21 @@ class App extends Component {
     }else if(this.state.playheadAt < 200){
       for(let i = 0; i < this.state.recBlock2.length; i++){
         if(this.state.recBlock2[i][1] === this.state.playheadAt){
-          this.setState({ [this.state.recBlock1[i][0]]: true });
+          this.setState({ [this.state.recBlock2[i][0]]: true });
         }
         if(this.state.recBlock2[i][2] === this.state.playheadAt){
           this.setState({ [this.state.recBlock2[i][0]]: false });
         }
       }
-
+    }else if(this.state.playheadAt < 200){
+      for(let i = 0; i < this.state.recBlock3.length; i++){
+        if(this.state.recBlock3[i][1] === this.state.playheadAt){
+          this.setState({ [this.state.recBlock3[i][0]]: true });
+        }
+        if(this.state.recBlock3[i][2] === this.state.playheadAt){
+          this.setState({ [this.state.recBlock3[i][0]]: false });
+        }
+      }
     }
 
   }
@@ -292,6 +299,8 @@ class App extends Component {
       this.setState({ recBlock1: [...this.state.recBlock1, this.noteToRecord] });
     }else if(this.state.playheadAt < 200){
       this.setState({ recBlock2: [...this.state.recBlock2, this.noteToRecord] });
+    }else if(this.state.playheadAt < 300){
+      this.setState({ recBlock3: [...this.state.recBlock3, this.noteToRecord] });
     }
 
 
@@ -379,8 +388,6 @@ class App extends Component {
 
   drawPlayhead(x) {
 
-    console.log(this.state.playheadAt);
-
     const c = this.refs.playheadCanvas.getContext('2d');
 
     /* Clear canvas */
@@ -425,16 +432,16 @@ class App extends Component {
 
   render() {
 
-    let buttonText = this.state.listenToRecorded ? 'Pause' : 'Play';
+    let buttonText = this.state.listenToRecorded ? '❚❚ Pause' : '▶ Play';
 
     return (
 
       <React.Fragment>
 
         
-        <button onClick={this.startRecording}>Rec</button>
-        <button onClick={this.startListening}>{buttonText}</button>
-        <button onClick={this.stop}>Stop</button>
+        {/* <button className="button" onClick={this.startRecording}>●	REC</button>
+        <button className="button" onClick={this.startListening}>{buttonText}</button>
+        <button className="button" onClick={this.stop}>■ Stop</button> */}
 
         <div className="noteCanvas-container" id="container">
       
@@ -478,12 +485,16 @@ class App extends Component {
         
 
         <div id="piano">
+          <button className="button" onClick={this.startRecording}>●	REC</button>
+          <button className="button" onClick={this.startListening}>{buttonText}</button>
+          <button className="button" onClick={this.stop}>■ Stop</button>
+          
           <div className="keys">
             { this.buildKeyboard() }
           </div> 
         </div>
 
-        <audio controls ref="elemCiss1" src={VocalsTakeAChance} loop="true"></audio>
+        {/* <audio controls src={beat} loop="true"></audio> */}
 
       </React.Fragment>
 
