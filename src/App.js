@@ -8,6 +8,7 @@ import Key from './components/Key.js';
 
 
 import NoteSound from './components/NoteSound.js';
+import Loop from './components/Loop.js';
 
 import c1Audio from './sound/c1.mp3';
 import ciss1Audio from './sound/ciss1.mp3';
@@ -439,14 +440,23 @@ class App extends Component {
 
     let buttonText = this.state.listenToRecorded ? '❚❚ Pause' : '▶ Play';
 
+    let time =  Math.floor (this.state.playheadAt / 10);
+    let ms = Math.floor (this.state.playheadAt);
+
     return (
 
       <React.Fragment>
 
+        <div className="synth-container">
+
+       00:{ time }:{ms}
+
         
-        {/* <button className="button" onClick={this.startRecording}>●	REC</button>
+        <button className="button" onClick={this.startRecording}>●	REC</button>
         <button className="button" onClick={this.startListening}>{buttonText}</button>
-        <button className="button" onClick={this.stop}>■ Stop</button> */}
+        <button className="button" onClick={this.stop}>■ Stop</button>
+
+        <Loop sound={beat} playheadAt={this.state.playheadAt} />
 
         <div className="noteCanvas-container" id="container">
       
@@ -490,9 +500,9 @@ class App extends Component {
         
 
         <div id="piano">
-          <button className="button" onClick={this.startRecording}>●	REC</button>
+          {/* <button className="button" onClick={this.startRecording}>●	REC</button>
           <button className="button" onClick={this.startListening}>{buttonText}</button>
-          <button className="button" onClick={this.stop}>■ Stop</button>
+          <button className="button" onClick={this.stop}>■ Stop</button> */}
 
           <div className="keys">
             { this.buildKeyboard() }
@@ -500,6 +510,8 @@ class App extends Component {
         </div>
 
         {/* <audio controls src={beat} loop="true"></audio> */}
+
+        </div>
 
       </React.Fragment>
 
