@@ -33,7 +33,7 @@ class NoteSound extends React.Component {
       var newNote;
       newNote = this.refs.notesCanvas.getContext('2d');
       newNote.fillStyle = "black";
-      newNote.fillRect(this.props.playheadAt, 0, 2, 10);
+      newNote.fillRect(this.props.playheadAt, 0, 1, 10);
   }
 
 

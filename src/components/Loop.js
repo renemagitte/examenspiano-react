@@ -70,10 +70,10 @@ playLoop = (abuffer) => {
 
       <React.Fragment>
 
-        <button onClick={this.loop}>Play loop</button>
+        <button className="loop-button" onClick={this.loop}>↻</button>
 
         {/* Loop's audio element */}
-        <audio ref="audio" src={this.props.sound} ></audio> 
+        <audio ref="audio" src={this.props.sound}></audio> 
 
       </React.Fragment>
     );
