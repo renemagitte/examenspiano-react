@@ -503,7 +503,7 @@ class App extends Component {
           
         </div>
 
-          <div className="synthTitle">En synth</div>
+          <div className="synth-title">Synth 1.0</div>
 
 
 
