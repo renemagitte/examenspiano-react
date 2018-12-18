@@ -481,7 +481,8 @@ class App extends Component {
     let buttonText = this.state.listenToRecorded ? '| |' : '▶';
 
     // let recClass = this.state.playing ? 'button button-darkred--active' : 'button button-darkred';
-    let recClass = this.state.playing ? 'button button--pressed' : 'button';
+    let recClass = this.state.playing ? 'button button-record button-record--pressed' : 'button button-record';
+    let playClass = this.state.listenToRecorded ? 'button button-regular button-regular--pressed' : 'button button-regular';
 
     let time =  Math.floor (this.state.playheadAt / 10);
     let ms = Math.floor (this.state.playheadAt);
@@ -501,8 +502,8 @@ class App extends Component {
               <button className="button button-grey" onClick={this.stop}>■ Stop</button> */}
 
               <button className={recClass} onClick={this.startRecording}>●	REC</button>
-              <button className="button" onClick={this.startListening}>{buttonText}</button>
-              <button className="button" onClick={this.stop}>■</button>
+              <button className={playClass} onClick={this.startListening}>{buttonText}</button>
+              <button className="button button-regular" onClick={this.stop}>■</button>
             </div>      
 
             <Loop sound={beat} playheadAt={this.state.playheadAt} />

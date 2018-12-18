@@ -2,40 +2,65 @@ import React from 'react';
 import './../App.css';
 
 import drumicon from './../images/drum-icon.png';
+import beat from './../sound/testbeat.mp3';
+import beat2 from './../sound/testbeat.mp3';
 
 class Loop extends React.Component {
 
   state = {
-    loopPlays: false
+    loopPlays: false,
+    beat: beat
   }
 
 
-  // play = () => {
 
-  //   this.audio = this.refs.audio;
-  //   // this.audio.vol = 1;
-  //   this.audio.play();
 
-  //   console.log(this.audio.duration);
-  // }
+  pressLoopButton = () => {
+    this.setState({ loopPlays: !this.state.loopPlays}, () => {
+      if(this.state.loopPlays){
+        this.startLoop();
+      }else{
+        this.stopLoop();
+      }
+      
+    });
+  }
 
-  loop = () => {
+  stopLoop = () => {
+    // this.AudioContext = this.refs.audio;
 
-    this.setState({ loopPlays: !this.state.loopPlays })
+    // console.log(this.AudioContext);
+    // // this.AudioContext.pause();
+    // // this.AudioContext.currentTime = 0;
 
-    this.AudioContext = this.refs.audio;
+    this.audio = this.refs.audio;
+    this.audio.pause();
+    this.audio.currentTime = 0;
 
-    console.log(this.AudioContext)
+  }
 
-    this.actx = new AudioContext();
-    // src = this.props.sound,
-    // audioData, srcNode;  // global so we can access them from handlers
+  startLoop = () => {
 
-    console.log(this.actx);
+    this.audio = this.refs.audio;
+    this.audio.vol = 1;
+    this.audio.play();
 
-  // // Load some audio (CORS need to be allowed or we won't be able to decode the data)
-  // fetch(src, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(this.decode);
-  fetch(this.props.sound, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(this.decode);
+    // if(this.state.loopPlays){
+
+    //   this.AudioContext = this.refs.audio;
+
+    //   console.log(this.AudioContext)
+
+    //   this.actx = new AudioContext();
+    //   // src = this.props.sound,
+    //   // audioData, srcNode;  // global so we can access them from handlers
+
+    //   console.log(this.actx);
+
+    //   // // Load some audio (CORS need to be allowed or we won't be able to decode the data)
+    //   // fetch(src, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(this.decode);
+    //   fetch(this.props.sound, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(this.decode);
+    // }
 
   }
 
@@ -58,37 +83,29 @@ playLoop = (abuffer) => {
   this.srcNode.start();                      // play...
 }
 
-delay = () => {
 
+setBeat = (e) => {
+  let chosenBeat;
+  if(e.target.value === 'beat1'){
+    chosenBeat = beat;
+  }else if(e.target.value === 'beat2'){
+    chosenBeat = beat2;
+  }
 
-  this.AudioContext = this.refs.audio;
-  this.actx = new AudioContext();
-
-  this.synthDelay = this.actx.createDelay(5.0);
-
-
-  this.synthSource = this.actx.createBufferSource();
-  // this.synthSource.buffer = this.buffers[2];
-  this.synthSource.loop = true;
-  this.synthSource.start();
-  this.synthSource.connect(this.synthDelay);
-  // this.synthDelay.connect(this.destination);
-  // this.setAttribute('disabled', 'disabled'); 
-
+  this.setState({ beat: chosenBeat })
 
 }
 
 
 
 
+
   componentWillReceiveProps(){
-
-
   }
 
   render() {
 
-    let loopButtonClass = this.state.loopPlays ? 'button button-grey--active' : 'button';
+    let loopButtonClass = this.state.loopPlays ? 'button button-regular button-regular--pressed' : 'button button-regular';
 
 
 
@@ -100,10 +117,9 @@ delay = () => {
           {/* <img src={drumicon} className="button-icon" />  */}
 
           {/* <div className="select"> */}
-            <select id="soflow">
-              <option>Drum loop</option>
-              <option>Beat 1</option>
-              <option>Beat 2</option>
+            <select onChange={this.setBeat} id="soflow">
+              <option value="beat1">Beat 1</option>
+              <option value="beat2">Beat 2</option>
             </select>
           {/* </div> */}
 
@@ -126,12 +142,14 @@ delay = () => {
 </div> */}
 
           {/* <button className="button button-grey" onClick={this.loop}>↻</button> */}
-          <button className={loopButtonClass} onClick={this.loop}>↻</button>
+          <button className={loopButtonClass} onClick={this.pressLoopButton}>↻</button>
 
           {/* <button className="loop-button" onClick={this.delay}>delay test</button> */}
 
           {/* Loop's audio element */}
-          <audio ref="audio" src={this.props.sound}></audio> 
+          {/* <audio ref="audio" src={this.props.sound}></audio>  */}
+
+          <audio ref="audio" src={this.state.beat} loop></audio> 
         </div>
 
       </React.Fragment>
