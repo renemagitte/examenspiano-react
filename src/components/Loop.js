@@ -55,10 +55,31 @@ playLoop = (abuffer) => {
   this.srcNode.start();                      // play...
 }
 
+delay = () => {
+
+
+  this.AudioContext = this.refs.audio;
+  this.actx = new AudioContext();
+
+  this.synthDelay = this.actx.createDelay(5.0);
+
+
+  this.synthSource = this.actx.createBufferSource();
+  // this.synthSource.buffer = this.buffers[2];
+  this.synthSource.loop = true;
+  this.synthSource.start();
+  this.synthSource.connect(this.synthDelay);
+  // this.synthDelay.connect(this.destination);
+  // this.setAttribute('disabled', 'disabled'); 
+
+
+}
+
 
 
 
   componentWillReceiveProps(){
+
 
   }
 
@@ -70,7 +91,9 @@ playLoop = (abuffer) => {
 
       <React.Fragment>
 
-        <button className="loop-button" onClick={this.loop}>↻</button>
+        <button className="button button-grey" onClick={this.loop}>↻</button>
+
+        <button className="loop-button" onClick={this.delay}>delay test</button>
 
         {/* Loop's audio element */}
         <audio ref="audio" src={this.props.sound}></audio> 

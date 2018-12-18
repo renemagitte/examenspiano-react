@@ -41,6 +41,7 @@ import ciss3Audio from './sound/ciss3.mp3';
 import beat from './sound/testbeat.mp3';
 
 
+
 class App extends Component {
 
   state = {
@@ -164,7 +165,7 @@ class App extends Component {
     {code: 188, stateName: 'giss2'}, // 20, 188, ,, g# (2)
     {code: 93, stateName: 'a2'},  // 21, 93, cmd right, a (2)
     {code: 190, stateName: 'b2'}, // 22, 190, ., b / a# (2)
-    {code: 18, stateName: 'h2'},  // 23,18, alt right :--( , h (2)
+    {code: 18, stateName: 'h2'},  // 23, 18, alt right, h (2)
     {code: 189, stateName: 'c3'}, // 24, 189, -, c (3)
     {code: 16, stateName: 'ciss3'}  // 25, 16, shift right, c# (3)
   ]
@@ -440,6 +441,8 @@ class App extends Component {
 
     let buttonText = this.state.listenToRecorded ? '❚❚ Pause' : '▶ Play';
 
+    let recClass = this.state.playing ? 'button button-darkred--active' : 'button button-darkred';
+
     let time =  Math.floor (this.state.playheadAt / 10);
     let ms = Math.floor (this.state.playheadAt);
 
@@ -449,14 +452,21 @@ class App extends Component {
 
         <div className="synth-container">
 
-       00:{ time }:{ms}
+          <div className="synth-control">
+
+            00:{ time }:{ms}
+            <div className="buttons-wrapper">
+              <button className={recClass} onClick={this.startRecording}>●	REC</button>
+              <button className="button button-grey" onClick={this.startListening}>{buttonText}</button>
+              <button className="button button-grey" onClick={this.stop}>■ Stop</button>
+            </div>      
+
+            <Loop sound={beat} playheadAt={this.state.playheadAt} />
+
+          </div>
 
         
-        <button className="button" onClick={this.startRecording}>●	REC</button>
-        <button className="button" onClick={this.startListening}>{buttonText}</button>
-        <button className="button" onClick={this.stop}>■ Stop</button>
 
-        <Loop sound={beat} playheadAt={this.state.playheadAt} />
 
         <div className="noteCanvas-container" id="container">
       
@@ -488,12 +498,12 @@ class App extends Component {
           <NoteSound note={this.state.ciss3} noteName='ciss3'sound={ciss3Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
 
 
-
-
-          {/* <canvas width="860" height="260" style={{zIndex: 11}} className="playheadCanvas" id="playheadCanvas" ref="playheadCanvas"></canvas> */}
           <canvas width="860" height="132" style={{zIndex: 11}} className="playheadCanvas" id="playheadCanvas" ref="playheadCanvas"></canvas>
 
+          
         </div>
+
+          <div className="synthTitle">En synth</div>
 
 
 
