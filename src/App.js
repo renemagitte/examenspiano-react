@@ -54,6 +54,11 @@ class App extends Component {
     recBlock1: [],
     recBlock2: [],
     recBlock3: [],
+    recBlock4: [],
+    recBlock5: [],
+    recBlock6: [],
+    recBlock7: [],
+    recBlock8: [],
 
     c1: false,
     c1Data: [],
@@ -211,50 +216,74 @@ class App extends Component {
 
   listen = () => {
 
+    console.log(this.state.playheadAt)
+
     /**
      * this.state.recordedNotes[i][0] = notename
      * this.state.recordedNotes[i][1] = note should start playing when playhead is at...
      * this.state.recordedNotes[i][2] = note should stop playing when playhead is at...
      */
 
-    // for(let i = 0; i < this.state.recordedNotes.length; i++){
-    //   if(this.state.recordedNotes[i][1] === this.state.playheadAt){
-    //     this.setState({ [this.state.recordedNotes[i][0]]: true });
+    for(let i = 0; i < this.state.recordedNotes.length; i++){
+      if(this.state.recordedNotes[i][1] === this.state.playheadAt){
+        this.setState({ [this.state.recordedNotes[i][0]]: true });
+      }
+      if(this.state.recordedNotes[i][2] === this.state.playheadAt){
+        this.setState({ [this.state.recordedNotes[i][0]]: false });
+      }
+    }
+
+    /* test with recording blocks to avoid looping over too many note objects when listening to recoded */
+    // if(this.state.playheadAt < 100){
+    //   for(let i = 0; i < this.state.recBlock1.length; i++){
+    //     if(this.state.recBlock1[i][1] === this.state.playheadAt){
+    //       this.setState({ [this.state.recBlock1[i][0]]: true });
+    //     }
+    //     if(this.state.recBlock1[i][2] === this.state.playheadAt){
+    //       this.setState({ [this.state.recBlock1[i][0]]: false });
+    //     }
     //   }
-    //   if(this.state.recordedNotes[i][2] === this.state.playheadAt){
-    //     this.setState({ [this.state.recordedNotes[i][0]]: false });
+    // // }
+    // }else if(this.state.playheadAt < 200){
+    //   for(let i = 0; i < this.state.recBlock2.length; i++){
+    //     if(this.state.recBlock2[i][1] === this.state.playheadAt){
+    //       this.setState({ [this.state.recBlock2[i][0]]: true });
+    //     }
+    //     if(this.state.recBlock2[i][2] === this.state.playheadAt){
+    //       this.setState({ [this.state.recBlock2[i][0]]: false });
+    //     }
+    //   }
+    // }else if(this.state.playheadAt < 300){
+    //   for(let i = 0; i < this.state.recBlock3.length; i++){
+    //     if(this.state.recBlock3[i][1] === this.state.playheadAt){
+    //       this.setState({ [this.state.recBlock3[i][0]]: true });
+    //     }
+    //     if(this.state.recBlock3[i][2] === this.state.playheadAt){
+    //       this.setState({ [this.state.recBlock3[i][0]]: false });
+    //     }
     //   }
     // }
 
-    /* test with recording blocks to avoid looping over too many note objects when listening to recoded */
-    if(this.state.playheadAt < 100){
-      for(let i = 0; i < this.state.recBlock1.length; i++){
-        if(this.state.recBlock1[i][1] === this.state.playheadAt){
-          this.setState({ [this.state.recBlock1[i][0]]: true });
-        }
-        if(this.state.recBlock1[i][2] === this.state.playheadAt){
-          this.setState({ [this.state.recBlock1[i][0]]: false });
-        }
-      }
-    }else if(this.state.playheadAt < 200){
-      for(let i = 0; i < this.state.recBlock2.length; i++){
-        if(this.state.recBlock2[i][1] === this.state.playheadAt){
-          this.setState({ [this.state.recBlock2[i][0]]: true });
-        }
-        if(this.state.recBlock2[i][2] === this.state.playheadAt){
-          this.setState({ [this.state.recBlock2[i][0]]: false });
-        }
-      }
-    }else if(this.state.playheadAt < 200){
-      for(let i = 0; i < this.state.recBlock3.length; i++){
-        if(this.state.recBlock3[i][1] === this.state.playheadAt){
-          this.setState({ [this.state.recBlock3[i][0]]: true });
-        }
-        if(this.state.recBlock3[i][2] === this.state.playheadAt){
-          this.setState({ [this.state.recBlock3[i][0]]: false });
-        }
-      }
-    }
+    // if(this.state.playheadAt < 220){
+    //   for(let i = 0; i < this.state.recBlock2.length; i++){
+    //     if(this.state.recBlock2[i][1] === this.state.playheadAt){
+    //       this.setState({ [this.state.recBlock2[i][0]]: true });
+    //     }
+    //     if(this.state.recBlock2[i][2] === this.state.playheadAt){
+    //       this.setState({ [this.state.recBlock2[i][0]]: false });
+    //     }
+    //   }
+    // }
+    // if(this.state.playheadAt < 300){
+    //   for(let i = 0; i < this.state.recBlock3.length; i++){
+    //     if(this.state.recBlock3[i][1] === this.state.playheadAt){
+    //       this.setState({ [this.state.recBlock3[i][0]]: true });
+    //     }
+    //     if(this.state.recBlock3[i][2] === this.state.playheadAt){
+    //       this.setState({ [this.state.recBlock3[i][0]]: false });
+    //     }
+    //   }
+    // }
 
   }
 
@@ -294,16 +323,26 @@ class App extends Component {
     this.noteToRecord = [this.noteState, this.state[this.noteData], this.state.playheadAt]
 
     /* Adding the noteData-array to array in recordedNotes-state */
-    // this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] });
+    this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] });
 
     /* test with recording blocks */
-    if(this.state.playheadAt < 100){
-      this.setState({ recBlock1: [...this.state.recBlock1, this.noteToRecord] });
-    }else if(this.state.playheadAt < 200){
-      this.setState({ recBlock2: [...this.state.recBlock2, this.noteToRecord] });
-    }else if(this.state.playheadAt < 300){
-      this.setState({ recBlock3: [...this.state.recBlock3, this.noteToRecord] });
-    }
+    // if(this.state.playheadAt < 100){
+    //   this.setState({ recBlock1: [...this.state.recBlock1, this.noteToRecord] });
+    // }else if(this.state.playheadAt < 200){
+    //   this.setState({ recBlock2: [...this.state.recBlock2, this.noteToRecord] });
+    // }else if(this.state.playheadAt < 300){
+    //   this.setState({ recBlock3: [...this.state.recBlock3, this.noteToRecord] });
+    // }else if(this.state.playheadAt < 400){
+    //   this.setState({ recBlock4: [...this.state.recBlock4, this.noteToRecord] });
+    // }else if(this.state.playheadAt < 500){
+    //   this.setState({ recBlock5: [...this.state.recBlock5, this.noteToRecord] });
+    // }else if(this.state.playheadAt < 600){
+    //   this.setState({ recBlock6: [...this.state.recBlock6, this.noteToRecord] });
+    // }else if(this.state.playheadAt < 700){
+    //   this.setState({ recBlock7: [...this.state.recBlock7, this.noteToRecord] });
+    // }else if(this.state.playheadAt < 800){
+    //   this.setState({ recBlock8: [...this.state.recBlock8, this.noteToRecord] });
+    // }
 
 
     // console.log( this.state.recordedNotes);
@@ -439,9 +478,10 @@ class App extends Component {
 
   render() {
 
-    let buttonText = this.state.listenToRecorded ? '❚❚ Pause' : '▶ Play';
+    let buttonText = this.state.listenToRecorded ? '| |' : '▶';
 
-    let recClass = this.state.playing ? 'button button-darkred--active' : 'button button-darkred';
+    // let recClass = this.state.playing ? 'button button-darkred--active' : 'button button-darkred';
+    let recClass = this.state.playing ? 'button button--pressed' : 'button';
 
     let time =  Math.floor (this.state.playheadAt / 10);
     let ms = Math.floor (this.state.playheadAt);
@@ -454,11 +494,15 @@ class App extends Component {
 
           <div className="synth-control">
 
-            00:{ time }:{ms}
+            {/* 00:{ time }:{ms} */}
             <div className="buttons-wrapper">
-              <button className={recClass} onClick={this.startRecording}>●	REC</button>
+              {/* <button className={recClass} onClick={this.startRecording}>●	REC</button>
               <button className="button button-grey" onClick={this.startListening}>{buttonText}</button>
-              <button className="button button-grey" onClick={this.stop}>■ Stop</button>
+              <button className="button button-grey" onClick={this.stop}>■ Stop</button> */}
+
+              <button className={recClass} onClick={this.startRecording}>●	REC</button>
+              <button className="button" onClick={this.startListening}>{buttonText}</button>
+              <button className="button" onClick={this.stop}>■</button>
             </div>      
 
             <Loop sound={beat} playheadAt={this.state.playheadAt} />
@@ -522,6 +566,7 @@ class App extends Component {
         {/* <audio controls src={beat} loop="true"></audio> */}
 
         </div>
+
 
       </React.Fragment>
 

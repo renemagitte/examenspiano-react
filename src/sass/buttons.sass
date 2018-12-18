@@ -4,10 +4,18 @@
   text-decoration: none
   color: #fff
   font-weight: bold
-  background-color: #538fbe
   padding: 5px 10px
   font-size: 12px
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  text-shadow: 0px -1px 0px rgba(0,0,0,.5)
+  margin: 5px 5px
+  vertical-align: top
   border: 1px solid #2d6898
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
 
   background-image: linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%)
   background-image: -o-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%)
@@ -16,31 +24,22 @@
   background-image: -ms-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%)
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(73,132,180)), color-stop(1, rgb(97,155,203)))
   
-  -webkit-border-radius: 5px
-  -moz-border-radius: 5px
-  border-radius: 5px
-  
-  text-shadow: 0px -1px 0px rgba(0,0,0,.5)
-  
   -webkit-box-shadow: 0px 2px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5)
   -moz-box-shadow: 0px 2px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5)
   box-shadow: 0px 2px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5)
 
-  margin: 15px 5px
+  &:focus
+    outline: none
 
-.button
-  cursor: pointer
-  display: inline-block
-  text-decoration: none
-  color: #fff
-  font-weight: bold
-  padding: 5px 10px
-  font-size: 12px
-  -webkit-border-radius: 5px
-  -moz-border-radius: 5px
-  border-radius: 5px
-  text-shadow: 0px -1px 0px rgba(0,0,0,.5)
-  margin: 15px 5px
+  &--pressed
+    margin-top: 6px
+    -webkit-box-shadow: 0px 1px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5)
+    -moz-box-shadow: 0px 1px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5)
+    box-shadow: 0px 1px 0px #2b638f, 0px 3px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px -1.2px 3px rgba(255,255,255,.5)
+
+
+
+
 
   &-grey
     border: 1px solid #181717
@@ -53,6 +52,11 @@
     -webkit-box-shadow: 0px 2px 0px #181717, 0px 3px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(18,17,17,.3), inset 0px 0px 3px rgba(18,17,17,.5)
     -moz-box-shadow: 0px 2px 0px #181717, 0px 3px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(18,17,17,.3), inset 0px 0px 3px rgba(18,17,17,.5)
     box-shadow: 0px 2px 0px #181717, 0px 3px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(18,17,17,.3), inset 0px 0px 3px rgba(18,17,17,.5)
+
+    &--active
+      margin: 0px
+      
+
 
   &-darkred
     // border: 1px solid #300E0A
@@ -75,6 +79,7 @@
       outline: none
 
     &--active
+    
       border: 1px solid #300E0A
       background-image: linear-gradient(bottom, rgb(115,34,23) 0%, rgb(161,48,33) 100%)
       background-image: -o-linear-gradient(bottom, rgb(115,34,23) 0%, rgb(161,48,33) 100%)
@@ -88,3 +93,10 @@
       &:focus
         outline: none
   
+
+  &-icon
+    width: 20px
+
+
+  &-pressed
+    margin-top: 7px

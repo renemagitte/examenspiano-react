@@ -1,12 +1,13 @@
 import React from 'react';
 import './../App.css';
 
+import drumicon from './../images/drum-icon.png';
+
 class Loop extends React.Component {
 
-  // state = {
-  //   playing: false,
-  //   listenToRecorded: false,
-  // }
+  state = {
+    loopPlays: false
+  }
 
 
   // play = () => {
@@ -19,6 +20,8 @@ class Loop extends React.Component {
   // }
 
   loop = () => {
+
+    this.setState({ loopPlays: !this.state.loopPlays })
 
     this.AudioContext = this.refs.audio;
 
@@ -85,18 +88,51 @@ delay = () => {
 
   render() {
 
+    let loopButtonClass = this.state.loopPlays ? 'button button-grey--active' : 'button';
+
 
 
     return (
 
       <React.Fragment>
+        <div className="loop-container">
 
-        <button className="button button-grey" onClick={this.loop}>↻</button>
+          {/* <img src={drumicon} className="button-icon" />  */}
 
-        <button className="loop-button" onClick={this.delay}>delay test</button>
+          {/* <div className="select"> */}
+            <select id="soflow">
+              <option>Drum loop</option>
+              <option>Beat 1</option>
+              <option>Beat 2</option>
+            </select>
+          {/* </div> */}
 
-        {/* Loop's audio element */}
-        <audio ref="audio" src={this.props.sound}></audio> 
+{/* <div className="select2 animated zoomIn">
+    <label>
+        <input type="checkbox" name="placeholder" />
+        <i className="toggle icon icon-plus"></i>
+        <i className="toggle icon icon-minus"></i>
+        <span className="placeholder title">Choose...</span>
+        <label className="option">
+            <input type="radio" name="option" />
+            <span className="title animated fadeIn">Beat 1</span>
+        </label>
+
+        <label className="option">
+            <input type="radio" name="option" />
+            <span className="title animated fadeIn">Beat 2</span>
+        </label>
+    </label>
+</div> */}
+
+          {/* <button className="button button-grey" onClick={this.loop}>↻</button> */}
+          <button className={loopButtonClass} onClick={this.loop}>↻</button>
+
+          {/* <button className="loop-button" onClick={this.delay}>delay test</button> */}
+
+          {/* Loop's audio element */}
+          <audio ref="audio" src={this.props.sound}></audio> 
+        </div>
 
       </React.Fragment>
     );
