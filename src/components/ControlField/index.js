@@ -3,9 +3,17 @@ import PropTypes from 'prop-types'
 import './styles/index.sass';
 
 import Button from './../Button';
+import Beat from './../Beat';
 
 
-const ControlField = ({playing, listenToRecorded, startRecording, startListening, stop}) => { 
+const ControlField = ({
+  playing, 
+  listenToRecorded, 
+  startRecording, 
+  startListening, 
+  stop,
+  playheadAt
+}) => { 
 
   return (     
       <div className="synth-control">
@@ -30,10 +38,14 @@ const ControlField = ({playing, listenToRecorded, startRecording, startListening
           text="■"
         />    
 
+      </div>  
+
+      <Beat 
+        playheadAt={playheadAt} 
+        listenToRecorded={listenToRecorded} 
+      />    
 
 
-
-      </div>      
 
       {/* <Loop playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} /> */}
 
