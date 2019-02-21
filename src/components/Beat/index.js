@@ -113,11 +113,7 @@ setBeat = (e) => {
   }
 
   render() {
-
-    let loopButtonClass = this.state.loopPlays ? 'button button-regular button-regular--pressed' : 'button button-regular';
-
-
-
+    
     return (
 
       <React.Fragment>

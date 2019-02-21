@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
-import './index.css';
+// import './App.css';
+// import './index.css';
 import './sass/main.sass';
-// import Key from './components/Key.js';
-import Key from './components/Key/index.js';
-// import NoteCanvas from './components/NoteCanvas.js';
-// import Playhead from './components/Playhead.js';
 
-// import Playhead from './components/Playhead';
+import Key from './components/Key';
+// import NoteCanvas from './components/NoteCanvas.js';
+
 import ControlField from './components/ControlField';
+import Keyboard from './components/Keyboard';
 
 
 import NoteSound from './components/NoteSound.js';
-import Loop from './components/Loop.js';
 
 import c1Audio from './sound/c1.mp3';
 import ciss1Audio from './sound/ciss1.mp3';
@@ -40,11 +38,6 @@ import b2Audio from './sound/b2.mp3';
 import h2Audio from './sound/h2.mp3';
 import c3Audio from './sound/c3.mp3';
 import ciss3Audio from './sound/ciss3.mp3';
-
-
-import beat from './sound/testbeat.mp3';
-
-
 
 class App extends Component {
 
@@ -482,10 +475,6 @@ class App extends Component {
 
   render() {
 
-    // let buttonText = this.state.listenToRecorded ? '| |' : '▶';
-    // let recClass = this.state.playing ? 'button button-record button-record--pressed' : 'button button-record';
-    // let playClass = this.state.listenToRecorded ? 'button button-regular button-regular--pressed' : 'button button-regular';
-
     let time =  Math.floor (this.state.playheadAt / 10);
     let ms = Math.floor (this.state.playheadAt);
 
@@ -567,17 +556,40 @@ class App extends Component {
 
 
 
-        
+        <Keyboard 
+          c1={this.state.c1}
+          ciss1={this.state.ciss1}
+          d1={this.state.d1}
+          diss1={this.state.diss1}
+          e1={this.state.e1}
+          f1={this.state.f1}
+          fiss1={this.state.fiss1}
+          g1={this.state.g1}
+          giss1={this.state.giss1}
+          a1={this.state.a1}
+          b1={this.state.b1}
+          h1={this.state.h1}
+          c2={this.state.c2}
+          ciss2={this.state.ciss2}
+          d2={this.state.d2}
+          diss2={this.state.diss2}
+          e2={this.state.e2}
+          f2={this.state.f2}
+          fiss2={this.state.fiss2}
+          g2={this.state.g2}
+          giss2={this.state.giss2}
+          a2={this.state.a2}
+          b2={this.state.b2}
+          h2={this.state.h2}
+          c3={this.state.c3}
+          ciss3={this.state.ciss3}
+        />
 
-        <div id="piano">
-          {/* <button className="button" onClick={this.startRecording}>●	REC</button>
-          <button className="button" onClick={this.startListening}>{buttonText}</button>
-          <button className="button" onClick={this.stop}>■ Stop</button> */}
-
+        {/* <div id="piano">
           <div className="keys">
             { this.buildKeyboard() }
           </div> 
-        </div>
+        </div> */}
 
         {/* <audio controls src={beat} loop="true"></audio> */}
 
