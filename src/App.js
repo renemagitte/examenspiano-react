@@ -7,6 +7,9 @@ import Key from './components/Key/index.js';
 // import NoteCanvas from './components/NoteCanvas.js';
 // import Playhead from './components/Playhead.js';
 
+// import Playhead from './components/Playhead';
+import ControlField from './components/ControlField';
+
 
 import NoteSound from './components/NoteSound.js';
 import Loop from './components/Loop.js';
@@ -479,11 +482,9 @@ class App extends Component {
 
   render() {
 
-    let buttonText = this.state.listenToRecorded ? '| |' : '▶';
-
-    // let recClass = this.state.playing ? 'button button-darkred--active' : 'button button-darkred';
-    let recClass = this.state.playing ? 'button button-record button-record--pressed' : 'button button-record';
-    let playClass = this.state.listenToRecorded ? 'button button-regular button-regular--pressed' : 'button button-regular';
+    // let buttonText = this.state.listenToRecorded ? '| |' : '▶';
+    // let recClass = this.state.playing ? 'button button-record button-record--pressed' : 'button button-record';
+    // let playClass = this.state.listenToRecorded ? 'button button-regular button-regular--pressed' : 'button button-regular';
 
     let time =  Math.floor (this.state.playheadAt / 10);
     let ms = Math.floor (this.state.playheadAt);
@@ -494,22 +495,27 @@ class App extends Component {
 
         <div className="synth-container">
 
-          <div className="synth-control">
+
+          {/* <div className="synth-control"> */}
+
+          <ControlField 
+            playing={this.state.playing}
+            listenToRecorded={this.state.listenToRecorded}
+            startRecording={this.startRecording}
+            startListening={this.startListening}
+            stop={this.stop}
+          />
 
             {/* 00:{ time }:{ms} */}
-            <div className="buttons-wrapper">
-              {/* <button className={recClass} onClick={this.startRecording}>●	REC</button>
-              <button className="button button-grey" onClick={this.startListening}>{buttonText}</button>
-              <button className="button button-grey" onClick={this.stop}>■ Stop</button> */}
-
+            {/* <div className="buttons-wrapper">
               <button className={recClass} onClick={this.startRecording}>●	REC</button>
               <button className={playClass} onClick={this.startListening}>{buttonText}</button>
               <button className="button button-regular" onClick={this.stop}>■</button>
-            </div>      
+            </div>       */}
 
-            <Loop playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+            {/* <Loop playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} /> */}
 
-          </div>
+          {/* </div> */}
 
         
 
@@ -544,7 +550,15 @@ class App extends Component {
           <NoteSound note={this.state.ciss3} noteName='ciss3'sound={ciss3Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
 
 
-          <canvas width="860" height="132" style={{zIndex: 11}} className="playheadCanvas" id="playheadCanvas" ref="playheadCanvas"></canvas>
+          {/* Not in seperate component due to problems with ref: */}
+          <canvas 
+            width="860" 
+            height="132" 
+            style={{zIndex: 11}} 
+            className="playheadCanvas" 
+            // id="playheadCanvas" 
+            ref="playheadCanvas">
+          </canvas>
 
           
         </div>
