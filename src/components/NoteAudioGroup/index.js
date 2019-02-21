@@ -1,0 +1,81 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import NoteAudio from './../NoteAudio';
+
+
+import c1Audio from './../../sound/c1.mp3';
+import ciss1Audio from './../../sound/ciss1.mp3';
+import d1Audio from './../../sound/d1.mp3';
+import diss1Audio from './../../sound/diss1.mp3';
+import e1Audio from './../../sound/e1.mp3';
+import f1Audio from './../../sound/f1.mp3';
+import fiss1Audio from './../../sound/fiss1.mp3';
+import g1Audio from './../../sound/g1.mp3';
+import giss1Audio from './../../sound/giss1.mp3';
+import a1Audio from './../../sound/a1.mp3';
+import b1Audio from './../../sound/b1.mp3';
+import h1Audio from './../../sound/h1.mp3';
+import c2Audio from './../../sound/c2.mp3';
+import ciss2Audio from './../../sound/ciss2.mp3';
+import d2Audio from './../../sound/d2.mp3';
+import diss2Audio from './../../sound/diss2.mp3';
+import e2Audio from './../../sound/e2.mp3';
+import f2Audio from './../../sound/f2.mp3';
+import fiss2Audio from './../../sound/fiss2.mp3';
+import g2Audio from './../../sound/g2.mp3';
+import giss2Audio from './../../sound/giss2.mp3';
+import a2Audio from './../../sound/a2.mp3';
+import b2Audio from './../../sound/b2.mp3';
+import h2Audio from './../../sound/h2.mp3';
+import c3Audio from './../../sound/c3.mp3';
+import ciss3Audio from './../../sound/ciss3.mp3';
+
+class NoteAudioGroup extends React.Component {
+
+
+  render() {
+
+    return (
+
+        <React.Fragment>
+
+            <NoteAudio note={this.props.c1} sound={c1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.ciss1} sound={ciss1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.d1} sound={d1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.diss1} sound={diss1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.e1} sound={e1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.f1} sound={f1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.fiss1} sound={fiss1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.g1} sound={g1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.giss1} sound={giss1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.a1} sound={a1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.b1} sound={b1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.h1} sound={h1Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.c2} sound={c2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.ciss2} sound={ciss2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.d2} sound={d2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.diss2} sound={diss2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.e2} sound={e2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.f2} sound={f2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.fiss2} sound={fiss2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.g2} sound={g2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.giss2} sound={giss2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.a2} sound={a2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.b2} sound={b2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.h2} sound={h2Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.c3} sound={c3Audio} listenToRecorded={this.props.listenToRecorded} />
+            <NoteAudio note={this.props.ciss3} sound={ciss3Audio} listenToRecorded={this.props.listenToRecorded} />
+
+        </React.Fragment>
+
+    );
+  }
+}
+
+NoteAudioGroup.propTypes = {
+    note: PropTypes.object.isRequired,
+    listenToRecorded: PropTypes.bool.isRequired
+  }
+
+export default NoteAudioGroup;

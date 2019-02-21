@@ -7,37 +7,14 @@ import Key from './components/Key';
 // import NoteCanvas from './components/NoteCanvas.js';
 
 import ControlField from './components/ControlField';
-import Keyboard from './components/Keyboard';
 
+import Keyboard from './components/Keyboard';
+import NoteAudioGroup from './components/NoteAudioGroup';
+import NoteCanvasGroup from './components/NoteCanvasGroup';
 
 import NoteSound from './components/NoteSound.js';
 
-import c1Audio from './sound/c1.mp3';
-import ciss1Audio from './sound/ciss1.mp3';
-import d1Audio from './sound/d1.mp3';
-import diss1Audio from './sound/diss1.mp3';
-import e1Audio from './sound/e1.mp3';
-import f1Audio from './sound/f1.mp3';
-import fiss1Audio from './sound/fiss1.mp3';
-import g1Audio from './sound/g1.mp3';
-import giss1Audio from './sound/giss1.mp3';
-import a1Audio from './sound/a1.mp3';
-import b1Audio from './sound/b1.mp3';
-import h1Audio from './sound/h1.mp3';
-import c2Audio from './sound/c2.mp3';
-import ciss2Audio from './sound/ciss2.mp3';
-import d2Audio from './sound/d2.mp3';
-import diss2Audio from './sound/diss2.mp3';
-import e2Audio from './sound/e2.mp3';
-import f2Audio from './sound/f2.mp3';
-import fiss2Audio from './sound/fiss2.mp3';
-import g2Audio from './sound/g2.mp3';
-import giss2Audio from './sound/giss2.mp3';
-import a2Audio from './sound/a2.mp3';
-import b2Audio from './sound/b2.mp3';
-import h2Audio from './sound/h2.mp3';
-import c3Audio from './sound/c3.mp3';
-import ciss3Audio from './sound/ciss3.mp3';
+
 
 class App extends Component {
 
@@ -110,40 +87,42 @@ class App extends Component {
     ciss3: false,
     ciss3Data: [],
 
-
-    /* These are connected to key styling only, not sound. Make styling depending on state above too, instead */
-    65: false,  // 0, 65, A, c
-    87: false,  // 1, 87, W, c#
-    83: false,  // 2, 83, S, d
-    69: false,  // 3, 69, S, d#
-    68: false,  // 4, 68, D, e
-    70: false,  // 5, 70, F, f
-    84: false,  // 6, 84, T, f#
-    71: false,  // 7, 71, T, g
-    89: false,  // 8, 89, Y, g#
-    72: false,  // 9, 72, H, a
-    85: false,  // 10, 85, U, b / a#
-    74: false,  // 11, 74, J, h
-    75: false,  // 12, 75, K, c (2)
-    79: false,  // 13, 79, O, c# (2)
-    76: false,  // 14, 78, L, d (2)
-    80: false,  // 15, 80, P, d# (2)
-    186: false, // 16, 186, Ö, e (2)
-    222: false, // 17, 222, Ä, f (2)
-    221: false, // 18, 221, ^, f# (2)
-    13: false,  // 19, 13, enter, g (2)
-    188: false, // 20, 188, ,, g# (2)
-    93: false,  // 21, 93, cmd right, a (2)
-    190: false, // 22, 190, ., b / a# (2)
-    18: false,  // 23,18, alt right, h (2)
-    189: false, // 24, 189, -, c (3)
-    16: false,  // 25, 16, shift right, c# (3)
-
+    // TODO: keep all notes in object for more effective props: notes={this.state.notes}
+    // notes: {
+    //   c1: false,
+    //   ciss1: false,
+    //   d1: false,
+    //   diss1: false,
+    //   e1: false,
+    //   f1: false,
+    //   fiss1: false,
+    //   g1: false,
+    //   giss1: false,
+    //   a1: false,
+    //   b1: false,
+    //   h1: false,
+    //   c2: false,
+    //   ciss2: false,
+    //   d2: false,
+    //   diss2: false,
+    //   e2: false,
+    //   f2: false,
+    //   fiss2: false,
+    //   g2: false,
+    //   giss2: false,
+    //   a2: false,
+    //   b2: false,
+    //   h2: false,
+    //   c3: false,
+    //   ciss3: false,
+    // }
 
   }
 
-  /* This name  (keyY) is not accurate anymore. Change name! */
-  keyY = [
+
+  /* Since the listener is set on window and not the key elements, 
+    we have to "translate" window's keyCode to note/state */
+  keyCodeToNoteConnection = [
     {code: 65, stateName: 'c1'},  // 0, 65, A, c
     {code: 87, stateName: 'ciss1'},  // 1, 87, W, c#
     {code: 83, stateName: 'd1'},  // 2, 83, S, d
@@ -191,11 +170,18 @@ class App extends Component {
   pressKey = (e) => {
     e.preventDefault();
 
-    /* key styling is still connected to old states with keycodes: (to be changed) */
-    this.setState({ [e.keyCode]: true });
+
+    console.log(e.keyCode)
 
     /* "Translate" from keyCode to name of note (noteState) */
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
+
+    // /* key styling is still connected to old states with keycodes: (to be changed) */
+    /* Set note's state to true */
+    // this.setState({ [this.noteState]: true });
+
+
+
 
     /* Generate data state where length of pressed down note is stored */
     this.noteData = this.noteState + 'Data';
@@ -286,7 +272,7 @@ class App extends Component {
 
 
   getStateNameFromKeyCode = (code) => {
-    var obj = this.findObjectByKey(this.keyY, 'code', code);
+    var obj = this.findObjectByKey(this.keyCodeToNoteConnection, 'code', code);
     /* If the key is not used null is returned the app breaks, so only return if not null */
     if(obj != null){
       return(obj.stateName);
@@ -298,7 +284,7 @@ class App extends Component {
     e.preventDefault();
 
     /* key styling is still connected to old states with keycodes: */
-    this.setState({ [e.keyCode]: false });
+    // this.setState({ [e.keyCode]: false });
 
     /* "Translate" from keyCode to name of note (noteState) */
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
@@ -348,11 +334,11 @@ class App extends Component {
 
 
 
-
+  /* Old version - looping out keyboard 
   buildKeyboard = () => {
     var keys = [];
     var numberOfKeys = 26;
-    /* Keycodes in order of appearance in piano. Starting with note C = letter A/keycode 65.  */
+    // Keycodes in order of appearance in piano. Starting with note C = letter A/keycode 65.
     var keyCodes = [ 65, 87, 83, 69, 68, 70, 84, 71, 89, 72, 85, 74, 75, 79, 76, 80, 186, 222, 221, 13, 188, 93, 190, 18, 189, 16 ]
 
     for(var i = 0; i < numberOfKeys; i++){
@@ -383,6 +369,7 @@ class App extends Component {
           return 'key';
     }
   }
+  */
 
   startRecording = () => {
 
@@ -510,33 +497,39 @@ class App extends Component {
 
 
         <div className="noteCanvas-container" id="container">
-      
-          <NoteSound note={this.state.c1} noteName='c1' code='65'sound={c1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.ciss1} noteName='ciss1' sound={ciss1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.d1} noteName='d1' sound={d1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.diss1} noteName='diss1' sound={diss1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.e1} noteName='e1' sound={e1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.f1} noteName='f1' sound={f1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.fiss1} noteName='fiss1' sound={fiss1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.g1} noteName='g1' sound={g1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.giss1} noteName='giss1' sound={giss1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.a1} noteName='a1' sound={a1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.b1} noteName='b1' sound={b1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.h1} noteName='h1' sound={h1Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.c2} noteName='c2' sound={c2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.ciss2} noteName='ciss2' sound={ciss2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.d2} noteName='d2' sound={d2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.diss2} noteName='diss2' sound={diss2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.e2} noteName='e2' sound={e2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.f2} noteName='f2' sound={f2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.fiss2} noteName='fiss2' sound={fiss2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.g2} noteName='g2' sound={g2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.giss2} noteName='giss2' sound={giss2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.a2} noteName='a2' sound={a2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.b2} noteName='b2'sound={b2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.h2} noteName='h2'sound={h2Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.c3} noteName='c3'sound={c3Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
-          <NoteSound note={this.state.ciss3} noteName='ciss3'sound={ciss3Audio} playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
+
+
+        <NoteCanvasGroup 
+          playheadAt={this.state.playheadAt} 
+          listenToRecorded={this.state.listenToRecorded}
+          playheadAt={this.state.playheadAt} 
+          c1={this.state.c1}
+          ciss1={this.state.ciss1}
+          d1={this.state.d1}
+          diss1={this.state.diss1}
+          e1={this.state.e1}
+          f1={this.state.f1}
+          fiss1={this.state.fiss1}
+          g1={this.state.g1}
+          giss1={this.state.giss1}
+          a1={this.state.a1}
+          b1={this.state.b1}
+          h1={this.state.h1}
+          c2={this.state.c2}
+          ciss2={this.state.ciss2}
+          d2={this.state.d2}
+          diss2={this.state.diss2}
+          e2={this.state.e2}
+          f2={this.state.f2}
+          fiss2={this.state.fiss2}
+          g2={this.state.g2}
+          giss2={this.state.giss2}
+          a2={this.state.a2}
+          b2={this.state.b2}
+          h2={this.state.h2}
+          c3={this.state.c3}
+          ciss3={this.state.ciss3}
+        />
 
 
           {/* Not in seperate component due to problems with ref: */}
@@ -552,7 +545,39 @@ class App extends Component {
           
         </div>
 
-          {/* <div className="synth-title">Synth 1.0</div> */}
+
+
+
+        <NoteAudioGroup 
+          listenToRecorded={this.state.listenToRecorded}
+          playheadAt={this.state.playheadAt} 
+          c1={this.state.c1}
+          ciss1={this.state.ciss1}
+          d1={this.state.d1}
+          diss1={this.state.diss1}
+          e1={this.state.e1}
+          f1={this.state.f1}
+          fiss1={this.state.fiss1}
+          g1={this.state.g1}
+          giss1={this.state.giss1}
+          a1={this.state.a1}
+          b1={this.state.b1}
+          h1={this.state.h1}
+          c2={this.state.c2}
+          ciss2={this.state.ciss2}
+          d2={this.state.d2}
+          diss2={this.state.diss2}
+          e2={this.state.e2}
+          f2={this.state.f2}
+          fiss2={this.state.fiss2}
+          g2={this.state.g2}
+          giss2={this.state.giss2}
+          a2={this.state.a2}
+          b2={this.state.b2}
+          h2={this.state.h2}
+          c3={this.state.c3}
+          ciss3={this.state.ciss3}
+        />
 
 
 
@@ -591,7 +616,6 @@ class App extends Component {
           </div> 
         </div> */}
 
-        {/* <audio controls src={beat} loop="true"></audio> */}
 
         </div>
 
