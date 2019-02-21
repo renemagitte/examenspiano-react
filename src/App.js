@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import './index.css';
 import './sass/main.sass';
-import Key from './components/Key.js';
+// import Key from './components/Key.js';
+import Key from './components/Key/index.js';
 // import NoteCanvas from './components/NoteCanvas.js';
 // import Playhead from './components/Playhead.js';
 
@@ -37,7 +38,7 @@ import h2Audio from './sound/h2.mp3';
 import c3Audio from './sound/c3.mp3';
 import ciss3Audio from './sound/ciss3.mp3';
 
-// import VocalsTakeAChance from './sound/takeachancevocals.mp3';
+
 import beat from './sound/testbeat.mp3';
 
 
@@ -506,7 +507,7 @@ class App extends Component {
               <button className="button button-regular" onClick={this.stop}>■</button>
             </div>      
 
-            <Loop sound={beat} playheadAt={this.state.playheadAt} />
+            <Loop playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} />
 
           </div>
 
@@ -548,7 +549,7 @@ class App extends Component {
           
         </div>
 
-          <div className="synth-title">Synth 1.0</div>
+          {/* <div className="synth-title">Synth 1.0</div> */}
 
 
 

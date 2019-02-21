@@ -10,8 +10,8 @@ class NoteCanvas extends React.Component {
   }
 
   keyY = [
-    { code: 65, y: 250},  // 0, 65, A, c
-    { code: 87, y: 240},  // 1, 87, W, c#
+    {code: 65, y: 250},  // 0, 65, A, c
+    {code: 87, y: 240},  // 1, 87, W, c#
     {code: 83, y: 230},  // 2, 83, S, d
     {code: 69, y: 220},  // 3, 69, S, d#
     {code: 68, y: 210},  // 4, 68, D, e

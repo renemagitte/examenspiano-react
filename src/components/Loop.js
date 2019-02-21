@@ -3,7 +3,8 @@ import './../App.css';
 
 import drumicon from './../images/drum-icon.png';
 import beat from './../sound/testbeat.mp3';
-import beat2 from './../sound/testbeat.mp3';
+import beat2 from './../sound/beat2.mp3';
+import VocalsTakeAChance from './../sound/takeachancevocals.mp3';
 
 class Loop extends React.Component {
 
@@ -59,8 +60,8 @@ class Loop extends React.Component {
 
     //   // // Load some audio (CORS need to be allowed or we won't be able to decode the data)
     //   // fetch(src, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(this.decode);
-    //   fetch(this.props.sound, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(this.decode);
-    // }
+    //   fetch(this.state.beat, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(this.decode);
+    // // }
 
   }
 
@@ -85,12 +86,18 @@ playLoop = (abuffer) => {
 
 
 setBeat = (e) => {
+
+  this.stopLoop();
+
   let chosenBeat;
   if(e.target.value === 'beat1'){
     chosenBeat = beat;
   }else if(e.target.value === 'beat2'){
     chosenBeat = beat2;
+  }else if(e.target.value === 'takeachance'){
+    chosenBeat = VocalsTakeAChance;
   }
+  
 
   this.setState({ beat: chosenBeat })
 
@@ -119,7 +126,8 @@ setBeat = (e) => {
           {/* <div className="select"> */}
             <select onChange={this.setBeat} id="soflow">
               <option value="beat1">Beat 1</option>
-              <option value="beat2">Beat 2</option>
+              <option value="beat2">Beat 2 (70 BPM)</option>
+              {/* <option value="takeachance">Take A Chance Vocals</option> */}
             </select>
           {/* </div> */}
 
