@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './sass/main.sass';
+import './App.sass'
 
 import ControlField from './components/ControlField';
 import Playhead from './components/Playhead';
@@ -355,9 +355,7 @@ class App extends Component {
 
     return (
 
-      <React.Fragment>
-
-        <div className="synth-container">
+        <div className="synth">
 
 
           <ControlField 
@@ -370,7 +368,7 @@ class App extends Component {
           />
 
         {/* <div className="noteCanvas-container" id="container"> */}
-        <div className="noteCanvas-container">
+        <div className="canvas">
           <NoteCanvasGroup 
             timer={this.state.timer} 
             playing={this.state.playing}
@@ -477,7 +475,6 @@ class App extends Component {
         </div>
 
 
-      </React.Fragment>
 
 
       

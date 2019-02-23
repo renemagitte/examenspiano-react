@@ -3,33 +3,32 @@ import PropTypes from 'prop-types';
 
 import NoteAudio from './../NoteAudio';
 
-
-import c1Audio from './../../sound/c1.mp3';
-import ciss1Audio from './../../sound/ciss1.mp3';
-import d1Audio from './../../sound/d1.mp3';
-import diss1Audio from './../../sound/diss1.mp3';
-import e1Audio from './../../sound/e1.mp3';
-import f1Audio from './../../sound/f1.mp3';
-import fiss1Audio from './../../sound/fiss1.mp3';
-import g1Audio from './../../sound/g1.mp3';
-import giss1Audio from './../../sound/giss1.mp3';
-import a1Audio from './../../sound/a1.mp3';
-import b1Audio from './../../sound/b1.mp3';
-import h1Audio from './../../sound/h1.mp3';
-import c2Audio from './../../sound/c2.mp3';
-import ciss2Audio from './../../sound/ciss2.mp3';
-import d2Audio from './../../sound/d2.mp3';
-import diss2Audio from './../../sound/diss2.mp3';
-import e2Audio from './../../sound/e2.mp3';
-import f2Audio from './../../sound/f2.mp3';
-import fiss2Audio from './../../sound/fiss2.mp3';
-import g2Audio from './../../sound/g2.mp3';
-import giss2Audio from './../../sound/giss2.mp3';
-import a2Audio from './../../sound/a2.mp3';
-import b2Audio from './../../sound/b2.mp3';
-import h2Audio from './../../sound/h2.mp3';
-import c3Audio from './../../sound/c3.mp3';
-import ciss3Audio from './../../sound/ciss3.mp3';
+import c1Audio from './../../assets/sound/c1.mp3';
+import ciss1Audio from './../../assets/sound/ciss1.mp3';
+import d1Audio from './../../assets/sound/d1.mp3';
+import diss1Audio from './../../assets/sound/diss1.mp3';
+import e1Audio from './../../assets/sound/e1.mp3';
+import f1Audio from './../../assets/sound/f1.mp3';
+import fiss1Audio from './../../assets/sound/fiss1.mp3';
+import g1Audio from './../../assets/sound/g1.mp3';
+import giss1Audio from './../../assets/sound/giss1.mp3';
+import a1Audio from './../../assets/sound/a1.mp3';
+import b1Audio from './../../assets/sound/b1.mp3';
+import h1Audio from './../../assets/sound/h1.mp3';
+import c2Audio from './../../assets/sound/c2.mp3';
+import ciss2Audio from './../../assets/sound/ciss2.mp3';
+import d2Audio from './../../assets/sound/d2.mp3';
+import diss2Audio from './../../assets/sound/diss2.mp3';
+import e2Audio from './../../assets/sound/e2.mp3';
+import f2Audio from './../../assets/sound/f2.mp3';
+import fiss2Audio from './../../assets/sound/fiss2.mp3';
+import g2Audio from './../../assets/sound/g2.mp3';
+import giss2Audio from './../../assets/sound/giss2.mp3';
+import a2Audio from './../../assets/sound/a2.mp3';
+import b2Audio from './../../assets/sound/b2.mp3';
+import h2Audio from './../../assets/sound/h2.mp3';
+import c3Audio from './../../assets/sound/c3.mp3';
+import ciss3Audio from './../../assets/sound/ciss3.mp3';
 
 class NoteAudioGroup extends React.Component {
 

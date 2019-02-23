@@ -5,9 +5,9 @@ import './styles/index.sass'
 import Button from './../Button';
 
 // import drumicon from './../images/drum-icon.png';
-import beat from './../../sound/testbeat.mp3';
-import beat2 from './../../sound/beat2.mp3';
-import VocalsTakeAChance from './../../sound/takeachancevocals.mp3';
+import beat from './../../assets/sound/testbeat.mp3';
+import beat2 from './../../assets/sound/beat2.mp3';
+import VocalsTakeAChance from './../../assets/sound/takeachancevocals.mp3';
 
 class Beat extends React.Component {
 

@@ -17,9 +17,9 @@ const ControlField = ({
 }) => { 
 
   return (     
-      <div className="synth-control">
+      <div className="control-field">
 
-        <div className="buttons-wrapper">
+        <div className="control-field__buttons">
 
           <Button
             className={recording ? 'button button-record button-record--pressed' : 'button button-record'}
@@ -41,7 +41,12 @@ const ControlField = ({
 
         </div>  
 
-        <Timer timer={timer} />
+        <div className="control-field__display">
+          <Timer timer={timer} />
+        
+        </div>
+
+        
 
         <Beat 
           timer={timer} 
