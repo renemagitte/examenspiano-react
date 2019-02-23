@@ -23,7 +23,7 @@ class Playhead extends React.Component {
 
     componentWillReceiveProps(){
 
-        this.drawPlayhead(this.props.playheadAt);
+        this.drawPlayhead(this.props.timer);
 
     }
 

@@ -5,7 +5,7 @@ class NoteSound extends React.Component {
 
   state = {
     playing: false,
-    listenToRecorded: false,
+    playing: false,
   }
 
 
@@ -33,13 +33,13 @@ class NoteSound extends React.Component {
       var newNote;
       newNote = this.refs.notesCanvas.getContext('2d');
       newNote.fillStyle = "black";
-      newNote.fillRect(this.props.playheadAt, 0, 1, 10);
+      newNote.fillRect(this.props.timer, 0, 1, 10);
   }
 
 
   componentWillReceiveProps(){
     this.setState({ playing: this.props.note });
-    this.setState({ listenToRecorded: this.props.listenToRecorded });
+    this.setState({ playing: this.props.playing });
   }
 
   render() {
@@ -51,7 +51,7 @@ class NoteSound extends React.Component {
       this.play();
 
       /* If not in listen mode (a.k.a. recording mode) also draw the note. But change name! It's confusing now! */
-      if(!this.props.listenToRecorded){
+      if(!this.props.playing){
         this.drawNote();
       }
       

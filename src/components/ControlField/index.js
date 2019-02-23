@@ -7,12 +7,12 @@ import Beat from './../Beat';
 
 
 const ControlField = ({
+  recording, 
   playing, 
-  listenToRecorded, 
   startRecording, 
   startListening, 
   stop,
-  playheadAt
+  timer
 }) => { 
 
   return (     
@@ -21,15 +21,15 @@ const ControlField = ({
         <div className="buttons-wrapper">
 
           <Button
-            className={playing ? 'button button-record button-record--pressed' : 'button button-record'}
+            className={recording ? 'button button-record button-record--pressed' : 'button button-record'}
             onClick={startRecording}
             text="●	REC"
           />
 
           <Button
-            className={listenToRecorded ? 'button button-regular button-regular--pressed' : 'button button-regular'}
+            className={playing ? 'button button-regular button-regular--pressed' : 'button button-regular'}
             onClick={startListening}
-            text={listenToRecorded ? '| |' : '▶'}
+            text={playing ? '| |' : '▶'}
           />  
 
           <Button
@@ -41,13 +41,13 @@ const ControlField = ({
         </div>  
 
         <Beat 
-          playheadAt={playheadAt} 
-          listenToRecorded={listenToRecorded} 
+          timer={timer} 
+          playing={playing} 
         />    
 
 
 
-      {/* <Loop playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} /> */}
+      {/* <Loop timer={this.state.timer} playing={this.state.playing} /> */}
 
     </div>
 
@@ -57,8 +57,8 @@ const ControlField = ({
 }
 
 ControlField.propTypes = {
+  recording: PropTypes.bool.isRequired,
   playing: PropTypes.bool.isRequired,
-  listenToRecorded: PropTypes.bool.isRequired,
   startRecording: PropTypes.func.isRequired,
   startListening: PropTypes.func.isRequired,
   stop: PropTypes.func.isRequired
