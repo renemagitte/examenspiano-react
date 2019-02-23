@@ -398,6 +398,7 @@ class App extends Component {
           <NoteCanvasGroup 
             timer={this.state.timer} 
             playing={this.state.playing}
+            recording={this.state.recording}
             c1={this.state.c1}
             ciss1={this.state.ciss1}
             d1={this.state.d1}

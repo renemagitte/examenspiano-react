@@ -31,7 +31,7 @@ class DisplayTimer extends Component {
 
     return (    
 
-        <div className="timer">
+        <div className="display-timer">
           {this.state.min} : {this.state.sec} : {this.state.ms}
         </div> 
 

@@ -16,7 +16,9 @@ class NoteCanvas extends React.Component {
 
     /* If note is true (playing (now recording?)) and not in listen mode (a.k.a. recording...) also draw the note
     Change name! It's so confusing now! */
-    (this.props.note && !this.props.playing) && this.drawNote();
+    // (this.props.note && !this.props.playing) && this.drawNote();
+
+    (this.props.note && this.props.recording) && this.drawNote();
 
         return (
 
