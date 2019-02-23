@@ -170,8 +170,8 @@ setBeat = (e) => {
 }
 
 Beat.propTypes = {
-  playheadAt: PropTypes.number.isRequired,
-  listenToRecorded: PropTypes.bool.isRequired
+  timer: PropTypes.number.isRequired,
+  playing: PropTypes.bool.isRequired
 }
 
 export default Beat;

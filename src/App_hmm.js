@@ -103,7 +103,7 @@ class App extends Component {
     16: false,  // 25, 16, shift right, c# (3)
 
     playing: false,
-    playheadAt: 0,
+    timer: 0,
   }
 
   keyY = [
@@ -186,7 +186,7 @@ console.log(this.noteStateName);
     newNote = ReactDOM.findDOMNode(this.refs[noteName]).getContext('2d');
     console.log(newNote);
     newNote.fillStyle = "black";
-    newNote.fillRect(this.state.playheadAt, 0, 5, 10);
+    newNote.fillRect(this.state.timer, 0, 5, 10);
   }
 
 
@@ -281,8 +281,8 @@ console.log(this.noteStateName);
   }
 
   play = () => {
-    this.setState({ playheadAt: this.state.playheadAt + 1 });
-    this.drawPlayhead(this.state.playheadAt);
+    this.setState({ timer: this.state.timer + 1 });
+    this.drawPlayhead(this.state.timer);
   }
 
   drawPlayhead(x) {
@@ -302,8 +302,8 @@ console.log(this.noteStateName);
 
   stop = () => {
     clearInterval(this.playheadInterval);
-    this.setState({ playing: !this.state.playing, playheadAt: 0 }, () => {
-      this.drawPlayhead(this.state.playheadAt);
+    this.setState({ playing: !this.state.playing, timer: 0 }, () => {
+      this.drawPlayhead(this.state.timer);
     });
   }
 
@@ -315,7 +315,7 @@ console.log(this.noteStateName);
   //     var newNote2Y = this.getY(this.currentlyPlaying[i]);
   //     newNote = this.refs.notesCanvas.getContext('2d');
   //     newNote.fillStyle = "black";
-  //     newNote.fillRect(this.state.playheadAt, newNote2Y, 5, 10);
+  //     newNote.fillRect(this.state.timer, newNote2Y, 5, 10);
 
   //   }
   // }
@@ -352,32 +352,32 @@ console.log(this.noteStateName);
         <audio ref="elemCiss1" src={sound} ></audio> */}
 
 
-        {/* <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.ciss1} noteName='ciss1' sound={sound2} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.d1} noteName='d1' sound={dWav} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.diss1} noteName='diss1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.e1} noteName='e1' sound={eWav} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.f1} noteName='f1' sound={fWav} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.fiss1} noteName='fiss1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.g1} noteName='g1' sound={gWav} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.giss1} noteName='giss1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.a1} noteName='a1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.b1} noteName='b1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.h1} noteName='h1' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.c2} noteName='c2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.ciss2} noteName='ciss2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.d2} noteName='d2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.diss2} noteName='diss2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.e2} noteName='e2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.f2} noteName='f2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.fiss2} noteName='fiss2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.g2} noteName='g2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.giss2} noteName='giss2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.a2} noteName='a2' sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.b2} noteName='b2'sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.h2} noteName='h2'sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.c3} noteName='c3'sound={sound} playheadAt={this.state.playheadAt} />
-        <NoteSound note={this.state.ciss3} noteName='ciss3'sound={sound} playheadAt={this.state.playheadAt} /> */}
+        {/* <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} timer={this.state.timer} />
+        <NoteSound note={this.state.ciss1} noteName='ciss1' sound={sound2} timer={this.state.timer} />
+        <NoteSound note={this.state.d1} noteName='d1' sound={dWav} timer={this.state.timer} />
+        <NoteSound note={this.state.diss1} noteName='diss1' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.e1} noteName='e1' sound={eWav} timer={this.state.timer} />
+        <NoteSound note={this.state.f1} noteName='f1' sound={fWav} timer={this.state.timer} />
+        <NoteSound note={this.state.fiss1} noteName='fiss1' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.g1} noteName='g1' sound={gWav} timer={this.state.timer} />
+        <NoteSound note={this.state.giss1} noteName='giss1' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.a1} noteName='a1' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.b1} noteName='b1' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.h1} noteName='h1' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.c2} noteName='c2' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.ciss2} noteName='ciss2' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.d2} noteName='d2' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.diss2} noteName='diss2' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.e2} noteName='e2' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.f2} noteName='f2' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.fiss2} noteName='fiss2' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.g2} noteName='g2' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.giss2} noteName='giss2' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.a2} noteName='a2' sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.b2} noteName='b2'sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.h2} noteName='h2'sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.c3} noteName='c3'sound={sound} timer={this.state.timer} />
+        <NoteSound note={this.state.ciss3} noteName='ciss3'sound={sound} timer={this.state.timer} /> */}
 
 
         {/* <NoteSound note={this.state.c1} noteName='c1' code='65'sound={cWav} />

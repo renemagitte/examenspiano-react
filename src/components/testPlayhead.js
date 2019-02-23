@@ -6,7 +6,7 @@ import '../sass/noteCanvas.sass';
 
 //   state = {
 //     playing: false,
-//     playheadAt: 0,
+//     timer: 0,
 //   }
 
 //   updateCanvas(x) {
@@ -37,22 +37,22 @@ import '../sass/noteCanvas.sass';
 
 //   stop = () => {
 //     clearInterval(this.myVar);
-//     this.setState({ playing: !this.state.playing, playheadAt: 0 }, () => {
-//       this.updateCanvas(this.state.playheadAt);
+//     this.setState({ playing: !this.state.playing, timer: 0 }, () => {
+//       this.updateCanvas(this.state.timer);
 //     });
 //   }
 
 //   updatePlayhead = () => {
-//     this.updateCanvas(this.state.playheadAt);
+//     this.updateCanvas(this.state.timer);
 //   }
  
 //   play = () => {
-//     this.setState({ playheadAt: this.state.playheadAt + 1 });
-//     this.updateCanvas(this.state.playheadAt)
+//     this.setState({ timer: this.state.timer + 1 });
+//     this.updateCanvas(this.state.timer)
 //   }
 
 //   componentDidMount(){
-//     this.updatePlayhead(this.state.playheadAt);
+//     this.updatePlayhead(this.state.timer);
 //   }
 
 

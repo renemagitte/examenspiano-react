@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 class NoteAudio extends React.Component {
 
   state = {
+    recording: false,
     playing: false,
-    listenToRecorded: false,
   }
 
 
@@ -15,13 +15,13 @@ class NoteAudio extends React.Component {
     this.audio.vol = 1;
     this.audio.play();
 
-    /* Start listening for a change of playing-state, so sound can stop if state changes to false */
+    /* Start listening for a change of recording-state, so sound can stop if state changes to false */
     this.changeInterval = setInterval(this.listenForStateChange, 200);
 
   }
 
   listenForStateChange = () => {  
-    if(!this.state.playing){
+    if(!this.state.recording){
       this.audio.pause();
       this.audio.currentTime = 0;
       clearInterval(this.changeInterval);
@@ -29,8 +29,8 @@ class NoteAudio extends React.Component {
   }
 
   componentWillReceiveProps(){
-    this.setState({ playing: this.props.note });
-    this.setState({ listenToRecorded: this.props.listenToRecorded });
+    this.setState({ recording: this.props.note });
+    this.setState({ playing: this.props.playing });
   }
 
   render() {
@@ -47,7 +47,7 @@ class NoteAudio extends React.Component {
 
 NoteAudio.propTypes = {
     note: PropTypes.bool.isRequired,
-    listenToRecorded: PropTypes.bool.isRequired,
+    playing: PropTypes.bool.isRequired,
     sound: PropTypes.object.isRequired
   }
 

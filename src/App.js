@@ -21,9 +21,10 @@ import NoteSound from './components/NoteSound.js';
 class App extends Component {
 
   state = {
-    playing: false, //change name to recording - less confusing
-    playheadAt: 0,
-    listenToRecorded: false,
+    timer: 0,
+    //playing: false, //change name to recording - less confusing
+    recording: false,
+    playing: false,
     recordedNotes: [],
 
     /* test */
@@ -149,7 +150,7 @@ class App extends Component {
 
     /* If the noteState is not true (yet!) save starting point for note (a.k.a. where playhead is at the moment ) */
     if(!this.state[this.noteState]){
-      this.setState({ [this.noteData]: this.state.playheadAt });
+      this.setState({ [this.noteData]: this.state.timer });
     }
 
     /* Set noteState to true - it is playing */
@@ -159,7 +160,7 @@ class App extends Component {
 
   listen = () => {
 
-    console.log(this.state.playheadAt)
+    console.log(this.state.timer)
 
     /**
      * this.state.recordedNotes[i][0] = notename
@@ -168,61 +169,61 @@ class App extends Component {
      */
 
     for(let i = 0; i < this.state.recordedNotes.length; i++){
-      if(this.state.recordedNotes[i][1] === this.state.playheadAt){
+      if(this.state.recordedNotes[i][1] === this.state.timer){
         this.setState({ [this.state.recordedNotes[i][0]]: true });
       }
-      if(this.state.recordedNotes[i][2] === this.state.playheadAt){
+      if(this.state.recordedNotes[i][2] === this.state.timer){
         this.setState({ [this.state.recordedNotes[i][0]]: false });
       }
     }
 
     /* test with recording blocks to avoid looping over too many note objects when listening to recoded */
-    // if(this.state.playheadAt < 100){
+    // if(this.state.timer < 100){
     //   for(let i = 0; i < this.state.recBlock1.length; i++){
-    //     if(this.state.recBlock1[i][1] === this.state.playheadAt){
+    //     if(this.state.recBlock1[i][1] === this.state.timer){
     //       this.setState({ [this.state.recBlock1[i][0]]: true });
     //     }
-    //     if(this.state.recBlock1[i][2] === this.state.playheadAt){
+    //     if(this.state.recBlock1[i][2] === this.state.timer){
     //       this.setState({ [this.state.recBlock1[i][0]]: false });
     //     }
     //   }
     // // }
-    // }else if(this.state.playheadAt < 200){
+    // }else if(this.state.timer < 200){
     //   for(let i = 0; i < this.state.recBlock2.length; i++){
-    //     if(this.state.recBlock2[i][1] === this.state.playheadAt){
+    //     if(this.state.recBlock2[i][1] === this.state.timer){
     //       this.setState({ [this.state.recBlock2[i][0]]: true });
     //     }
-    //     if(this.state.recBlock2[i][2] === this.state.playheadAt){
+    //     if(this.state.recBlock2[i][2] === this.state.timer){
     //       this.setState({ [this.state.recBlock2[i][0]]: false });
     //     }
     //   }
-    // }else if(this.state.playheadAt < 300){
+    // }else if(this.state.timer < 300){
     //   for(let i = 0; i < this.state.recBlock3.length; i++){
-    //     if(this.state.recBlock3[i][1] === this.state.playheadAt){
+    //     if(this.state.recBlock3[i][1] === this.state.timer){
     //       this.setState({ [this.state.recBlock3[i][0]]: true });
     //     }
-    //     if(this.state.recBlock3[i][2] === this.state.playheadAt){
+    //     if(this.state.recBlock3[i][2] === this.state.timer){
     //       this.setState({ [this.state.recBlock3[i][0]]: false });
     //     }
     //   }
     // }
 
-    // if(this.state.playheadAt < 220){
+    // if(this.state.timer < 220){
     //   for(let i = 0; i < this.state.recBlock2.length; i++){
-    //     if(this.state.recBlock2[i][1] === this.state.playheadAt){
+    //     if(this.state.recBlock2[i][1] === this.state.timer){
     //       this.setState({ [this.state.recBlock2[i][0]]: true });
     //     }
-    //     if(this.state.recBlock2[i][2] === this.state.playheadAt){
+    //     if(this.state.recBlock2[i][2] === this.state.timer){
     //       this.setState({ [this.state.recBlock2[i][0]]: false });
     //     }
     //   }
     // }
-    // if(this.state.playheadAt < 300){
+    // if(this.state.timer < 300){
     //   for(let i = 0; i < this.state.recBlock3.length; i++){
-    //     if(this.state.recBlock3[i][1] === this.state.playheadAt){
+    //     if(this.state.recBlock3[i][1] === this.state.timer){
     //       this.setState({ [this.state.recBlock3[i][0]]: true });
     //     }
-    //     if(this.state.recBlock3[i][2] === this.state.playheadAt){
+    //     if(this.state.recBlock3[i][2] === this.state.timer){
     //       this.setState({ [this.state.recBlock3[i][0]]: false });
     //     }
     //   }
@@ -259,27 +260,27 @@ class App extends Component {
      * Start of note is allready saved in noteData state from when the key was first pressed.
      * End of note is where playhead is at when we unpress the key.
      */
-    this.noteToRecord = [this.noteState, this.state[this.noteData], this.state.playheadAt]
+    this.noteToRecord = [this.noteState, this.state[this.noteData], this.state.timer]
 
     /* Adding the noteData-array to array in recordedNotes-state */
     this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] });
 
     /* test with recording blocks */
-    // if(this.state.playheadAt < 100){
+    // if(this.state.timer < 100){
     //   this.setState({ recBlock1: [...this.state.recBlock1, this.noteToRecord] });
-    // }else if(this.state.playheadAt < 200){
+    // }else if(this.state.timer < 200){
     //   this.setState({ recBlock2: [...this.state.recBlock2, this.noteToRecord] });
-    // }else if(this.state.playheadAt < 300){
+    // }else if(this.state.timer < 300){
     //   this.setState({ recBlock3: [...this.state.recBlock3, this.noteToRecord] });
-    // }else if(this.state.playheadAt < 400){
+    // }else if(this.state.timer < 400){
     //   this.setState({ recBlock4: [...this.state.recBlock4, this.noteToRecord] });
-    // }else if(this.state.playheadAt < 500){
+    // }else if(this.state.timer < 500){
     //   this.setState({ recBlock5: [...this.state.recBlock5, this.noteToRecord] });
-    // }else if(this.state.playheadAt < 600){
+    // }else if(this.state.timer < 600){
     //   this.setState({ recBlock6: [...this.state.recBlock6, this.noteToRecord] });
-    // }else if(this.state.playheadAt < 700){
+    // }else if(this.state.timer < 700){
     //   this.setState({ recBlock7: [...this.state.recBlock7, this.noteToRecord] });
-    // }else if(this.state.playheadAt < 800){
+    // }else if(this.state.timer < 800){
     //   this.setState({ recBlock8: [...this.state.recBlock8, this.noteToRecord] });
     // }
 
@@ -293,12 +294,12 @@ class App extends Component {
 
   startRecording = () => {
 
-    this.setState({ playing: !this.state.playing });
+    this.setState({ recording: !this.state.recording });
 
-    if(!this.state.playing){
+    if(!this.state.recording){
       this.playheadInterval = setInterval(this.play, 100);
     }
-    if(this.state.playing){
+    if(this.state.recording){
       clearInterval(this.playheadInterval);
     }
 
@@ -306,11 +307,11 @@ class App extends Component {
 
   startListening = () => {
 
-    this.setState({ listenToRecorded: !this.state.listenToRecorded }, () => {
-      if(this.state.listenToRecorded){
+    this.setState({ playing: !this.state.playing }, () => {
+      if(this.state.playing){
         this.playheadInterval2 = setInterval(this.movePlayhead, 100);
       }
-      if(!this.state.listenToRecorded){
+      if(!this.state.playing){
         clearInterval(this.playheadInterval2);
       }
 
@@ -321,12 +322,12 @@ class App extends Component {
 
 
   movePlayhead = () => {
-    this.setState({ playheadAt: this.state.playheadAt + 1 });
+    this.setState({ timer: this.state.timer + 1 });
     this.listen();
   }
 
   play = () => {
-    this.setState({ playheadAt: this.state.playheadAt + 1 });
+    this.setState({ timer: this.state.timer + 1 });
   }
 
 
@@ -334,11 +335,11 @@ class App extends Component {
     clearInterval(this.playheadInterval);
     clearInterval(this.playheadInterval2);
 
-    this.setState({ playing: false, listenToRecorded: false, playheadAt: 0 });
+    this.setState({ recording: false, playing: false, timer: 0 });
 
-    // // this.setState({ playing: !this.state.playing, playheadAt: 0 }, () => {
-    // this.setState({ playing: false, listenToRecorded: false, playheadAt: 0 }, () => {
-    //   // this.drawPlayhead(this.state.playheadAt);
+    // // this.setState({ playing: !this.state.playing, timer: 0 }, () => {
+    // this.setState({ playing: false, playing: false, timer: 0 }, () => {
+    //   // this.drawPlayhead(this.state.timer);
     // });
 
 
@@ -367,8 +368,8 @@ class App extends Component {
 
   render() {
 
-    let time =  Math.floor (this.state.playheadAt / 10);
-    let ms = Math.floor (this.state.playheadAt);
+    let time =  Math.floor (this.state.timer / 10);
+    let ms = Math.floor (this.state.timer);
 
     return (
 
@@ -380,8 +381,8 @@ class App extends Component {
           {/* <div className="synth-control"> */}
 
           <ControlField 
+            recording={this.state.recording}
             playing={this.state.playing}
-            listenToRecorded={this.state.listenToRecorded}
             startRecording={this.startRecording}
             startListening={this.startListening}
             stop={this.stop}
@@ -394,7 +395,7 @@ class App extends Component {
               <button className="button button-regular" onClick={this.stop}>■</button>
             </div>       */}
 
-            {/* <Loop playheadAt={this.state.playheadAt} listenToRecorded={this.state.listenToRecorded} /> */}
+            {/* <Loop timer={this.state.timer} playing={this.state.playing} /> */}
 
           {/* </div> */}
 
@@ -405,9 +406,9 @@ class App extends Component {
 
 
           <NoteCanvasGroup 
-            playheadAt={this.state.playheadAt} 
-            listenToRecorded={this.state.listenToRecorded}
-            playheadAt={this.state.playheadAt} 
+            timer={this.state.timer} 
+            playing={this.state.playing}
+            timer={this.state.timer} 
             c1={this.state.c1}
             ciss1={this.state.ciss1}
             d1={this.state.d1}
@@ -436,7 +437,7 @@ class App extends Component {
             ciss3={this.state.ciss3}
           />
 
-          <Playhead playheadAt={this.state.playheadAt} />
+          <Playhead timer={this.state.timer} />
 
 
           {/* Not in seperate component due to problems with ref: */}
@@ -456,8 +457,8 @@ class App extends Component {
 
 
         <NoteAudioGroup 
-          listenToRecorded={this.state.listenToRecorded}
-          playheadAt={this.state.playheadAt} 
+          playing={this.state.playing}
+          timer={this.state.timer} 
           c1={this.state.c1}
           ciss1={this.state.ciss1}
           d1={this.state.d1}
