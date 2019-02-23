@@ -5,19 +5,25 @@ import './styles/index.sass';
 class Timer extends Component {
 
   state = {
-    min: 0,
-    sec: 0,
-    ms: 0
+    min: '00',
+    sec: '00',
+    ms: '0'
 
   }
 
   componentWillReceiveProps(){
 
-    this.setState({ 
-      min: Math.floor( this.props.timer / (60 * 10) ),
-      sec: Math.floor( ((this.props.timer % 6000) / 10) % 60 ),
-      ms: Math.floor( this.props.timer % 10 )
-    });
+    let min = '0' + Math.floor( this.props.timer / (60 * 10) );
+
+    let sec = Math.floor( ((this.props.timer % 6000) / 10) % 60 );
+    
+    if(sec < 10){
+      sec = '0' + Math.floor( ((this.props.timer % 6000) / 10) % 60 );
+    }
+
+    let ms = Math.floor( this.props.timer % 10 )
+
+    this.setState({ min: min, sec: sec, ms: ms });
 
   }
 

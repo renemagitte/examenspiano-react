@@ -365,6 +365,32 @@ class App extends Component {
             pressRecordButton={this.pressRecordButton}
             pressPlayButton={this.pressPlayButton}
             pressStopButton={this.pressStopButton}
+            c1={this.state.c1}
+            ciss1={this.state.ciss1}
+            d1={this.state.d1}
+            diss1={this.state.diss1}
+            e1={this.state.e1}
+            f1={this.state.f1}
+            fiss1={this.state.fiss1}
+            g1={this.state.g1}
+            giss1={this.state.giss1}
+            a1={this.state.a1}
+            b1={this.state.b1}
+            h1={this.state.h1}
+            c2={this.state.c2}
+            ciss2={this.state.ciss2}
+            d2={this.state.d2}
+            diss2={this.state.diss2}
+            e2={this.state.e2}
+            f2={this.state.f2}
+            fiss2={this.state.fiss2}
+            g2={this.state.g2}
+            giss2={this.state.giss2}
+            a2={this.state.a2}
+            b2={this.state.b2}
+            h2={this.state.h2}
+            c3={this.state.c3}
+            ciss3={this.state.ciss3}
           />
 
         {/* <div className="noteCanvas-container" id="container"> */}
