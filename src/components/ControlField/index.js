@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './styles/index.sass';
 
 import Button from './../Button';
-import Timer from './../Timer';
+import DisplayTimer from './../DisplayTimer';
 import Beat from './../Beat';
 
 
@@ -42,7 +42,9 @@ const ControlField = ({
         </div>  
 
         <div className="control-field__display">
-          <Timer timer={timer} />
+          <DisplayTimer timer={timer} />
+
+          {/* <DisplayNote /> */}
         
         </div>
 
