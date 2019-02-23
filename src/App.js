@@ -89,37 +89,6 @@ class App extends Component {
     ciss3: false,
     ciss3Data: [],
 
-    // TODO: keep all notes in object for more effective props: notes={this.state.notes}
-    // check: https://stackoverflow.com/questions/27105257/storing-an-object-in-state-of-a-react-component
-    // notes: {
-    //   c1: false,
-    //   ciss1: false,
-    //   d1: false,
-    //   diss1: false,
-    //   e1: false,
-    //   f1: false,
-    //   fiss1: false,
-    //   g1: false,
-    //   giss1: false,
-    //   a1: false,
-    //   b1: false,
-    //   h1: false,
-    //   c2: false,
-    //   ciss2: false,
-    //   d2: false,
-    //   diss2: false,
-    //   e2: false,
-    //   f2: false,
-    //   fiss2: false,
-    //   g2: false,
-    //   giss2: false,
-    //   a2: false,
-    //   b2: false,
-    //   h2: false,
-    //   c3: false,
-    //   ciss3: false,
-    // }
-
   }
 
 
@@ -172,10 +141,6 @@ class App extends Component {
 
   pressKey = (e) => {
     e.preventDefault();
-
-
-    console.log(e.keyCode)
-
     /* "Translate" from keyCode to name of note (noteState) */
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
 
@@ -189,9 +154,6 @@ class App extends Component {
 
     /* Set noteState to true - it is playing */
     this.setState({ [this.noteState]: true });
-
-
-
   }
 
 
@@ -281,15 +243,11 @@ class App extends Component {
   unpressKey = (e) => {
     e.preventDefault();
 
-    /* key styling is still connected to old states with keycodes: */
-    // this.setState({ [e.keyCode]: false });
-
     /* "Translate" from keyCode to name of note (noteState) */
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
 
     /* Set noteState to false (not playing) */
     this.setState({ [this.noteState]: false });
-
 
     /* Generate data state where length of pressed down note is stored */
     this.noteData = this.noteState + 'Data';
@@ -332,42 +290,6 @@ class App extends Component {
 
 
 
-  /* Old version - looping out keyboard 
-  buildKeyboard = () => {
-    var keys = [];
-    var numberOfKeys = 26;
-    // Keycodes in order of appearance in piano. Starting with note C = letter A/keycode 65.
-    var keyCodes = [ 65, 87, 83, 69, 68, 70, 84, 71, 89, 72, 85, 74, 75, 79, 76, 80, 186, 222, 221, 13, 188, 93, 190, 18, 189, 16 ]
-
-    for(var i = 0; i < numberOfKeys; i++){
-        var key;
-        var keyClass = this.keyClass(keyCodes[i]);
-        if(this.state[keyCodes[i]]) keyClass += ' pressed';
-        key = <Key className={keyClass} key={keyCodes[i]} />;
-        keys.push(key);
-    }
-    return keys;
-  }
-
-  keyClass = (code) =>{
-    switch (code) {
-      case 87:
-      case 69:
-      case 84:
-      case 89:
-      case 85:
-      case 79:
-      case 80:
-      case 221:
-      case 188:
-      case 190:
-      case 16:
-          return 'key black';
-      default: 
-          return 'key';
-    }
-  }
-  */
 
   startRecording = () => {
 
@@ -400,33 +322,13 @@ class App extends Component {
 
   movePlayhead = () => {
     this.setState({ playheadAt: this.state.playheadAt + 1 });
-
-    // this.drawPlayhead(this.state.playheadAt);
-
-
     this.listen();
   }
 
   play = () => {
     this.setState({ playheadAt: this.state.playheadAt + 1 });
-    // this.drawPlayhead(this.state.playheadAt);
   }
 
-  drawPlayhead(x) {
-
-    const c = this.refs.playheadCanvas.getContext('2d');
-
-    /* Clear canvas */
-    c.clearRect(0, 0, 860, 375);
-
-    /* Clear canvas */
-    c.beginPath();
-    c.moveTo(x, 0);
-    c.lineTo(x, 375);
-    c.lineWidth = 1;
-    c.strokeStyle = '#000000'
-    c.stroke();
-  }
 
   stop = () => {
     clearInterval(this.playheadInterval);
