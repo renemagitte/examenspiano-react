@@ -74,7 +74,6 @@ class NoteAudioGroup extends React.Component {
 }
 
 NoteAudioGroup.propTypes = {
-    note: PropTypes.object.isRequired,
     playing: PropTypes.bool.isRequired
   }
 

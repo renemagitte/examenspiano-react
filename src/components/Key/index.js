@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import './styles/index.sass';
 
 
-function Key({className, key}) { 
+function Key({className, keyCode}) { 
 
   return (     
-      <div className={className} data-key={key}>
+      <div className={className} data-key={keyCode}>
       </div> 
   );
   
@@ -14,7 +14,7 @@ function Key({className, key}) {
 
 Key.propTypes = {
   className: PropTypes.string.isRequired,
-  key: PropTypes.string.isRequired
+  keyCode: PropTypes.string.isRequired
 }
 
 export default Key;

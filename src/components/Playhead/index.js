@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 
 class Playhead extends React.Component {
 
-
-    drawPlayhead(x) {
-
+    drawPlayhead = (x) => {
         const c = this.refs.playheadCanvas.getContext('2d');
     
         /* Clear canvas */
@@ -20,15 +18,11 @@ class Playhead extends React.Component {
         c.stroke();
     }
     
-
     componentWillReceiveProps(){
-
         this.drawPlayhead(this.props.timer);
-
     }
 
 
-    
     render() {
 
         return (
@@ -45,5 +39,9 @@ class Playhead extends React.Component {
     }
 
 }
+
+Playhead.propTypes = {
+    timer: PropTypes.number.isRequired
+  }
 
 export default Playhead;

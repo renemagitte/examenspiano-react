@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
-// import './App.css';
-// import './index.css';
 import './sass/main.sass';
 
-import Key from './components/Key';
-// import NoteCanvas from './components/NoteCanvas.js';
-
 import ControlField from './components/ControlField';
-
+import Playhead from './components/Playhead';
 import Keyboard from './components/Keyboard'; // Change name to NoteKeyGroup
 import NoteAudioGroup from './components/NoteAudioGroup';
 import NoteCanvasGroup from './components/NoteCanvasGroup';
 
-import Playhead from './components/Playhead';
-
-import NoteSound from './components/NoteSound.js';
 
 
 
@@ -92,37 +84,38 @@ class App extends Component {
 
   }
 
-
   /* Since the listener is set on window and not the key elements, 
-    we have to "translate" window's keyCode to note/state */
+    we have to "translate" window's keyCode to note/state according to this array: */
   keyCodeToNoteConnection = [
-    {code: 65, stateName: 'c1'},  // 0, 65, A, c
-    {code: 87, stateName: 'ciss1'},  // 1, 87, W, c#
-    {code: 83, stateName: 'd1'},  // 2, 83, S, d
-    {code: 69, stateName: 'diss1'},  // 3, 69, S, d#
-    {code: 68, stateName: 'e1'},  // 4, 68, D, e
-    {code: 70, stateName: 'f1'},  // 5, 70, F, f
-    {code: 84, stateName: 'fiss1'},  // 6, 84, T, f#
-    {code: 71, stateName: 'g1'},  // 7, 71, T, g
-    {code: 89, stateName: 'giss1'},  // 8, 89, Y, g#
-    {code: 72, stateName: 'a1'},  // 9, 72, H, a
-    {code: 85, stateName: 'b1'},  // 10, 85, U, b / a#
-    {code: 74, stateName: 'h1'},  // 11, 74, J, h
-    {code: 75, stateName: 'c2'},  // 12, 75, K, c (2)
-    {code: 79, stateName: 'ciss2'},  // 13, 79, O, c# (2)
-    {code: 76, stateName: 'd2'},  // 14, 78, L, d (2)
-    {code: 80, stateName: 'diss2'},  // 15, 80, P, d# (2)
-    {code: 186, stateName: 'e2'}, // 16, 186, Ö, e (2)
-    {code: 222, stateName: 'f2'}, // 17, 222, Ä, f (2)
-    {code: 221, stateName: 'fiss2'}, // 18, 221, ^, f# (2)
-    {code: 13, stateName: 'g2'},  // 19, 13, enter, g (2)
-    {code: 188, stateName: 'giss2'}, // 20, 188, ,, g# (2)
-    {code: 93, stateName: 'a2'},  // 21, 93, cmd right, a (2)
-    {code: 190, stateName: 'b2'}, // 22, 190, ., b / a# (2)
-    {code: 18, stateName: 'h2'},  // 23, 18, alt right, h (2)
-    {code: 189, stateName: 'c3'}, // 24, 189, -, c (3)
-    {code: 16, stateName: 'ciss3'}  // 25, 16, shift right, c# (3)
+    {code: 65, stateName: 'c1'},  // A
+    {code: 87, stateName: 'ciss1'},  // W
+    {code: 83, stateName: 'd1'},  // S
+    {code: 69, stateName: 'diss1'},  // S
+    {code: 68, stateName: 'e1'},  // D
+    {code: 70, stateName: 'f1'},  // F
+    {code: 84, stateName: 'fiss1'},  // T
+    {code: 71, stateName: 'g1'},  // T
+    {code: 89, stateName: 'giss1'},  // Y
+    {code: 72, stateName: 'a1'},  // H
+    {code: 85, stateName: 'b1'},  // U
+    {code: 74, stateName: 'h1'},  // J
+    {code: 75, stateName: 'c2'},  // K
+    {code: 79, stateName: 'ciss2'},  // O
+    {code: 76, stateName: 'd2'},  // L
+    {code: 80, stateName: 'diss2'},  // P
+    {code: 186, stateName: 'e2'}, // Ö
+    {code: 222, stateName: 'f2'}, // Ä
+    {code: 221, stateName: 'fiss2'}, // ^
+    {code: 13, stateName: 'g2'},  // enter
+    {code: 188, stateName: 'giss2'}, // ,
+    {code: 93, stateName: 'a2'},  // cmd (right)
+    {code: 190, stateName: 'b2'}, // .
+    {code: 18, stateName: 'h2'},  // alt (right)
+    {code: 189, stateName: 'c3'}, // -
+    {code: 16, stateName: 'ciss3'}  // shift (right)
   ]
+
+
 
 
   componentDidMount() {
@@ -133,12 +126,10 @@ class App extends Component {
   keydownEventlistener = () => {
     window.addEventListener('keydown', this.pressKey);
   }
+
   keyupEventlistener = () => {
     window.addEventListener('keyup', this.unpressKey);
   }
-
-
-
 
   pressKey = (e) => {
     e.preventDefault();
@@ -157,10 +148,88 @@ class App extends Component {
     this.setState({ [this.noteState]: true });
   }
 
+  unpressKey = (e) => {
+    e.preventDefault();
 
-  listen = () => {
+    /* "Translate" from keyCode to name of note (noteState) */
+    this.noteState = this.getStateNameFromKeyCode(e.keyCode);
 
-    console.log(this.state.timer)
+    /* Set noteState to false (not playing) */
+    this.setState({ [this.noteState]: false });
+
+    /* Generate data state where length of pressed down note is stored */
+    this.noteData = this.noteState + 'Data';
+
+    /** 
+     * Now when the key is unpressed we have the data we need to save for recording,
+     * let's save it in an array:
+     * noteToRecord = [ noteState, start of note, end of note ]
+     * Start of note is allready saved in noteData state from when the key was first pressed.
+     * End of note is where playhead is at when we unpress the key.
+     */
+    this.noteToRecord = [this.noteState, this.state[this.noteData], this.state.timer]
+
+    /* Adding the noteData-array to array in recordedNotes-state */
+    this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] });
+
+    /* test with recording blocks */
+    // if(this.state.timer < 100){
+    //   this.setState({ recBlock1: [...this.state.recBlock1, this.noteToRecord] });
+    // }else if(this.state.timer < 200){
+    //   this.setState({ recBlock2: [...this.state.recBlock2, this.noteToRecord] });
+    // }else if(this.state.timer < 300){
+    //   this.setState({ recBlock3: [...this.state.recBlock3, this.noteToRecord] });
+    // }else if(this.state.timer < 400){
+    //   this.setState({ recBlock4: [...this.state.recBlock4, this.noteToRecord] });
+    // }else if(this.state.timer < 500){
+    //   this.setState({ recBlock5: [...this.state.recBlock5, this.noteToRecord] });
+    // }else if(this.state.timer < 600){
+    //   this.setState({ recBlock6: [...this.state.recBlock6, this.noteToRecord] });
+    // }else if(this.state.timer < 700){
+    //   this.setState({ recBlock7: [...this.state.recBlock7, this.noteToRecord] });
+    // }else if(this.state.timer < 800){
+    //   this.setState({ recBlock8: [...this.state.recBlock8, this.noteToRecord] });
+    // }
+    // console.log( this.state.recordedNotes);
+  }
+
+  timerIncrement = () => {
+    this.setState({ timer: this.state.timer + 1 });
+  }
+
+  pressRecordButton = () => {
+    this.setState({ recording: !this.state.recording });
+
+    if(!this.state.recording){
+      this.recordingInterval = setInterval(this.timerIncrement, 100);
+    }else if(this.state.recording){
+      clearInterval(this.recordingInterval);
+    }
+  }
+
+  pressPlayButton = () => {
+    this.setState({ playing: !this.state.playing }, () => {
+
+      if(this.state.playing){
+          this.playingInterval = setInterval(() => {
+            this.timerIncrement();
+            this.playRecordedNotes();
+          }, 100);
+      }else if(!this.state.playing){
+          clearInterval(this.playingInterval);
+      }
+
+    });
+  }
+
+  pressStopButton = () => {
+    clearInterval(this.recordingInterval);
+    clearInterval(this.playingInterval);
+
+    this.setState({ recording: false, playing: false, timer: 0 });
+  }
+
+  playRecordedNotes = () => {
 
     /**
      * this.state.recordedNotes[i][0] = notename
@@ -234,6 +303,7 @@ class App extends Component {
 
   getStateNameFromKeyCode = (code) => {
     var obj = this.findObjectByKey(this.keyCodeToNoteConnection, 'code', code);
+    // var obj = this.findObjectByKeyBackwards(this.keyCodeToNoteConnection, 'code', code);
     /* If the key is not used null is returned the app breaks, so only return if not null */
     if(obj != null){
       return(obj.stateName);
@@ -241,102 +311,13 @@ class App extends Component {
   }
 
 
-  unpressKey = (e) => {
-    e.preventDefault();
-
-    /* "Translate" from keyCode to name of note (noteState) */
-    this.noteState = this.getStateNameFromKeyCode(e.keyCode);
-
-    /* Set noteState to false (not playing) */
-    this.setState({ [this.noteState]: false });
-
-    /* Generate data state where length of pressed down note is stored */
-    this.noteData = this.noteState + 'Data';
-
-    /** 
-     * Now when the key is unpressed we have the data we need to save for recording,
-     * let's save it in an array:
-     * noteToRecord = [ noteState, start of note, end of note ]
-     * Start of note is allready saved in noteData state from when the key was first pressed.
-     * End of note is where playhead is at when we unpress the key.
-     */
-    this.noteToRecord = [this.noteState, this.state[this.noteData], this.state.timer]
-
-    /* Adding the noteData-array to array in recordedNotes-state */
-    this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] });
-
-    /* test with recording blocks */
-    // if(this.state.timer < 100){
-    //   this.setState({ recBlock1: [...this.state.recBlock1, this.noteToRecord] });
-    // }else if(this.state.timer < 200){
-    //   this.setState({ recBlock2: [...this.state.recBlock2, this.noteToRecord] });
-    // }else if(this.state.timer < 300){
-    //   this.setState({ recBlock3: [...this.state.recBlock3, this.noteToRecord] });
-    // }else if(this.state.timer < 400){
-    //   this.setState({ recBlock4: [...this.state.recBlock4, this.noteToRecord] });
-    // }else if(this.state.timer < 500){
-    //   this.setState({ recBlock5: [...this.state.recBlock5, this.noteToRecord] });
-    // }else if(this.state.timer < 600){
-    //   this.setState({ recBlock6: [...this.state.recBlock6, this.noteToRecord] });
-    // }else if(this.state.timer < 700){
-    //   this.setState({ recBlock7: [...this.state.recBlock7, this.noteToRecord] });
-    // }else if(this.state.timer < 800){
-    //   this.setState({ recBlock8: [...this.state.recBlock8, this.noteToRecord] });
-    // }
-
-
-    // console.log( this.state.recordedNotes);
-
-  }
 
 
 
-  pressRecordButton = () => {
-
-    this.setState({ recording: !this.state.recording });
-
-    if(!this.state.recording){
-      this.recordingInterval = setInterval(this.timerIncrement, 100);
-    }else if(this.state.recording){
-      clearInterval(this.recordingInterval);
-    }
-
-  }
-
-  pressPlayButton = () => {
-
-    this.setState({ playing: !this.state.playing }, () => {
-      if(this.state.playing){
-          this.playingInterval = setInterval(() => {
-            this.timerIncrement();
-            this.listen();
-          }, 100);
-
-        }else if(!this.state.playing){
-          clearInterval(this.playingInterval);
-        }
-    });
-
-  }
-
-  timerIncrement = () => {
-    this.setState({ timer: this.state.timer + 1 });
-  }
 
 
-  stop = () => {
-    clearInterval(this.recordingInterval);
-    clearInterval(this.playingInterval);
-
-    this.setState({ recording: false, playing: false, timer: 0 });
-
-    // // this.setState({ playing: !this.state.playing, timer: 0 }, () => {
-    // this.setState({ playing: false, playing: false, timer: 0 }, () => {
-    //   // this.drawPlayhead(this.state.timer);
-    // });
 
 
-  }
 
 
   /* takes an array of obejcts and a value, and returns the object where the key is the same as the value that's sent in */
@@ -361,8 +342,6 @@ class App extends Component {
 
   render() {
 
-    let time =  Math.floor (this.state.timer / 10);
-    let ms = Math.floor (this.state.timer);
 
     return (
 
@@ -371,29 +350,14 @@ class App extends Component {
         <div className="synth-container">
 
 
-          {/* <div className="synth-control"> */}
-
           <ControlField 
+            timer={this.state.timer}
             recording={this.state.recording}
             playing={this.state.playing}
             pressRecordButton={this.pressRecordButton}
             pressPlayButton={this.pressPlayButton}
-            stop={this.stop}
+            pressStopButton={this.pressStopButton}
           />
-
-            {/* 00:{ time }:{ms} */}
-            {/* <div className="buttons-wrapper">
-              <button className={recClass} onClick={this.pressRecordButton}>●	REC</button>
-              <button className={playClass} onClick={this.pressPlayButton}>{buttonText}</button>
-              <button className="button button-regular" onClick={this.stop}>■</button>
-            </div>       */}
-
-            {/* <Loop timer={this.state.timer} playing={this.state.playing} /> */}
-
-          {/* </div> */}
-
-        
-
 
         <div className="noteCanvas-container" id="container">
 
@@ -432,16 +396,6 @@ class App extends Component {
 
           <Playhead timer={this.state.timer} />
 
-
-          {/* Not in seperate component due to problems with ref: */}
-          {/* <canvas 
-            width="860" 
-            height="132" 
-            style={{zIndex: 11}} 
-            className="playheadCanvas" 
-            // id="playheadCanvas" 
-            ref="playheadCanvas">
-          </canvas> */}
 
           
         </div>

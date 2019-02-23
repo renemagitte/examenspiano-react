@@ -3,16 +3,17 @@ import PropTypes from 'prop-types'
 import './styles/index.sass';
 
 import Button from './../Button';
+import Timer from './../Timer';
 import Beat from './../Beat';
 
 
 const ControlField = ({
+  timer,
   recording, 
   playing, 
   pressRecordButton, 
   pressPlayButton, 
-  stop,
-  timer
+  pressStopButton
 }) => { 
 
   return (     
@@ -34,11 +35,13 @@ const ControlField = ({
 
           <Button
             className="button button-regular"
-            onClick={stop}
+            onClick={pressStopButton}
             text="■"
           />    
 
         </div>  
+
+        <Timer timer={timer} />
 
         <Beat 
           timer={timer} 
@@ -47,7 +50,6 @@ const ControlField = ({
 
 
 
-      {/* <Loop timer={this.state.timer} playing={this.state.playing} /> */}
 
     </div>
 
@@ -57,11 +59,12 @@ const ControlField = ({
 }
 
 ControlField.propTypes = {
+  timer: PropTypes.number.isRequired,
   recording: PropTypes.bool.isRequired,
   playing: PropTypes.bool.isRequired,
   pressRecordButton: PropTypes.func.isRequired,
   pressPlayButton: PropTypes.func.isRequired,
-  stop: PropTypes.func.isRequired
+  pressStopButton: PropTypes.func.isRequired
 }
 
 export default ControlField;

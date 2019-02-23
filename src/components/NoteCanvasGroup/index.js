@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
 import NoteCanvas from './../NoteCanvas/index.js';
@@ -6,7 +6,6 @@ import NoteCanvas from './../NoteCanvas/index.js';
 class NoteCanvasGroup extends React.Component {
 
   render(){
-
 
     return (
 

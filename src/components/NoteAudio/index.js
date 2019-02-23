@@ -48,7 +48,7 @@ class NoteAudio extends React.Component {
 NoteAudio.propTypes = {
     note: PropTypes.bool.isRequired,
     playing: PropTypes.bool.isRequired,
-    sound: PropTypes.object.isRequired
+    sound: PropTypes.string.isRequired
   }
 
 export default NoteAudio;
