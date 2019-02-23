@@ -22,20 +22,20 @@ class App extends Component {
 
   state = {
     timer: 0,
-    //playing: false, //change name to recording - less confusing
     recording: false,
     playing: false,
+
     recordedNotes: [],
 
     /* test */
-    recBlock1: [],
-    recBlock2: [],
-    recBlock3: [],
-    recBlock4: [],
-    recBlock5: [],
-    recBlock6: [],
-    recBlock7: [],
-    recBlock8: [],
+    // recBlock1: [],
+    // recBlock2: [],
+    // recBlock3: [],
+    // recBlock4: [],
+    // recBlock5: [],
+    // recBlock6: [],
+    // recBlock7: [],
+    // recBlock8: [],
 
     c1: false,
     c1Data: [],
@@ -148,7 +148,7 @@ class App extends Component {
     /* Generate data state where length of pressed down note is stored */
     this.noteData = this.noteState + 'Data';
 
-    /* If the noteState is not true (yet!) save starting point for note (a.k.a. where playhead is at the moment ) */
+    /* If the noteState is not true (yet!) save starting point for note (a.k.a. where timer is at the moment ) */
     if(!this.state[this.noteState]){
       this.setState({ [this.noteData]: this.state.timer });
     }
@@ -291,49 +291,42 @@ class App extends Component {
 
 
 
-
-  startRecording = () => {
+  pressRecordButton = () => {
 
     this.setState({ recording: !this.state.recording });
 
     if(!this.state.recording){
-      this.playheadInterval = setInterval(this.play, 100);
-    }
-    if(this.state.recording){
-      clearInterval(this.playheadInterval);
+      this.recordingInterval = setInterval(this.timerIncrement, 100);
+    }else if(this.state.recording){
+      clearInterval(this.recordingInterval);
     }
 
   }
 
-  startListening = () => {
+  pressPlayButton = () => {
 
     this.setState({ playing: !this.state.playing }, () => {
       if(this.state.playing){
-        this.playheadInterval2 = setInterval(this.movePlayhead, 100);
-      }
-      if(!this.state.playing){
-        clearInterval(this.playheadInterval2);
-      }
+          this.playingInterval = setInterval(() => {
+            this.timerIncrement();
+            this.listen();
+          }, 100);
 
+        }else if(!this.state.playing){
+          clearInterval(this.playingInterval);
+        }
     });
 
   }
 
-
-
-  movePlayhead = () => {
-    this.setState({ timer: this.state.timer + 1 });
-    this.listen();
-  }
-
-  play = () => {
+  timerIncrement = () => {
     this.setState({ timer: this.state.timer + 1 });
   }
 
 
   stop = () => {
-    clearInterval(this.playheadInterval);
-    clearInterval(this.playheadInterval2);
+    clearInterval(this.recordingInterval);
+    clearInterval(this.playingInterval);
 
     this.setState({ recording: false, playing: false, timer: 0 });
 
@@ -383,15 +376,15 @@ class App extends Component {
           <ControlField 
             recording={this.state.recording}
             playing={this.state.playing}
-            startRecording={this.startRecording}
-            startListening={this.startListening}
+            pressRecordButton={this.pressRecordButton}
+            pressPlayButton={this.pressPlayButton}
             stop={this.stop}
           />
 
             {/* 00:{ time }:{ms} */}
             {/* <div className="buttons-wrapper">
-              <button className={recClass} onClick={this.startRecording}>●	REC</button>
-              <button className={playClass} onClick={this.startListening}>{buttonText}</button>
+              <button className={recClass} onClick={this.pressRecordButton}>●	REC</button>
+              <button className={playClass} onClick={this.pressPlayButton}>{buttonText}</button>
               <button className="button button-regular" onClick={this.stop}>■</button>
             </div>       */}
 
@@ -518,11 +511,7 @@ class App extends Component {
           ciss3={this.state.ciss3}
         />
 
-        {/* <div id="piano">
-          <div className="keys">
-            { this.buildKeyboard() }
-          </div> 
-        </div> */}
+
 
 
         </div>

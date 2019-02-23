@@ -9,8 +9,8 @@ import Beat from './../Beat';
 const ControlField = ({
   recording, 
   playing, 
-  startRecording, 
-  startListening, 
+  pressRecordButton, 
+  pressPlayButton, 
   stop,
   timer
 }) => { 
@@ -22,13 +22,13 @@ const ControlField = ({
 
           <Button
             className={recording ? 'button button-record button-record--pressed' : 'button button-record'}
-            onClick={startRecording}
+            onClick={pressRecordButton}
             text="●	REC"
           />
 
           <Button
             className={playing ? 'button button-regular button-regular--pressed' : 'button button-regular'}
-            onClick={startListening}
+            onClick={pressPlayButton}
             text={playing ? '| |' : '▶'}
           />  
 
@@ -59,8 +59,8 @@ const ControlField = ({
 ControlField.propTypes = {
   recording: PropTypes.bool.isRequired,
   playing: PropTypes.bool.isRequired,
-  startRecording: PropTypes.func.isRequired,
-  startListening: PropTypes.func.isRequired,
+  pressRecordButton: PropTypes.func.isRequired,
+  pressPlayButton: PropTypes.func.isRequired,
   stop: PropTypes.func.isRequired
 }
 

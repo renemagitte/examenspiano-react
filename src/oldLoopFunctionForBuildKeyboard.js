@@ -34,3 +34,11 @@
     }
   }
   */
+
+
+
+          {/* <div id="piano">
+          <div className="keys">
+            { this.buildKeyboard() }
+          </div> 
+        </div> */}
