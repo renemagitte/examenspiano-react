@@ -8,9 +8,11 @@ import Key from './components/Key';
 
 import ControlField from './components/ControlField';
 
-import Keyboard from './components/Keyboard';
+import Keyboard from './components/Keyboard'; // Change name to NoteKeyGroup
 import NoteAudioGroup from './components/NoteAudioGroup';
 import NoteCanvasGroup from './components/NoteCanvasGroup';
+
+import Playhead from './components/Playhead';
 
 import NoteSound from './components/NoteSound.js';
 
@@ -88,6 +90,7 @@ class App extends Component {
     ciss3Data: [],
 
     // TODO: keep all notes in object for more effective props: notes={this.state.notes}
+    // check: https://stackoverflow.com/questions/27105257/storing-an-object-in-state-of-a-react-component
     // notes: {
     //   c1: false,
     //   ciss1: false,
@@ -176,13 +179,6 @@ class App extends Component {
     /* "Translate" from keyCode to name of note (noteState) */
     this.noteState = this.getStateNameFromKeyCode(e.keyCode);
 
-    // /* key styling is still connected to old states with keycodes: (to be changed) */
-    /* Set note's state to true */
-    // this.setState({ [this.noteState]: true });
-
-
-
-
     /* Generate data state where length of pressed down note is stored */
     this.noteData = this.noteState + 'Data';
 
@@ -193,6 +189,8 @@ class App extends Component {
 
     /* Set noteState to true - it is playing */
     this.setState({ [this.noteState]: true });
+
+
 
   }
 
@@ -402,13 +400,16 @@ class App extends Component {
 
   movePlayhead = () => {
     this.setState({ playheadAt: this.state.playheadAt + 1 });
-    this.drawPlayhead(this.state.playheadAt);
+
+    // this.drawPlayhead(this.state.playheadAt);
+
+
     this.listen();
   }
 
   play = () => {
     this.setState({ playheadAt: this.state.playheadAt + 1 });
-    this.drawPlayhead(this.state.playheadAt);
+    // this.drawPlayhead(this.state.playheadAt);
   }
 
   drawPlayhead(x) {
@@ -431,10 +432,12 @@ class App extends Component {
     clearInterval(this.playheadInterval);
     clearInterval(this.playheadInterval2);
 
-    // this.setState({ playing: !this.state.playing, playheadAt: 0 }, () => {
-    this.setState({ playing: false, listenToRecorded: false, playheadAt: 0 }, () => {
-      this.drawPlayhead(this.state.playheadAt);
-    });
+    this.setState({ playing: false, listenToRecorded: false, playheadAt: 0 });
+
+    // // this.setState({ playing: !this.state.playing, playheadAt: 0 }, () => {
+    // this.setState({ playing: false, listenToRecorded: false, playheadAt: 0 }, () => {
+    //   // this.drawPlayhead(this.state.playheadAt);
+    // });
 
 
   }
@@ -499,48 +502,50 @@ class App extends Component {
         <div className="noteCanvas-container" id="container">
 
 
-        <NoteCanvasGroup 
-          playheadAt={this.state.playheadAt} 
-          listenToRecorded={this.state.listenToRecorded}
-          playheadAt={this.state.playheadAt} 
-          c1={this.state.c1}
-          ciss1={this.state.ciss1}
-          d1={this.state.d1}
-          diss1={this.state.diss1}
-          e1={this.state.e1}
-          f1={this.state.f1}
-          fiss1={this.state.fiss1}
-          g1={this.state.g1}
-          giss1={this.state.giss1}
-          a1={this.state.a1}
-          b1={this.state.b1}
-          h1={this.state.h1}
-          c2={this.state.c2}
-          ciss2={this.state.ciss2}
-          d2={this.state.d2}
-          diss2={this.state.diss2}
-          e2={this.state.e2}
-          f2={this.state.f2}
-          fiss2={this.state.fiss2}
-          g2={this.state.g2}
-          giss2={this.state.giss2}
-          a2={this.state.a2}
-          b2={this.state.b2}
-          h2={this.state.h2}
-          c3={this.state.c3}
-          ciss3={this.state.ciss3}
-        />
+          <NoteCanvasGroup 
+            playheadAt={this.state.playheadAt} 
+            listenToRecorded={this.state.listenToRecorded}
+            playheadAt={this.state.playheadAt} 
+            c1={this.state.c1}
+            ciss1={this.state.ciss1}
+            d1={this.state.d1}
+            diss1={this.state.diss1}
+            e1={this.state.e1}
+            f1={this.state.f1}
+            fiss1={this.state.fiss1}
+            g1={this.state.g1}
+            giss1={this.state.giss1}
+            a1={this.state.a1}
+            b1={this.state.b1}
+            h1={this.state.h1}
+            c2={this.state.c2}
+            ciss2={this.state.ciss2}
+            d2={this.state.d2}
+            diss2={this.state.diss2}
+            e2={this.state.e2}
+            f2={this.state.f2}
+            fiss2={this.state.fiss2}
+            g2={this.state.g2}
+            giss2={this.state.giss2}
+            a2={this.state.a2}
+            b2={this.state.b2}
+            h2={this.state.h2}
+            c3={this.state.c3}
+            ciss3={this.state.ciss3}
+          />
+
+          <Playhead playheadAt={this.state.playheadAt} />
 
 
           {/* Not in seperate component due to problems with ref: */}
-          <canvas 
+          {/* <canvas 
             width="860" 
             height="132" 
             style={{zIndex: 11}} 
             className="playheadCanvas" 
             // id="playheadCanvas" 
             ref="playheadCanvas">
-          </canvas>
+          </canvas> */}
 
           
         </div>

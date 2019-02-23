@@ -18,32 +18,32 @@ const ControlField = ({
   return (     
       <div className="synth-control">
 
-      <div className="buttons-wrapper">
+        <div className="buttons-wrapper">
 
-        <Button
-          className={playing ? 'button button-record button-record--pressed' : 'button button-record'}
-          onClick={startRecording}
-          text="●	REC"
-        />
+          <Button
+            className={playing ? 'button button-record button-record--pressed' : 'button button-record'}
+            onClick={startRecording}
+            text="●	REC"
+          />
 
-        <Button
-          className={listenToRecorded ? 'button button-regular button-regular--pressed' : 'button button-regular'}
-          onClick={startListening}
-          text={listenToRecorded ? '| |' : '▶'}
-        />  
+          <Button
+            className={listenToRecorded ? 'button button-regular button-regular--pressed' : 'button button-regular'}
+            onClick={startListening}
+            text={listenToRecorded ? '| |' : '▶'}
+          />  
 
-        <Button
-          className="button button-regular"
-          onClick={stop}
-          text="■"
+          <Button
+            className="button button-regular"
+            onClick={stop}
+            text="■"
+          />    
+
+        </div>  
+
+        <Beat 
+          playheadAt={playheadAt} 
+          listenToRecorded={listenToRecorded} 
         />    
-
-      </div>  
-
-      <Beat 
-        playheadAt={playheadAt} 
-        listenToRecorded={listenToRecorded} 
-      />    
 
 
 
