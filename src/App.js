@@ -197,6 +197,13 @@ class App extends Component {
     this.setState({ timer: this.state.timer + 1 });
   }
 
+
+  // timerIncrement2 = () => {
+  //   this.timerInterval = setInterval(() => {
+  //     this.setState({ timer: this.state.timer + 1 })
+  //   }, 100);
+  // }
+
   pressRecordButton = () => {
     this.setState({ recording: !this.state.recording });
 
@@ -220,6 +227,9 @@ class App extends Component {
       }
 
     });
+
+
+
   }
 
   pressStopButton = () => {
@@ -359,13 +369,11 @@ class App extends Component {
             pressStopButton={this.pressStopButton}
           />
 
-        <div className="noteCanvas-container" id="container">
-
-
+        {/* <div className="noteCanvas-container" id="container"> */}
+        <div className="noteCanvas-container">
           <NoteCanvasGroup 
             timer={this.state.timer} 
             playing={this.state.playing}
-            timer={this.state.timer} 
             c1={this.state.c1}
             ciss1={this.state.ciss1}
             d1={this.state.d1}
@@ -396,8 +404,6 @@ class App extends Component {
 
           <Playhead timer={this.state.timer} />
 
-
-          
         </div>
 
 
