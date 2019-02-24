@@ -14,7 +14,6 @@ const ControlField = (props) => {
       <div className="control-field">
 
         <div className="control-field__buttons">
-
           <Button
             className={props.recording ? 'button button-record button-record--pressed' : 'button button-record'}
             onClick={props.pressRecordButton}
@@ -32,11 +31,9 @@ const ControlField = (props) => {
             onClick={props.pressStopButton}
             text="■"
           />    
-
         </div>  
 
         <div className="control-field__display">
-
           <DisplayTimer timer={props.timer} />
 
           <DisplayNotes 
@@ -67,19 +64,13 @@ const ControlField = (props) => {
             c3={props.c3}
             ciss3={props.ciss3}
           />
-        
         </div>
-
         
         <div className="control-field__beat">
-          <Beat playing={props.playing} />    
+          <Beat playing={props.playing} allowBeat={props.allowBeat}/>    
         </div>
 
-
-
-
     </div>
-
 
   );
   
@@ -89,6 +80,7 @@ ControlField.propTypes = {
   timer: PropTypes.number.isRequired,
   recording: PropTypes.bool.isRequired,
   playing: PropTypes.bool.isRequired,
+  allowBeat: PropTypes.bool.isRequired,
   pressRecordButton: PropTypes.func.isRequired,
   pressPlayButton: PropTypes.func.isRequired,
   pressStopButton: PropTypes.func.isRequired

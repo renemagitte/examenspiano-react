@@ -16,6 +16,7 @@ class App extends Component {
     timer: 0,
     recording: false,
     playing: false,
+    allowBeat: true,
 
     recordedNotes: [],
 
@@ -236,7 +237,9 @@ class App extends Component {
     clearInterval(this.recordingInterval);
     clearInterval(this.playingInterval);
 
-    this.setState({ recording: false, playing: false, timer: 0 });
+    this.setState({ recording: false, playing: false, timer: 0, allowBeat: false }, () => {
+      this.setState({ allowBeat: true })
+    });
   }
 
   playRecordedNotes = () => {
@@ -363,6 +366,7 @@ class App extends Component {
             timer={this.state.timer}
             recording={this.state.recording}
             playing={this.state.playing}
+            allowBeat={this.state.allowBeat}
             pressRecordButton={this.pressRecordButton}
             pressPlayButton={this.pressPlayButton}
             pressStopButton={this.pressStopButton}

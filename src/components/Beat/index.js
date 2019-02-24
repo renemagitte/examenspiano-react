@@ -2,17 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import './styles/index.sass'
 
+
+
 import Button from './../Button';
 
 // import drumicon from './../images/drum-icon.png';
 import beat1 from './../../assets/sound/testbeat.mp3';
 import beat2 from './../../assets/sound/beat2.mp3';
-import VocalsTakeAChance from './../../assets/sound/takeachancevocals.mp3';
+import beat3 from './../../assets/sound/beat3.mp3';
 
 class Beat extends React.Component {
 
   state = {
-    loopPlays: false,
     beat: ''
   }
 
@@ -30,97 +31,42 @@ class Beat extends React.Component {
   }
 
   stopLoop = () => {
-    // this.AudioContext = this.refs.audio;
-
-    // console.log(this.AudioContext);
-    // // this.AudioContext.pause();
-    // // this.AudioContext.currentTime = 0;
-
     this.audio = this.refs.audio;
     this.audio.pause();
     this.audio.currentTime = 0;
-
   }
 
   startLoop = () => {
-
     this.audio = this.refs.audio;
     this.audio.vol = 1;
     this.audio.play();
-
-    // if(this.state.loopPlays){
-
-    //   this.AudioContext = this.refs.audio;
-
-    //   console.log(this.AudioContext)
-
-    //   this.actx = new AudioContext();
-    //   // src = this.props.sound,
-    //   // audioData, srcNode;  // global so we can access them from handlers
-
-    //   console.log(this.actx);
-
-    //   // // Load some audio (CORS need to be allowed or we won't be able to decode the data)
-    //   // fetch(src, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(this.decode);
-    //   fetch(this.state.beat, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(this.decode);
-    // // }
-
   }
 
+  setBeat = (e) => {
 
+    let chosenBeat;
 
+    if(e.target.value === 'beat1'){
+      chosenBeat = beat1;
+    }else if(e.target.value === 'beat2'){
+      chosenBeat = beat2;
+    }else if(e.target.value === 'beat3'){
+      chosenBeat = beat3;
+    }
 
-// // Decode the audio file, then start the show
-decode = (buffer) => {
-  console.log("hej");
-  this.actx.decodeAudioData(buffer, this.playLoop);
-}
+    if(!(this.state.beat === chosenBeat)){
+      this.setState({ beat: chosenBeat }, () => {
+        this.startLoop();
+      });
+    }else{
+      this.setState({ beat: '' });
+    }
 
-// // Sets up a new source node as needed as stopping will render current invalid
-playLoop = (abuffer) => {
-  if (!this.audioData) this.audioData = abuffer;  // create a reference for control buttons
-  this.srcNode = this.actx.createBufferSource();  // create audio source
-  this.srcNode.buffer = abuffer;             // use decoded buffer
-  this.srcNode.connect(this.actx.destination);    // create output
-  this.srcNode.loop = true;                  // takes care of perfect looping
-  this.srcNode.start();                      // play...
-}
-
-
-setBeat = (e) => {
-
-  // this.stopLoop();
-
-  let chosenBeat;
-  if(e.target.value === 'beat1'){
-    chosenBeat = beat1;
-  }else if(e.target.value === 'beat2'){
-    chosenBeat = beat2;
-  }else if(e.target.value === 'takeachance'){
-    chosenBeat = VocalsTakeAChance;
   }
-
-  // this.setState({ beat: chosenBeat })
-
-  console.log(e.target.value)
-  if(!(this.state.beat === chosenBeat)){
-    this.setState({ beat: chosenBeat }, () => {
-      this.startLoop();
-    });
-  }else{
-    this.setState({ beat: '' });
-  }
-
-}
-
-
-
 
 
   componentWillReceiveProps(){
-    /* If component updates with new prop saying playing is false,
-    it means user has pressed the stop button and the beat should stop playing as well. */
-    if(this.props.playing === false){
+    if(this.props.allowBeat === false){
       this.setState({ beat: '' });
     }
   }
@@ -143,7 +89,6 @@ setBeat = (e) => {
 
         <div className="beat__button-container">
           <Button
-            // className="button-round button-round-regular"
             className={!(this.state.beat === beat1) ? 'button-round button-round-regular' : 'button-round button-round-regular button-round-regular--pressed' }
             onClick={this.setBeat}
             value="beat1"
@@ -153,7 +98,6 @@ setBeat = (e) => {
 
         <div className="beat__button-container">
           <Button
-            // className="button-round button-round-regular"
             className={!(this.state.beat === beat2) ? 'button-round button-round-regular' : 'button-round button-round-regular button-round-regular--pressed' }
             onClick={this.setBeat}
             value="beat2"
@@ -163,7 +107,7 @@ setBeat = (e) => {
 
         <div className="beat__button-container">
           <Button
-            className="button-round button-round-regular"
+            className={!(this.state.beat === beat3) ? 'button-round button-round-regular' : 'button-round button-round-regular button-round-regular--pressed' }
             onClick={this.setBeat}
             value="beat3"
           />
@@ -186,7 +130,7 @@ setBeat = (e) => {
 }
 
 Beat.propTypes = {
-  playing: PropTypes.bool.isRequired
+  allowBeat: PropTypes.bool.isRequired
 }
 
 export default Beat;
