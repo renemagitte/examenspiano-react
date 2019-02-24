@@ -5,7 +5,7 @@ import './styles/index.sass'
 import Button from './../Button';
 
 // import drumicon from './../images/drum-icon.png';
-import beat from './../../assets/sound/testbeat.mp3';
+import beat1 from './../../assets/sound/testbeat.mp3';
 import beat2 from './../../assets/sound/beat2.mp3';
 import VocalsTakeAChance from './../../assets/sound/takeachancevocals.mp3';
 
@@ -13,9 +13,8 @@ class Beat extends React.Component {
 
   state = {
     loopPlays: false,
-    beat: beat
+    beat: ''
   }
-
 
 
 
@@ -90,19 +89,27 @@ playLoop = (abuffer) => {
 
 setBeat = (e) => {
 
-  this.stopLoop();
+  // this.stopLoop();
 
   let chosenBeat;
   if(e.target.value === 'beat1'){
-    chosenBeat = beat;
+    chosenBeat = beat1;
   }else if(e.target.value === 'beat2'){
     chosenBeat = beat2;
   }else if(e.target.value === 'takeachance'){
     chosenBeat = VocalsTakeAChance;
   }
-  
 
-  this.setState({ beat: chosenBeat })
+  // this.setState({ beat: chosenBeat })
+
+  console.log(e.target.value)
+  if(!(this.state.beat === chosenBeat)){
+    this.setState({ beat: chosenBeat }, () => {
+      this.startLoop();
+    });
+  }else{
+    this.setState({ beat: '' });
+  }
 
 }
 
@@ -111,59 +118,67 @@ setBeat = (e) => {
 
 
   componentWillReceiveProps(){
+    /* If component updates with new prop saying playing is false,
+    it means user has pressed the stop button and the beat should stop playing as well. */
+    if(this.props.playing === false){
+      this.setState({ beat: '' });
+    }
   }
 
   render() {
+
+
     
     return (
 
       <React.Fragment>
-        <div className="loop-container">
 
           {/* <img src={drumicon} className="button-icon" />  */}
 
-          {/* <div className="select"> */}
-            <select onChange={this.setBeat} id="soflow">
+
+            {/* <select onChange={this.setBeat} id="soflow">
               <option value="beat1">Beat 1</option>
               <option value="beat2">Beat 2 (70 BPM)</option>
-              {/* <option value="takeachance">Take A Chance Vocals</option> */}
-            </select>
-          {/* </div> */}
+            </select> */}
 
-{/* <div className="select2 animated zoomIn">
-    <label>
-        <input type="checkbox" name="placeholder" />
-        <i className="toggle icon icon-plus"></i>
-        <i className="toggle icon icon-minus"></i>
-        <span className="placeholder title">Choose...</span>
-        <label className="option">
-            <input type="radio" name="option" />
-            <span className="title animated fadeIn">Beat 1</span>
-        </label>
-
-        <label className="option">
-            <input type="radio" name="option" />
-            <span className="title animated fadeIn">Beat 2</span>
-        </label>
-    </label>
-</div> */}
-
-          {/* <button className="button button-grey" onClick={this.loop}>↻</button> */}
-          {/* <button className={loopButtonClass} onClick={this.pressLoopButton}>↻</button> */}
-
+        <div className="beat__button-container">
           <Button
+            // className="button-round button-round-regular"
+            className={!(this.state.beat === beat1) ? 'button-round button-round-regular' : 'button-round button-round-regular button-round-regular--pressed' }
+            onClick={this.setBeat}
+            value="beat1"
+          />
+          <div className="beat__button-label">Beat 1</div>
+        </div>  
+
+        <div className="beat__button-container">
+          <Button
+            // className="button-round button-round-regular"
+            className={!(this.state.beat === beat2) ? 'button-round button-round-regular' : 'button-round button-round-regular button-round-regular--pressed' }
+            onClick={this.setBeat}
+            value="beat2"
+          />
+          <div className="beat__button-label">Beat 2</div>
+        </div>  
+
+        <div className="beat__button-container">
+          <Button
+            className="button-round button-round-regular"
+            onClick={this.setBeat}
+            value="beat3"
+          />
+          <div className="beat__button-label">Beat 3</div>
+        </div> 
+
+
+          {/* <Button
             className={this.state.loopPlays ? 'button button-regular button-regular--pressed' : 'button button-regular'}
             onClick={this.pressLoopButton}
             text="↻"
-          />
+          /> */}
 
-          {/* <button className="loop-button" onClick={this.delay}>delay test</button> */}
-
-          {/* Loop's audio element */}
-          {/* <audio ref="audio" src={this.props.sound}></audio>  */}
 
           <audio ref="audio" src={this.state.beat} loop></audio> 
-        </div>
 
       </React.Fragment>
     );
@@ -171,7 +186,6 @@ setBeat = (e) => {
 }
 
 Beat.propTypes = {
-  timer: PropTypes.number.isRequired,
   playing: PropTypes.bool.isRequired
 }
 

@@ -311,6 +311,7 @@ class App extends Component {
   }
 
 
+
   getStateNameFromKeyCode = (code) => {
     var obj = this.findObjectByKey(this.keyCodeToNoteConnection, 'code', code);
     // var obj = this.findObjectByKeyBackwards(this.keyCodeToNoteConnection, 'code', code);

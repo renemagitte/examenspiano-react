@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import './styles/index.sass';
 
-const Button = ({className, onClick, text}) => { 
+const Button = ({className, onClick, text, value}) => { 
 
   return (   
 
-        <button className={className} onClick={onClick}>
+        <button className={className} onClick={onClick} value={value}>
             {text}
         </button>
 
@@ -17,7 +17,8 @@ const Button = ({className, onClick, text}) => {
 Button.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
-  text: PropTypes.string
+  text: PropTypes.string,
+  value: PropTypes.string
 }
 
 export default Button;

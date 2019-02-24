@@ -1,220 +1,44 @@
-// select 
-//   -webkit-appearance: none
-//   -moz-appearance: none
-//   -ms-appearance: none
-//   appearance: none
-//   outline: 0
-//   box-shadow: none
-//   border: 0 !important
-//   background: #2c3e50
-//   background-image: none
 
-// /* Custom Select */
-// .select 
-//   position: relative
-//   display: inline-block
-//   width: 120px
+
+.beat
+  &__button-container
+    max-width: 40px
+    margin: 0 auto
+  &__button-label
+    width: 100%
+    padding: 4px 0
+    font-size: 10px
+    text-transform: uppercase
+    color: white
+    text-shadow: 0px 1px 1px rgba(0,0,0,.5)
+
+
+  
+  
+// select#soflow, select#soflow-color 
+//   -webkit-appearance: button
+//   -webkit-border-radius: 2px
+//   -webkit-padding-end: 20px
+//   -webkit-padding-start: 2px
+//   -webkit-user-select: none
+//   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5)
+//   background-position: 93% center
+//   background-repeat: no-repeat
+//   border: 1px solid #AAA
+//   color: #555
+//   font-size: inherit
+//   margin: 6px
+//   overflow: hidden
+//   padding: 5px 10px
+//   text-overflow: ellipsis
+//   white-space: nowrap
+//   width: 130px
 //   height: 28px
-//   // line-height: 3
-//   // background: #2c3e50
-//   background-color: #ffffff
-//   overflow: hidden
-//   border-radius: .25em
-//   margin: 5px 5px
-//   @extend .typography-regular
+//   -webkit-border-radius: 5px
+//   -moz-border-radius: 5px
+//   border-radius: 5px
 
-// select 
-//   width: 100%
-//   height: 100%
-//   margin: 0
-//   padding: 0 0 0 .5em
-//   color: #fff
-//   cursor: pointer
-//   display: inline-block
-
-// select::-ms-expand 
-//   display: none
-
-// /* Arrow */
-// .select::after 
-//   content: '\25BC'
-//   position: absolute
-//   top: 0
-//   right: 0
-//   bottom: 0
-//   padding: 0 1em
-//   background: #34495e
-//   pointer-events: none
-//   @extend .typography-regular
-
-// /* Transition */
-// .select:hover::after 
-//   color: #f39c12
-
-// .select::after 
-//   -webkit-transition: .25s all ease
-//   -o-transition: .25s all ease
-//   transition: .25s all ease
-
-
-// @import url('https://fonts.googleapis.com/css?family=Roboto:100,300')
-// @import url('https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.3.2/css/simple-line-icons.min.css')
-// // @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css')
-// @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,700')
-
-
-// p
-//   text-align: center
-//   color: #fff
-//   font-size: 14px
-//   margin-bottom: 2em
-//   line-height: 30px
-//   img 
-//       position: relative
-//       top: 8px
-//       right: 10px
-
-// .select2
-//   position: relative
-//   overflow: hidden
-//   display: inline-block
-//   margin: auto
-//   width: 200px
-//   height: 100%
-//   border-bottom: 0px
-//   border-radius: 3px
-//   font-size: 12px
-//   // box-shadow: 0px 1em 2em -1.5em rgba(0, 0, 0, .5)
-//   @extend .typography-regular
-//   i.toggle 
-//     position: absolute
-//     z-index: 4
-//     right: 1.5em
-//     top: 1.6em
-//     color: #ccc
-  
-//   .title,
-//   .placeholder 
-//     position: relative
-//     display: block
-//     width: 100%
-//     height: 30px
-//     background: rgba(255, 255, 255, 1)
-//     border-top: 1px solid rgba(0, 0, 0, .05)
-//     cursor: pointer
-  
-//   &>label>input 
-//     position: absolute
-//     left: 0px
-//     top: 0px
-//     z-index: 2
-//     width: 100%
-//     height: 100%
-//     display: block
-//     opacity: 0
-//     cursor: pointer
-//     &:checked 
-//       z-index: 2
-//       ~i.toggle.icon-plus 
-//         display: none
-      
-//       ~i.toggle.icon-minus 
-//         display: block
-        
-//     &:not(:checked) 
-//       ~i.toggle.icon-minus 
-//         display: none
-      
-//       ~i.toggle.icon-plus 
-//         display: block
-      
-//       ~label.option input:not(:checked)~.title 
-//         display: none!important
-        
-  
-//     &:disabled 
-//       cursor: no-drop
-      
-  
-//   & label>span.placeholder 
-//     position: relative
-//     z-index: 0
-//     display: inline-block
-//     width: 100%
-//     color: #999
-//     border-top: 0px
-  
-//   label.option 
-//     display: block
-//     overflow: hidden
-//     z-index: 1
-//     width: 100%
-//     height: 30px
-//     transition: all 1s ease-out
-//     span.title 
-//       position: relative
-//       z-index: 2
-//       transition: background .3s ease-out
-//       padding: 7px 5px
-//       i.icon 
-//         padding-right: 8px
-//         color: rgba(146, 168, 209, 1)
-      
-//       &:hover 
-//         color: #fff
-//         background: rgba(146, 168, 209, .5)
-//         box-shadow: inset 0px 1px 0px rgba(0, 0, 0, .1)
-        
-    
-//     input 
-//       display: none
-//       &:checked~span.title 
-//         position: absolute
-//         display: block
-//         z-index: 1
-//         top: 0px
-//         font-size: 12px
-//         background: #fff
-//         border-top: 0px
-//         box-shadow: none
-//         color: inherit
-//         width: 100%
-      
-//       &:disabled 
-//         &~span.title 
-//           background: #f9f9f9!important
-//           color: #aaa
-//           &:hover 
-//             color: #aaa
-//             background: none
-//             cursor: no-drop
-
-
-select#soflow, select#soflow-color 
-  -webkit-appearance: button
-  -webkit-border-radius: 2px
-  // -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1)
-  -webkit-padding-end: 20px
-  -webkit-padding-start: 2px
-  -webkit-user-select: none
-  background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5)
-  background-position: 93% center
-  background-repeat: no-repeat
-  border: 1px solid #AAA
-  color: #555
-  font-size: inherit
-  margin: 6px
-  overflow: hidden
-  padding: 5px 10px
-  text-overflow: ellipsis
-  white-space: nowrap
-  width: 130px
-  height: 28px
-  -webkit-border-radius: 5px
-  -moz-border-radius: 5px
-  border-radius: 5px
-
-  &:focus
-    outline: none
+//   &:focus
+//     outline: none
 
 

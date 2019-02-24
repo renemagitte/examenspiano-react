@@ -19,7 +19,7 @@ const DisplayNotes = (props) => {
 			<div className={ (props.g1 | props.g2) ? 'display-notes--active' : 'display-notes--inactive' }>g</div>
 			<div className={ (props.giss1 | props.giss2) ? 'display-notes--active' : 'display-notes--inactive' }>g#</div>
 			<div className={ (props.a1 | props.a2) ? 'display-notes--active' : 'display-notes--inactive' }>a</div>
-			<div className={ (props.b1 | props.b2) ? 'display-notes--active' : 'display-notes--inactive' }>a#</div>
+			<div className={ (props.b1 | props.b2) ? 'display-notes--active display-notes__b' : 'display-notes--inactive display-notes__b' }>b<div className="display-notes__bess">♭</div></div>
 			<div className={ (props.h1 | props.h2) ? 'display-notes--active' : 'display-notes--inactive' }>b</div>
 
         </div> 

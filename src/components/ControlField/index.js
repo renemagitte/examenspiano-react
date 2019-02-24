@@ -8,15 +8,6 @@ import DisplayNotes from './../DisplayNotes';
 import Beat from './../Beat';
 
 
-// const ControlField = ({
-//   timer,
-//   recording, 
-//   playing, 
-//   pressRecordButton, 
-//   pressPlayButton, 
-//   pressStopButton
-// }) => { 
-
 const ControlField = (props) => { 
 
   return (     
@@ -45,6 +36,7 @@ const ControlField = (props) => {
         </div>  
 
         <div className="control-field__display">
+
           <DisplayTimer timer={props.timer} />
 
           <DisplayNotes 
@@ -79,11 +71,9 @@ const ControlField = (props) => {
         </div>
 
         
-
-        <Beat 
-          timer={props.timer} 
-          playing={props.playing} 
-        />    
+        <div className="control-field__beat">
+          <Beat playing={props.playing} />    
+        </div>
 
 
 
