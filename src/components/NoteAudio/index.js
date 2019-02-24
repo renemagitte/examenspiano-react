@@ -12,7 +12,7 @@ class NoteAudio extends React.Component {
   play = () => {
 
     this.audio = this.refs.audio;
-    this.audio.vol = 1;
+    this.audio.vol = this.props.volume;
     this.audio.play();
 
 
@@ -54,7 +54,8 @@ class NoteAudio extends React.Component {
 NoteAudio.propTypes = {
     note: PropTypes.bool.isRequired,
     playing: PropTypes.bool.isRequired,
-    sound: PropTypes.string.isRequired
+    sound: PropTypes.string.isRequired,
+    volume: PropTypes.number.isRequired
   }
 
 export default NoteAudio;

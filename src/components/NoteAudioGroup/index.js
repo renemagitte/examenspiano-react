@@ -39,32 +39,32 @@ class NoteAudioGroup extends React.Component {
 
         <React.Fragment>
 
-            <NoteAudio note={this.props.c1} sound={c1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.ciss1} sound={ciss1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.d1} sound={d1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.diss1} sound={diss1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.e1} sound={e1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.f1} sound={f1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.fiss1} sound={fiss1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.g1} sound={g1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.giss1} sound={giss1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.a1} sound={a1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.b1} sound={b1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.h1} sound={h1Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.c2} sound={c2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.ciss2} sound={ciss2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.d2} sound={d2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.diss2} sound={diss2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.e2} sound={e2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.f2} sound={f2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.fiss2} sound={fiss2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.g2} sound={g2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.giss2} sound={giss2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.a2} sound={a2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.b2} sound={b2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.h2} sound={h2Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.c3} sound={c3Audio} playing={this.props.playing} />
-            <NoteAudio note={this.props.ciss3} sound={ciss3Audio} playing={this.props.playing} />
+            <NoteAudio note={this.props.c1} sound={c1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.ciss1} sound={ciss1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.d1} sound={d1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.diss1} sound={diss1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.e1} sound={e1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.f1} sound={f1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.fiss1} sound={fiss1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.g1} sound={g1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.giss1} sound={giss1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.a1} sound={a1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.b1} sound={b1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.h1} sound={h1Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.c2} sound={c2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.ciss2} sound={ciss2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.d2} sound={d2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.diss2} sound={diss2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.e2} sound={e2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.f2} sound={f2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.fiss2} sound={fiss2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.g2} sound={g2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.giss2} sound={giss2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.a2} sound={a2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.b2} sound={b2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.h2} sound={h2Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.c3} sound={c3Audio} playing={this.props.playing} volume={this.props.volume} />
+            <NoteAudio note={this.props.ciss3} sound={ciss3Audio} playing={this.props.playing} volume={this.props.volume} />
 
         </React.Fragment>
 
@@ -73,7 +73,8 @@ class NoteAudioGroup extends React.Component {
 }
 
 NoteAudioGroup.propTypes = {
-    playing: PropTypes.bool.isRequired
+    playing: PropTypes.bool.isRequired,
+    volume: PropTypes.number.isRequired
   }
 
 export default NoteAudioGroup;

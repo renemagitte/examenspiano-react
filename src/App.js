@@ -405,7 +405,6 @@ class App extends Component {
             ciss3={this.state.ciss3}
           />
 
-        {/* <div className="noteCanvas-container" id="container"> */}
         <div className="canvas">
           <NoteCanvasGroup 
             timer={this.state.timer} 
@@ -449,6 +448,7 @@ class App extends Component {
         <NoteAudioGroup 
           playing={this.state.playing}
           timer={this.state.timer} 
+          volume={this.state.volume}
           c1={this.state.c1}
           ciss1={this.state.ciss1}
           d1={this.state.d1}
