@@ -6,6 +6,7 @@ import Button from './../Button';
 import DisplayTimer from './../DisplayTimer';
 import DisplayNotes from './../DisplayNotes';
 import Beat from './../Beat';
+import Volume from './../Volume';
 
 
 const ControlField = (props) => { 
@@ -65,10 +66,36 @@ const ControlField = (props) => {
             ciss3={props.ciss3}
           />
         </div>
+
+
+        <div className="control-field__right-container">
+
+          <div className="control-field__beat">
+            <Beat 
+              playing={props.playing} 
+              allowBeat={props.allowBeat}
+              volume={props.volume}
+            />    
+          </div>
+
+          {/* <div className="control-field__volume">
+            <Volume />
+          </div> */}
+
+          <div className="control-field__volume">
+            <Volume 
+              volume={props.volume}
+              setVolume={props.setVolume}
+            />
+            <div className="control-field__volume-label">Volume</div>
+          </div>  
+
+
         
-        <div className="control-field__beat">
-          <Beat playing={props.playing} allowBeat={props.allowBeat}/>    
+
+
         </div>
+
 
     </div>
 
@@ -81,6 +108,8 @@ ControlField.propTypes = {
   recording: PropTypes.bool.isRequired,
   playing: PropTypes.bool.isRequired,
   allowBeat: PropTypes.bool.isRequired,
+  volume: PropTypes.number.isRequired,
+  setVolume: PropTypes.func.isRequired,
   pressRecordButton: PropTypes.func.isRequired,
   pressPlayButton: PropTypes.func.isRequired,
   pressStopButton: PropTypes.func.isRequired

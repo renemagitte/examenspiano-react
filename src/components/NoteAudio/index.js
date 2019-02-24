@@ -12,14 +12,8 @@ class NoteAudio extends React.Component {
   play = () => {
 
     this.audio = this.refs.audio;
-    this.audio.vol = 1;
+    this.audio.vol = this.props.volume;
     this.audio.play();
-
-
-    // const playPromise = this.audio.play();
-    // if (playPromise !== null){
-    //     playPromise.catch(() => { this.audio.play(); })
-    // }
 
     /* Start listening for a change of recording-state, so sound can stop if state changes to false */
     this.changeInterval = setInterval(this.listenForStateChange, 200);
@@ -37,6 +31,10 @@ class NoteAudio extends React.Component {
   componentWillReceiveProps(){
     this.setState({ recording: this.props.note });
     this.setState({ playing: this.props.playing });
+    
+    if(this.audio){
+      this.audio.volume = this.props.volume
+    }
   }
 
   render() {
@@ -45,7 +43,7 @@ class NoteAudio extends React.Component {
 
     return (
 
-        <audio ref="audio" src={this.props.sound} ></audio>
+        <audio ref="audio" src={this.props.sound}></audio>
 
     );
   }
@@ -54,7 +52,8 @@ class NoteAudio extends React.Component {
 NoteAudio.propTypes = {
     note: PropTypes.bool.isRequired,
     playing: PropTypes.bool.isRequired,
-    sound: PropTypes.string.isRequired
+    sound: PropTypes.string.isRequired,
+    volume: PropTypes.number.isRequired
   }
 
 export default NoteAudio;
