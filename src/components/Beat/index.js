@@ -1,45 +1,18 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
+import {Howl} from 'howler'
 import './styles/index.sass'
-
-
 
 import Button from './../Button';
 
-// import drumicon from './../images/drum-icon.png';
-import beat1 from './../../assets/sound/testbeat.mp3';
-import beat2 from './../../assets/sound/beat2.mp3';
-import beat3 from './../../assets/sound/beat3.mp3';
+import beat1 from './../../assets/sound/beat1.m4a';
+import beat2 from './../../assets/sound/beat2.m4a';
+import beat3 from './../../assets/sound/beat3.m4a';
 
 class Beat extends React.Component {
 
   state = {
     beat: ''
-  }
-
-
-
-  pressLoopButton = () => {
-    this.setState({ loopPlays: !this.state.loopPlays}, () => {
-      if(this.state.loopPlays){
-        this.startLoop();
-      }else{
-        this.stopLoop();
-      }
-      
-    });
-  }
-
-  stopLoop = () => {
-    this.audio = this.refs.audio;
-    this.audio.pause();
-    this.audio.currentTime = 0;
-  }
-
-  startLoop = () => {
-    this.audio = this.refs.audio;
-    this.audio.vol = 1;
-    this.audio.play();
   }
 
   setBeat = (e) => {
@@ -56,36 +29,41 @@ class Beat extends React.Component {
 
     if(!(this.state.beat === chosenBeat)){
       this.setState({ beat: chosenBeat }, () => {
-        this.startLoop();
+        this.startLoop(chosenBeat);
       });
     }else{
       this.setState({ beat: '' });
+
+      this.sound.stop();
     }
 
+  }
+
+  startLoop = (beat) => {
+    /* Better looping with Howl than regular HTML5 audio loop */
+    this.sound = new Howl({
+      src: [beat],
+      autoplay: true,
+      loop: true,
+      volume: 1,
+    });
   }
 
 
   componentWillReceiveProps(){
     if(this.props.allowBeat === false){
       this.setState({ beat: '' });
+      if(!this.sound === undefined){
+       this.sound.stop();
+      }
     }
   }
 
   render() {
-
-
     
     return (
 
       <React.Fragment>
-
-          {/* <img src={drumicon} className="button-icon" />  */}
-
-
-            {/* <select onChange={this.setBeat} id="soflow">
-              <option value="beat1">Beat 1</option>
-              <option value="beat2">Beat 2 (70 BPM)</option>
-            </select> */}
 
         <div className="beat__button-container">
           <Button
@@ -113,16 +91,6 @@ class Beat extends React.Component {
           />
           <div className="beat__button-label">Beat 3</div>
         </div> 
-
-
-          {/* <Button
-            className={this.state.loopPlays ? 'button button-regular button-regular--pressed' : 'button button-regular'}
-            onClick={this.pressLoopButton}
-            text="↻"
-          /> */}
-
-
-          <audio ref="audio" src={this.state.beat} loop></audio> 
 
       </React.Fragment>
     );
