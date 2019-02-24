@@ -1,12 +1,12 @@
 import React from 'react';
-import Knob from 'react-canvas-knob';
-// import PropTypes from 'prop-types'
+import Knob from 'react-canvas-knob'
+import PropTypes from 'prop-types'
 import './styles/index.sass';
 
 class Volume extends React.Component {
 
     state = {
-        value: 1
+        value: 4
     }
 
     
@@ -15,8 +15,9 @@ class Volume extends React.Component {
 
 
     handleChange = (newValue) => {
+        this.props.setVolume(newValue);
         this.setState({value: newValue});
-      };
+    };
 
       
 
@@ -28,7 +29,8 @@ class Volume extends React.Component {
             <Knob
                 value={this.state.value}
                 onChange={this.handleChange}
-                min={1}
+                // onChange={this.props.setVolume}
+                min={0}
                 max={10}
                 step={1}
                 width={70}
@@ -45,8 +47,9 @@ class Volume extends React.Component {
 
 }
 
-// Volume.propTypes = {
-//     timer: PropTypes.number.isRequired
-// }
+Volume.propTypes = {
+    volume: PropTypes.number.isRequired,
+    setVolume: PropTypes.func.isRequired
+}
 
 export default Volume;

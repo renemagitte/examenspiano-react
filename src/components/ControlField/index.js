@@ -71,7 +71,11 @@ const ControlField = (props) => {
         <div className="control-field__right-container">
 
           <div className="control-field__beat">
-            <Beat playing={props.playing} allowBeat={props.allowBeat}/>    
+            <Beat 
+              playing={props.playing} 
+              allowBeat={props.allowBeat}
+              volume={props.volume}
+            />    
           </div>
 
           {/* <div className="control-field__volume">
@@ -79,7 +83,10 @@ const ControlField = (props) => {
           </div> */}
 
           <div className="control-field__volume">
-            <Volume />
+            <Volume 
+              volume={props.volume}
+              setVolume={props.setVolume}
+            />
             <div className="control-field__volume-label">Volume</div>
           </div>  
 
@@ -101,6 +108,8 @@ ControlField.propTypes = {
   recording: PropTypes.bool.isRequired,
   playing: PropTypes.bool.isRequired,
   allowBeat: PropTypes.bool.isRequired,
+  volume: PropTypes.number.isRequired,
+  setVolume: PropTypes.func.isRequired,
   pressRecordButton: PropTypes.func.isRequired,
   pressPlayButton: PropTypes.func.isRequired,
   pressStopButton: PropTypes.func.isRequired

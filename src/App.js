@@ -17,6 +17,7 @@ class App extends Component {
     recording: false,
     playing: false,
     allowBeat: true,
+    volume: 0.4,
 
     recordedNotes: [],
 
@@ -198,6 +199,10 @@ class App extends Component {
     this.setState({ timer: this.state.timer + 1 });
   }
 
+  setVolume = (vol) => {
+    this.setState({ volume: (vol / 10) });
+  }
+
 
   // timerIncrement2 = () => {
   //   this.timerInterval = setInterval(() => {
@@ -367,6 +372,8 @@ class App extends Component {
             recording={this.state.recording}
             playing={this.state.playing}
             allowBeat={this.state.allowBeat}
+            volume={this.state.volume}
+            setVolume={this.setVolume}
             pressRecordButton={this.pressRecordButton}
             pressPlayButton={this.pressPlayButton}
             pressStopButton={this.pressStopButton}

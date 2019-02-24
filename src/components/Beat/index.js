@@ -12,7 +12,8 @@ import beat3 from './../../assets/sound/beat3.m4a';
 class Beat extends React.Component {
 
   state = {
-    beat: ''
+    beat: '',
+    // volume: 0.4
   }
 
   setBeat = (e) => {
@@ -45,7 +46,8 @@ class Beat extends React.Component {
       src: [beat],
       autoplay: true,
       loop: true,
-      volume: 1,
+      // volume: this.state.volume,
+      volume: 0.4,
     });
   }
 
@@ -56,6 +58,9 @@ class Beat extends React.Component {
       if(!this.sound === undefined){
        this.sound.stop();
       }
+    }
+    if(this.props.volume !== this.state.volume){
+      this.sound.volume(this.props.volume);
     }
   }
 
