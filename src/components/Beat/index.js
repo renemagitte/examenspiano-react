@@ -51,11 +51,15 @@ class Beat extends React.Component {
 
 
   componentWillReceiveProps(){
-    if(this.props.allowBeat === false){
-      this.setState({ beat: '' });
-      if(!this.sound === undefined){
-       this.sound.stop();
+
+    if(this.sound){
+      if(this.props.allowBeat === false){
+        this.setState({ beat: '' });
+        this.sound.stop();
       }
+      // if(this.props.volume !== this.state.volume){
+      //   this.sound.volume(this.props.volume);
+      // }
     }
   }
 
