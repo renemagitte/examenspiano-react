@@ -6,7 +6,7 @@ import './styles/index.sass';
 class Volume extends React.Component {
 
     state = {
-        value: 4
+        value: 0.4
     }
     
     handleChange = (newValue) => {
