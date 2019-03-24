@@ -1,3 +1,6 @@
+
+process.env.NODE_ENV = 'production';
+
 'use strict';
 
 const fs = require('fs');

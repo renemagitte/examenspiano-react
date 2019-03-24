@@ -14,6 +14,7 @@ class App extends Component {
     recording: false,
     playing: false,
     allowBeat: true,
+    volume: 0.4,
 
     recordedNotes: [],
 
@@ -258,6 +259,8 @@ class App extends Component {
             recording={this.state.recording}
             playing={this.state.playing}
             allowBeat={this.state.allowBeat}
+            volume={this.state.volume}
+            setVolume={this.setVolume}
             pressRecordButton={this.pressRecordButton}
             pressPlayButton={this.pressPlayButton}
             pressStopButton={this.pressStopButton}
@@ -329,6 +332,7 @@ class App extends Component {
         <NoteAudioGroup 
           playing={this.state.playing}
           timer={this.state.timer} 
+          volume={this.state.volume}
           c1={this.state.c1}
           ciss1={this.state.ciss1}
           d1={this.state.d1}

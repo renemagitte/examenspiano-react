@@ -2,6 +2,7 @@
   width: 800px
   height: 160px
   display: flex
+  flex-wrap: wrap
   justify-content: space-around
 
   &__buttons
@@ -14,9 +15,35 @@
     background-color: #5D9643
     max-height: 100px
 
-  &__beat
+  &__right-container
     width: calc(30% - 20px)
+    // border: 1px solid green
+    display: flex
+    justify-content: flex-end
+    flex-direction: column
+
+  &__beat
+    height: 70px
+    width: 100%
     padding: 0 10px
-    text-align: right
     display: flex
     flex-direction: row
+
+    
+
+  &__volume
+    height: 100px
+    width: 72px
+    // border: 1px solid red
+    text-align: right
+    align-self: flex-end
+
+    &-label
+      align-self: right
+      width: 100%
+      text-align: center
+      padding: 4px 0
+      font-size: 10px
+      text-transform: uppercase
+      color: white
+      text-shadow: 0px 1px 1px rgba(0,0,0,.5)
