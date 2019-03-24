@@ -3,12 +3,9 @@ import './App.sass'
 
 import ControlField from './components/ControlField';
 import Playhead from './components/Playhead';
-import Keyboard from './components/Keyboard'; // Change name to NoteKeyGroup
+import Keyboard from './components/Keyboard'; 
 import NoteAudioGroup from './components/NoteAudioGroup';
 import NoteCanvasGroup from './components/NoteCanvasGroup';
-
-
-
 
 class App extends Component {
 
@@ -19,16 +16,6 @@ class App extends Component {
     allowBeat: true,
 
     recordedNotes: [],
-
-    /* test */
-    // recBlock1: [],
-    // recBlock2: [],
-    // recBlock3: [],
-    // recBlock4: [],
-    // recBlock5: [],
-    // recBlock6: [],
-    // recBlock7: [],
-    // recBlock8: [],
 
     c1: false,
     c1Data: [],
@@ -116,9 +103,6 @@ class App extends Component {
     {code: 16, stateName: 'ciss3'}  // shift (right)
   ]
 
-
-
-
   componentDidMount() {
     this.keydownEventlistener();
     this.keyupEventlistener();
@@ -172,38 +156,11 @@ class App extends Component {
 
     /* Adding the noteData-array to array in recordedNotes-state */
     this.setState({ recordedNotes: [...this.state.recordedNotes, this.noteToRecord] });
-
-    /* test with recording blocks */
-    // if(this.state.timer < 100){
-    //   this.setState({ recBlock1: [...this.state.recBlock1, this.noteToRecord] });
-    // }else if(this.state.timer < 200){
-    //   this.setState({ recBlock2: [...this.state.recBlock2, this.noteToRecord] });
-    // }else if(this.state.timer < 300){
-    //   this.setState({ recBlock3: [...this.state.recBlock3, this.noteToRecord] });
-    // }else if(this.state.timer < 400){
-    //   this.setState({ recBlock4: [...this.state.recBlock4, this.noteToRecord] });
-    // }else if(this.state.timer < 500){
-    //   this.setState({ recBlock5: [...this.state.recBlock5, this.noteToRecord] });
-    // }else if(this.state.timer < 600){
-    //   this.setState({ recBlock6: [...this.state.recBlock6, this.noteToRecord] });
-    // }else if(this.state.timer < 700){
-    //   this.setState({ recBlock7: [...this.state.recBlock7, this.noteToRecord] });
-    // }else if(this.state.timer < 800){
-    //   this.setState({ recBlock8: [...this.state.recBlock8, this.noteToRecord] });
-    // }
-    // console.log( this.state.recordedNotes);
   }
 
   timerIncrement = () => {
     this.setState({ timer: this.state.timer + 1 });
   }
-
-
-  // timerIncrement2 = () => {
-  //   this.timerInterval = setInterval(() => {
-  //     this.setState({ timer: this.state.timer + 1 })
-  //   }, 100);
-  // }
 
   pressRecordButton = () => {
     this.setState({ recording: !this.state.recording });
@@ -259,80 +216,15 @@ class App extends Component {
       }
     }
 
-    /* test with recording blocks to avoid looping over too many note objects when listening to recoded */
-    // if(this.state.timer < 100){
-    //   for(let i = 0; i < this.state.recBlock1.length; i++){
-    //     if(this.state.recBlock1[i][1] === this.state.timer){
-    //       this.setState({ [this.state.recBlock1[i][0]]: true });
-    //     }
-    //     if(this.state.recBlock1[i][2] === this.state.timer){
-    //       this.setState({ [this.state.recBlock1[i][0]]: false });
-    //     }
-    //   }
-    // // }
-    // }else if(this.state.timer < 200){
-    //   for(let i = 0; i < this.state.recBlock2.length; i++){
-    //     if(this.state.recBlock2[i][1] === this.state.timer){
-    //       this.setState({ [this.state.recBlock2[i][0]]: true });
-    //     }
-    //     if(this.state.recBlock2[i][2] === this.state.timer){
-    //       this.setState({ [this.state.recBlock2[i][0]]: false });
-    //     }
-    //   }
-    // }else if(this.state.timer < 300){
-    //   for(let i = 0; i < this.state.recBlock3.length; i++){
-    //     if(this.state.recBlock3[i][1] === this.state.timer){
-    //       this.setState({ [this.state.recBlock3[i][0]]: true });
-    //     }
-    //     if(this.state.recBlock3[i][2] === this.state.timer){
-    //       this.setState({ [this.state.recBlock3[i][0]]: false });
-    //     }
-    //   }
-    // }
-
-    // if(this.state.timer < 220){
-    //   for(let i = 0; i < this.state.recBlock2.length; i++){
-    //     if(this.state.recBlock2[i][1] === this.state.timer){
-    //       this.setState({ [this.state.recBlock2[i][0]]: true });
-    //     }
-    //     if(this.state.recBlock2[i][2] === this.state.timer){
-    //       this.setState({ [this.state.recBlock2[i][0]]: false });
-    //     }
-    //   }
-    // }
-    // if(this.state.timer < 300){
-    //   for(let i = 0; i < this.state.recBlock3.length; i++){
-    //     if(this.state.recBlock3[i][1] === this.state.timer){
-    //       this.setState({ [this.state.recBlock3[i][0]]: true });
-    //     }
-    //     if(this.state.recBlock3[i][2] === this.state.timer){
-    //       this.setState({ [this.state.recBlock3[i][0]]: false });
-    //     }
-    //   }
-    // }
-
   }
-
-
 
   getStateNameFromKeyCode = (code) => {
     var obj = this.findObjectByKey(this.keyCodeToNoteConnection, 'code', code);
-    // var obj = this.findObjectByKeyBackwards(this.keyCodeToNoteConnection, 'code', code);
     /* If the key is not used null is returned the app breaks, so only return if not null */
     if(obj != null){
       return(obj.stateName);
     }
   }
-
-
-
-
-
-
-
-
-
-
 
   /* takes an array of obejcts and a value, and returns the object where the key is the same as the value that's sent in */
   /* Maybe remove this and only keep the backwards-version as it's faster anyways.. */
@@ -359,8 +251,7 @@ class App extends Component {
 
     return (
 
-        <div className="synth">
-
+      <div className="synth">
 
           <ControlField 
             timer={this.state.timer}
@@ -398,7 +289,6 @@ class App extends Component {
             ciss3={this.state.ciss3}
           />
 
-        {/* <div className="noteCanvas-container" id="container"> */}
         <div className="canvas">
           <NoteCanvasGroup 
             timer={this.state.timer} 
@@ -433,10 +323,7 @@ class App extends Component {
           />
 
           <Playhead timer={this.state.timer} />
-
         </div>
-
-
 
 
         <NoteAudioGroup 
@@ -470,8 +357,6 @@ class App extends Component {
           ciss3={this.state.ciss3}
         />
 
-
-
         <Keyboard 
           c1={this.state.c1}
           ciss1={this.state.ciss1}
@@ -501,15 +386,8 @@ class App extends Component {
           ciss3={this.state.ciss3}
         />
 
-
-
-
-        </div>
-
-
-
-
-      
+      </div>
+ 
     );
   }
 }

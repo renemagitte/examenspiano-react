@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types'
 import './styles/index.sass';
 
 const DisplayNotes = (props) => {
@@ -12,7 +11,6 @@ const DisplayNotes = (props) => {
 			<div className={ (props.ciss1 | props.ciss2 | props.ciss3) ? 'display-notes--active' : 'display-notes--inactive' }>c#</div>
 			<div className={ (props.d1 | props.d2) ? 'display-notes--active' : 'display-notes--inactive' }>d</div>
 			<div className={ (props.diss1 | props.diss2) ? 'display-notes--active' : 'display-notes--inactive' }>d#</div>
-
 			<div className={ (props.e1 | props.e2) ? 'display-notes--active' : 'display-notes--inactive' }>e</div>
 			<div className={ (props.f1 | props.f2) ? 'display-notes--active' : 'display-notes--inactive' }>f</div>
 			<div className={ (props.fiss1 | props.fiss2) ? 'display-notes--active' : 'display-notes--inactive' }>f#</div>
@@ -29,9 +27,6 @@ const DisplayNotes = (props) => {
   
 }
 
-// DisplayTimer.propTypes = {
-//   timer: PropTypes.number.isRequired,
-// }
 
 export default DisplayNotes;
 

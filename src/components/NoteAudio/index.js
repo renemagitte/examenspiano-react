@@ -15,12 +15,6 @@ class NoteAudio extends React.Component {
     this.audio.vol = 1;
     this.audio.play();
 
-
-    // const playPromise = this.audio.play();
-    // if (playPromise !== null){
-    //     playPromise.catch(() => { this.audio.play(); })
-    // }
-
     /* Start listening for a change of recording-state, so sound can stop if state changes to false */
     this.changeInterval = setInterval(this.listenForStateChange, 200);
 

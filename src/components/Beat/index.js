@@ -49,7 +49,6 @@ class Beat extends React.Component {
     });
   }
 
-
   componentWillReceiveProps(){
 
     if(this.sound){
@@ -57,10 +56,8 @@ class Beat extends React.Component {
         this.setState({ beat: '' });
         this.sound.stop();
       }
-      // if(this.props.volume !== this.state.volume){
-      //   this.sound.volume(this.props.volume);
-      // }
     }
+    
   }
 
   render() {
