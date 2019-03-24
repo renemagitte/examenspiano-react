@@ -6,8 +6,6 @@ import Button from './../Button';
 import DisplayTimer from './../DisplayTimer';
 import DisplayNotes from './../DisplayNotes';
 import Beat from './../Beat';
-import Volume from './../Volume';
-
 
 const ControlField = (props) => { 
 
@@ -78,16 +76,12 @@ const ControlField = (props) => {
             />    
           </div>
 
-          {/* <div className="control-field__volume">
-            <Volume />
-          </div> */}
-
           <div className="control-field__volume">
-            <Volume 
+            {/* <Volume 
               volume={props.volume}
               setVolume={props.setVolume}
             />
-            <div className="control-field__volume-label">Volume</div>
+            <div className="control-field__volume-label">Volume</div> */}
           </div>  
 
 
